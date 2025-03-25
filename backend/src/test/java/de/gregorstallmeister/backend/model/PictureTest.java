@@ -6,7 +6,7 @@ import java.time.ZonedDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PictureTest {
+class PictureTest {
 
     @Test
     void constructorTest() {
