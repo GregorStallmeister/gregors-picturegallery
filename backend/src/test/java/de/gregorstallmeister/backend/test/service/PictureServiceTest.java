@@ -1,9 +1,10 @@
-package de.gregorstallmeister.backend.service;
+package de.gregorstallmeister.backend.test.service;
 
 import de.gregorstallmeister.backend.model.IdService;
 import de.gregorstallmeister.backend.model.Picture;
 import de.gregorstallmeister.backend.model.PictureInsertDto;
 import de.gregorstallmeister.backend.repository.PictureRepository;
+import de.gregorstallmeister.backend.service.PictureService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
