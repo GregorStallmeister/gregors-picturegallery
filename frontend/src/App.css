@@ -1,0 +1,91 @@
+#root {
+    /*max-width: 1280px;*/
+    margin: 0 auto;
+    /*padding: 2rem;*/
+    text-align: left;
+    /*background-color: #535bf2;*/
+}
+
+body {
+    /*background-color: darkslategray;*/
+    background-color: cadetblue;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #F6F2B4;
+    border: 50px solid #C7C7C7;
+    border-radius: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 25px;
+    font-family: Arial, sans-serif;
+    font-size: 12pt;
+    font-weight: normal;
+    color: #1a1a1a;
+    width: 1024px;
+    /*min-width: 800px;*/
+    /*max-width: 1024px;*/
+    min-height: 400px;
+    margin: 10px;
+    /*max-height: 768px;*/
+}
+
+.footer {
+    margin-top: 10px;
+    vertical-align: bottom;
+    align-self: flex-start;
+}
+
+button {
+    padding: 3px;
+    background-color: cadetblue;
+}
+
+input {
+    padding: 3px;
+    background-color: cadetblue;
+    /*width: 200px;*/
+}
+
+a {
+    color: cadetblue;
+}
+
+h1 {
+    font-family: Arial, sans-serif;
+    font-size: 2em;
+    font-weight: normal;
+}
+
+h2 {
+    font-family: Arial, sans-serif;
+    font-size: 1.3em;
+    font-weight: normal;
+}
+
+h3 {
+    font-family: Arial, sans-serif;
+    font-size: 1.1em;
+    font-weight: normal;
+}
+
+p {
+    font-family: Arial, sans-serif;
+    font-size: 12pt;
+    font-weight: normal;
+}
+
+li {
+    font-family: Arial, sans-serif;
+    font-size: 12pt;
+    font-weight: normal;
+}
+
+td {
+    font-family: Arial, sans-serif;
+    font-size: 12pt;
+    font-weight: normal;
+}
