@@ -7,12 +7,11 @@ import de.gregorstallmeister.backend.repository.PictureRepository;
 import de.gregorstallmeister.backend.service.PictureService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.Instant;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -21,9 +20,6 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 @AutoConfigureMockMvc
 class PictureServiceTest {
-
-    @Autowired
-    private MockMvc mockMvc;
 
     private PictureRepository pictureRepository;
     private PictureService pictureService;
@@ -56,5 +52,30 @@ class PictureServiceTest {
         assertEquals(location, pictureInserted.location());
         assertEquals(instant, pictureInserted.instant());
         assertNotNull(pictureInserted.id());
+    }
+
+    @Test
+    void giveAllPictures() {
+        // given
+        IdService idService = new IdService();
+        Picture picture1 = new Picture(
+                idService.generateRandomId(),
+                "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
+                "Langeoog",
+                Instant.now());
+        Picture picture2 = new Picture(
+                idService.generateRandomId(),
+                "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
+                "Langeoog",
+                Instant.now());
+        List<Picture> expected = List.of(picture1, picture2);
+        when(pictureRepository.findAll()).thenReturn(List.of(picture1, picture2));
+
+        // when
+        List<Picture> actual = pictureService.giveAllPictures();
+
+        // then
+        verify(pictureRepository).findAll();
+        assertEquals(expected, actual);
     }
 }
