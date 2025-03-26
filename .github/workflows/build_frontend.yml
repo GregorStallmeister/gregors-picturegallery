@@ -1,4 +1,4 @@
-name: gregors-sonarcloud-setup-frontend
+name: Build
 on:
   push:
     branches:
