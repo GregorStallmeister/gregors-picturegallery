@@ -1,4 +1,4 @@
-name: Build
+name: gregors-fotogalerie_frontend
 on:
   push:
     branches:

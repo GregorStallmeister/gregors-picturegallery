@@ -1,4 +1,4 @@
-name: SonarQube
+name: gregors-fotogalerie_backend
 on:
   push:
     branches:
