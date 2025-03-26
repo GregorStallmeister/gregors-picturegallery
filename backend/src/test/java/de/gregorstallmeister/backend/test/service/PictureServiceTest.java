@@ -12,7 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -41,9 +41,9 @@ class PictureServiceTest {
         String id = idService.generateRandomId();
         String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
         String location = "Langeoog";
-        ZonedDateTime zonedDateTime = ZonedDateTime.now();
-        Picture pictureToInsert = new Picture(id, imagePath, location, zonedDateTime);
-        PictureInsertDto pictureToInsertDto = new PictureInsertDto(imagePath, location, zonedDateTime);
+        Instant instant = Instant.now();
+        Picture pictureToInsert = new Picture(id, imagePath, location, instant);
+        PictureInsertDto pictureToInsertDto = new PictureInsertDto(imagePath, location, instant);
         when(pictureRepository.insert(pictureToInsert)).thenReturn(pictureToInsert);
 
         // when
@@ -54,7 +54,7 @@ class PictureServiceTest {
         assertNotNull(pictureInserted);
         assertEquals(imagePath, pictureInserted.imagePath());
         assertEquals(location, pictureInserted.location());
-        assertEquals(zonedDateTime, pictureInserted.zonedDateTime());
+        assertEquals(instant, pictureInserted.instant());
         assertNotNull(pictureInserted.id());
     }
 }

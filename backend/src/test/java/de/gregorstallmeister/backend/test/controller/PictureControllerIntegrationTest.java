@@ -12,6 +12,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 class PictureControllerIntegrationTest {
@@ -36,12 +38,21 @@ class PictureControllerIntegrationTest {
                                      {
                                           "imagePath": "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
                                           "location": "Langeoog",
-                                          "zonedDateTime": "2025-03-26T09:17:30+01:00"                                                                                          \s
+                                          "instant": "2025-03-26T09:17:30+01:00"                                                                                          \s
                                      }
                                     \s"""))
-                    .andExpect(MockMvcResultMatchers.status().isCreated());
+                    .andExpect(MockMvcResultMatchers.status().isCreated())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            
+                                     {
+                                          "imagePath": "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
+                                          "location": "Langeoog",
+                                          "instant": "2025-03-26T08:17:30Z"                                                                                          \s
+                                     }
+                            """))
+                    .andExpect(jsonPath("$.id").isNotEmpty());
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.toString());
             Assertions.fail();
         }
     }

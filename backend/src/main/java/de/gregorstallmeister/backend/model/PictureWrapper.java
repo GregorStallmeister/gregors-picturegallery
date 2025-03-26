@@ -10,6 +10,6 @@ public class PictureWrapper {
                 picture.id(),
                 picture.imagePath(),
                 picture.location(),
-                picture.zonedDateTime());
+                picture.instant());
     }
 }

@@ -19,7 +19,7 @@ public class PictureService {
                 idService.generateRandomId(),
                 pictureInsertDto.imagePath(),
                 pictureInsertDto.location(),
-                pictureInsertDto.zonedDateTime());
+                pictureInsertDto.instant());
 
         pictureRepository.insert(pictureToInsert);
 

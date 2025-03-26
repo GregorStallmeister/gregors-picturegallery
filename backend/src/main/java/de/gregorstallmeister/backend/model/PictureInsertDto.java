@@ -1,10 +1,10 @@
 package de.gregorstallmeister.backend.model;
 
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 public record PictureInsertDto(
         String imagePath,
         String location,
-        ZonedDateTime zonedDateTime
+        Instant instant
 ) {
     }
