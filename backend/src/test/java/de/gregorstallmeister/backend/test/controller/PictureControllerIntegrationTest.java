@@ -52,7 +52,6 @@ class PictureControllerIntegrationTest {
                             """))
                     .andExpect(jsonPath("$.id").isNotEmpty());
         } catch (Exception e) {
-            System.out.println(e.toString());
             Assertions.fail();
         }
     }
