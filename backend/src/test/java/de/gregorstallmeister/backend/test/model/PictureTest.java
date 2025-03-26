@@ -1,8 +1,10 @@
-package de.gregorstallmeister.backend.model;
+package de.gregorstallmeister.backend.test.model;
 
+import de.gregorstallmeister.backend.model.IdService;
+import de.gregorstallmeister.backend.model.Picture;
 import org.junit.jupiter.api.Test;
 
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -15,15 +17,15 @@ class PictureTest {
         String id = idService.generateRandomId();
         String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
         String location = "Langeoog";
-        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+        Instant instant = Instant.now();
 
         // when
-        Picture picture = new Picture(id,imagePath, location, zonedDateTime);
+        Picture picture = new Picture(id,imagePath, location, instant);
 
         // then
         assertEquals(id, picture.id());
         assertEquals(imagePath, picture.imagePath());
         assertEquals(location, picture.location());
-        assertEquals(zonedDateTime, picture.zonedDateTime());
+        assertEquals(instant, picture.instant());
     }
 }
