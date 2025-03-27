@@ -2,6 +2,10 @@ import './App.css'
 import {AddPicture} from "./components/AddPicture.tsx";
 import {Picture} from "./model/Picture.tsx";
 import axios from 'axios';
+import {Header} from "./components/Header.tsx";
+import {Route, Routes} from "react-router-dom";
+import {Home} from "./components/Home.tsx";
+import {DisplayPictures} from "./components/DisplayPictures.tsx";
 
 function App() {
 
@@ -17,7 +21,13 @@ function App() {
 
     return (
         <div className="app">
-            <AddPicture insertPicture={insertPicture}/>
+            <Header/>
+            <Routes>
+                <Route path={"/"} element={<Home/>}/>
+                <Route path={"/home"} element={<Home/>}/>
+                <Route path={"/add"} element={<AddPicture insertPicture={insertPicture}/>}/>
+                <Route path={"/pictures"} element={<DisplayPictures/>}/>
+            </Routes>
         </div>
     )
 }

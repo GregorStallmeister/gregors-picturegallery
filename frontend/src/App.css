@@ -14,7 +14,7 @@ body {
 .app {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     background-color: #F6F2B4;
     border: 50px solid #C7C7C7;
     border-radius: 25px;
