@@ -6,15 +6,11 @@
     /*background-color: #535bf2;*/
 }
 
-body {
-    /*background-color: darkslategray;*/
-    background-color: cadetblue;
-}
-
 .app {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    /*align-self: last;*/
     background-color: #F6F2B4;
     border: 50px solid #C7C7C7;
     border-radius: 25px;
@@ -33,10 +29,28 @@ body {
     /*max-height: 768px;*/
 }
 
-.footer {
+.display {
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    justify-content: center;
+    /*width: 1024px;*/
+}
+
+.card {
+    border: 2px solid;
+    border-radius: 25px;
+    margin: 5px;
+}
+
+.cardEntry {
+    margin: 15px;
+}
+
+.header {
     margin-top: 10px;
     vertical-align: bottom;
-    align-self: flex-start;
+    /*align-self: flex-start;*/
 }
 
 button {

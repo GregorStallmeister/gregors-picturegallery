@@ -15,7 +15,8 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  /*color: #646cff;*/
+  color: cadetblue;
   text-decoration: inherit;
 }
 a:hover {
@@ -23,6 +24,7 @@ a:hover {
 }
 
 body {
+  background-color: cadetblue;
   margin: 0;
   display: flex;
   place-items: center;
