@@ -7,6 +7,8 @@ import de.gregorstallmeister.backend.repository.PictureRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PictureService {
@@ -24,5 +26,9 @@ public class PictureService {
         pictureRepository.insert(pictureToInsert);
 
         return pictureToInsert;
+    }
+
+    public List<Picture> giveAllPictures() {
+        return pictureRepository.findAll();
     }
 }

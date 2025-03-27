@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -22,5 +24,11 @@ public class PictureController {
         Picture pictureInserted = pictureService.insertPicture(pictureInsertDto);
 
         return PictureWrapper.wrapPictureForGet(pictureInserted);
+    }
+
+    @GetMapping("/picture")
+    @ResponseStatus(HttpStatus.OK)  // 200 - Standard for correct response, the returned list can be empty
+    public List<PictureGetDto> getAllPictures() {
+        return PictureWrapper.wrapPicturesForGet(pictureService.giveAllPictures());
     }
 }
