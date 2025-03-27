@@ -33,6 +33,11 @@ body {
     /*max-height: 768px;*/
 }
 
+.card {
+    border: 2px solid;
+    border-radius: 25px;
+}
+
 .footer {
     margin-top: 10px;
     vertical-align: bottom;
