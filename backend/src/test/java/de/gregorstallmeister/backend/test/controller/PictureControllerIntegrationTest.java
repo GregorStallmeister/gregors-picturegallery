@@ -1,5 +1,7 @@
 package de.gregorstallmeister.backend.test.controller;
 
+import de.gregorstallmeister.backend.model.IdService;
+import de.gregorstallmeister.backend.model.Picture;
 import de.gregorstallmeister.backend.repository.PictureRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,6 +13,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.time.Instant;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -51,6 +55,65 @@ class PictureControllerIntegrationTest {
                                      }
                             """))
                     .andExpect(jsonPath("$.id").isNotEmpty());
+        } catch (Exception e) {
+            Assertions.fail();
+        }
+    }
+
+    @Test
+    @DirtiesContext
+    void getAllPictures() {
+        // given
+        Picture picture1 = new Picture(
+                "testID-123",
+                "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
+                "Langeoog",
+                Instant.parse("2025-03-26T09:17:30+01:00"));
+        Picture picture2 = new Picture(
+                "testID-124",
+                "https://gregorstallmeister.de/fotogalerie/bilder/test124.jpg",
+                "Carolinensiel",
+                Instant.parse("2025-08-26T09:17:30+02:00"));
+        pictureRepository.insert(picture1);
+        pictureRepository.insert(picture2);
+
+        // when + then
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture"))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            [
+                              {
+                                  "id": "testID-123",
+                                  "imagePath": "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
+                                  "location": "Langeoog",
+                                  instant: "2025-03-26T08:17:30Z"
+                              },
+                              {
+                                  "id": "testID-124",
+                                  "imagePath": "https://gregorstallmeister.de/fotogalerie/bilder/test124.jpg",
+                                  "location": "Carolinensiel",
+                                  instant: "2025-08-26T07:17:30Z"
+                              }
+                            ]
+                            """));
+        } catch (Exception e) {
+            Assertions.fail();
+        }
+    }
+
+    @Test
+    @DirtiesContext
+    void getAllPicturesWhenNoneIsThere() {
+        // given: Nothing
+
+        // when + then
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture"))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().json("""                         
+                                []
+                            """));
         } catch (Exception e) {
             Assertions.fail();
         }

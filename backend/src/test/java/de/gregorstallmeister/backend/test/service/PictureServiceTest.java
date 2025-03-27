@@ -62,14 +62,27 @@ class PictureServiceTest {
                 idService.generateRandomId(),
                 "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
                 "Langeoog",
-                Instant.now());
+                Instant.parse("2025-03-26T09:17:30+01:00"));
         Picture picture2 = new Picture(
                 idService.generateRandomId(),
-                "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
-                "Langeoog",
-                Instant.now());
+                "https://gregorstallmeister.de/fotogalerie/bilder/test124.jpg",
+                "Carolinensiel",
+                Instant.parse("2025-08-26T09:17:30+02:00"));
         List<Picture> expected = List.of(picture1, picture2);
         when(pictureRepository.findAll()).thenReturn(List.of(picture1, picture2));
+
+        // when
+        List<Picture> actual = pictureService.giveAllPictures();
+
+        // then
+        verify(pictureRepository).findAll();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void giveAllPicturesWhenNoneIsThere() {
+        // given
+        List<Picture> expected = List.of();
 
         // when
         List<Picture> actual = pictureService.giveAllPictures();
