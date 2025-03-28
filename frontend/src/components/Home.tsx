@@ -35,7 +35,7 @@ export function Home(props: Props) {
 
     return (
         <div className="display">
-            <h2>Herzlich willkommen auf meiner Homepage mit einem Zufallsfoto!</h2>
+            <h2>Herzlich willkommen in meiner Galerie mit einem Zufallsfoto!</h2>
             <PictureCard picture={props.pictures[index]} large={true}/>
         </div>
     )

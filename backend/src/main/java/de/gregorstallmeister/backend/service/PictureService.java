@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -35,5 +36,17 @@ public class PictureService {
 
     public Optional<Picture> getPictureById(String id) {
         return pictureRepository.findById(id);
+    }
+
+    public Picture updatePicture(Picture picture) throws NoSuchElementException {
+        Optional<Picture> optionalPicture = pictureRepository.findById(picture.id());
+
+        if (optionalPicture.isPresent()) {
+            pictureRepository.save(picture);
+            return picture;
+        }
+        else {
+            throw new  NoSuchElementException("Picture not found with ID: " + picture.id());
+        }
     }
 }

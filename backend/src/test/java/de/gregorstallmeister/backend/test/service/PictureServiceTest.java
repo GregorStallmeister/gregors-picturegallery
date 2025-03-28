@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -125,5 +126,44 @@ class PictureServiceTest {
         verify(pictureRepository).findById(id);
         assertNotNull(optionalPicture);
         assertFalse(optionalPicture.isPresent());
+    }
+
+    @Test
+    void updatePicture() {
+        // given
+        IdService idService = new IdService();
+        String id = idService.generateRandomId();
+        String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
+        String location = "Langeoog";
+        Instant instant = Instant.now();
+        Picture pictureToUpdate = new Picture(id, imagePath, location, instant);
+        when(pictureRepository.findById(id)).thenReturn(Optional.of(pictureToUpdate));
+
+        String imagePathUpdated = "https://gregorstallmeister.de/fotogalerie/bilder/test123456.jpg";
+        String locationUpdated = "Carolinensiel";
+        Instant instantUpdated = Instant.parse("2025-08-26T09:17:30+02:00");
+
+        // when
+        Picture pictureModified = new Picture(id, imagePathUpdated, locationUpdated, instantUpdated);
+        Picture pictureUpdated = pictureService.updatePicture(pictureModified);
+
+        // then
+        verify(pictureRepository).save(pictureModified);
+        assertNotNull(pictureUpdated);
+        assertEquals(pictureModified, pictureUpdated);
+    }
+
+    @Test
+    void updatePictureWhenNotPresent() {
+        // given
+        IdService idService = new IdService();
+        String id = idService.generateRandomId();
+        String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
+        String location = "Langeoog";
+        Instant instant = Instant.now();
+        Picture pictureModified = new Picture(id, imagePath, location, instant);
+
+        // when + then
+        assertThrows(NoSuchElementException.class, () -> {pictureService.updatePicture(pictureModified);});
     }
 }
