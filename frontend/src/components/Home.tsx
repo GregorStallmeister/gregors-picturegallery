@@ -6,9 +6,13 @@ type Props = {
 }
 
 export function Home(props: Props) {
+
+    const index: number = Math.floor(Math.random() * (props.pictures.length - 1))
+
     return (
         <div className="display">
-            <PictureCard picture={props.pictures[4]} large={true}/>
+            <h2>Herzlich willkommen auf meiner Homepage mit einem Zufallsfoto!</h2>
+            <PictureCard picture={props.pictures[index]} large={true}/>
         </div>
     )
 }

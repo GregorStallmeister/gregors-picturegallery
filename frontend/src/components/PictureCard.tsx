@@ -1,4 +1,5 @@
 import {Picture} from "../model/Picture.tsx";
+import {Link, useNavigate} from "react-router-dom";
 
 type Props = {
     picture: Picture
@@ -6,12 +7,18 @@ type Props = {
 }
 
 export function PictureCard(props: Props) {
+    const navigate = useNavigate()
+
     if (props === undefined || props.picture === undefined) {
         return (
             <div>
                 ... lade Foto
             </div>
         )
+    }
+
+    function navigateToSinglePictuere(id: string) {
+        navigate("/picture/" + id)
     }
 
     if (props.large) {
@@ -33,8 +40,16 @@ export function PictureCard(props: Props) {
         return (
             <div className="card">
                 <div className="cardEntry">
-                <img src={props.picture.imagePath.replace(".jpg", "_205.jpg")}
-                     alt={"Foto: " + props.picture.imagePath}/>
+                    <img src={props.picture.imagePath.replace(".jpg", "_205.jpg")}
+                         alt={"Foto: " + props.picture.imagePath}/>
+                </div>
+                <div className="cardEntry">
+                    <Link to="/picture/{id}"
+                          onClick={(event) => {
+                              event.preventDefault()
+                              navigateToSinglePictuere(props.picture.id)
+                          }}>Detailansicht
+                    </Link>
                 </div>
             </div>
         )
