@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +29,11 @@ public class PictureService {
         return pictureToInsert;
     }
 
-    public List<Picture> giveAllPictures() {
+    public List<Picture> getPictures() {
         return pictureRepository.findAll();
+    }
+
+    public Optional<Picture> getPictureById(String id) {
+        return pictureRepository.findById(id);
     }
 }

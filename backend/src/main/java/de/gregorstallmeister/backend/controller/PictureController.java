@@ -7,9 +7,11 @@ import de.gregorstallmeister.backend.model.PictureWrapper;
 import de.gregorstallmeister.backend.service.PictureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -29,6 +31,15 @@ public class PictureController {
     @GetMapping("/picture")
     @ResponseStatus(HttpStatus.OK)  // 200 - Standard for correct response, the returned list can be empty
     public List<PictureGetDto> getAllPictures() {
-        return PictureWrapper.wrapPicturesForGet(pictureService.giveAllPictures());
+        return PictureWrapper.wrapPicturesForGet(pictureService.getPictures());
+    }
+
+    @GetMapping("/picture/{id}")
+    public ResponseEntity<PictureGetDto> getPictureById(@PathVariable String id) {
+        Optional<Picture> optionalPicture = pictureService.getPictureById(id);
+
+        return optionalPicture.map(picture
+                -> ResponseEntity.ok(PictureWrapper.wrapPictureForGet(picture)))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 }

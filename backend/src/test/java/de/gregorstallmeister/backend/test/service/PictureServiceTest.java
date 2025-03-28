@@ -12,9 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -31,7 +31,7 @@ class PictureServiceTest {
     }
 
     @Test
-    void postPicture() {
+    void insertPicture() {
         // given
         IdService idService = new IdService();
         String id = idService.generateRandomId();
@@ -55,7 +55,7 @@ class PictureServiceTest {
     }
 
     @Test
-    void giveAllPictures() {
+    void getPictures() {
         // given
         IdService idService = new IdService();
         Picture picture1 = new Picture(
@@ -72,7 +72,7 @@ class PictureServiceTest {
         when(pictureRepository.findAll()).thenReturn(List.of(picture1, picture2));
 
         // when
-        List<Picture> actual = pictureService.giveAllPictures();
+        List<Picture> actual = pictureService.getPictures();
 
         // then
         verify(pictureRepository).findAll();
@@ -80,15 +80,50 @@ class PictureServiceTest {
     }
 
     @Test
-    void giveAllPicturesWhenNoneIsThere() {
+    void getPicturesWhenNoneIsPresent() {
         // given
         List<Picture> expected = List.of();
 
         // when
-        List<Picture> actual = pictureService.giveAllPictures();
+        List<Picture> actual = pictureService.getPictures();
 
         // then
         verify(pictureRepository).findAll();
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void getPictureById() {
+        // given
+        IdService idService = new IdService();
+        String id = idService.generateRandomId();
+        String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
+        String location = "Langeoog";
+        Instant instant = Instant.now();
+        Picture pictureToFind = new Picture(id, imagePath, location, instant);
+        when(pictureRepository.findById(id)).thenReturn(Optional.of(pictureToFind));
+
+        // when
+        Optional<Picture> optionalPicture = pictureService.getPictureById(id);
+
+        // then
+        verify(pictureRepository).findById(id);
+        assertNotNull(optionalPicture);
+        assertTrue(optionalPicture.isPresent());
+        assertEquals(pictureToFind, optionalPicture.get());
+    }
+
+    @Test
+    void getPictureByIdWhenNotPresent() {
+        // given
+        String id = "test_not_present_1234";
+
+        // when
+        Optional<Picture> optionalPicture = pictureService.getPictureById(id);
+
+        // then
+        verify(pictureRepository).findById(id);
+        assertNotNull(optionalPicture);
+        assertFalse(optionalPicture.isPresent());
     }
 }
