@@ -7,6 +7,7 @@ import {Route, Routes} from "react-router-dom";
 import {Home} from "./components/Home.tsx";
 import {DisplayPictures} from "./components/DisplayPictures.tsx";
 import {useEffect, useState} from "react";
+import {DisplaySinglePicture} from "./components/DisplaySinglePicture.tsx";
 
 function App() {
 
@@ -51,6 +52,7 @@ function App() {
                 <Route path={"/home"} element={<Home pictures={pictures}/>}/>
                 <Route path={"/add"} element={<AddPicture insertPicture={insertPicture}/>}/>
                 <Route path={"/pictures"} element={<DisplayPictures pictures={pictures}/>}/>
+                <Route path={"/picture/:id"} element={<DisplaySinglePicture/>}/>
             </Routes>
         </div>
     )
