@@ -18,26 +18,11 @@ export function Home(props: Props) {
     // or take lessons in correct use of regular expressions ;-)
     let randomString: string = crypto.randomUUID()
     console.log(randomString)
-    while (randomString.indexOf("-") > -1) {
-        randomString = randomString.replace("-", "")
-    }
-    while (randomString.indexOf("a") > -1) {
-        randomString = randomString.replace("a", "")
-    }
-    while (randomString.indexOf("b") > -1) {
-        randomString = randomString.replace("b", "")
-    }
-    while (randomString.indexOf("c") > -1) {
-        randomString = randomString.replace("c", "")
-    }
-    while (randomString.indexOf("d") > -1) {
-        randomString = randomString.replace("d", "")
-    }
-    while (randomString.indexOf("e") > -1) {
-        randomString = randomString.replace("e", "")
-    }
-    while (randomString.indexOf("f") > -1) {
-        randomString = randomString.replace("f", "")
+    const stringsToReplace: string[] = ["-", "a", "b", "c", "d", "e", "f"]
+    for (let i: number = 0; i < stringsToReplace.length; i++) {
+        while (randomString.indexOf(stringsToReplace[i]) > -1) {
+            randomString = randomString.replace(stringsToReplace[i], "")
+        }
     }
     console.log(randomString)
     randomString = randomString.substring(0, 6)
