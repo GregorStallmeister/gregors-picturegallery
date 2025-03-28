@@ -164,6 +164,6 @@ class PictureServiceTest {
         Picture pictureModified = new Picture(id, imagePath, location, instant);
 
         // when + then
-        assertThrows(NoSuchElementException.class, () -> {pictureService.updatePicture(pictureModified);});
+        assertThrows(NoSuchElementException.class, () -> pictureService.updatePicture(pictureModified));
     }
 }
