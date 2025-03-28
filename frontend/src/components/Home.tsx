@@ -15,7 +15,7 @@ export function Home(props: Props) {
 
     // New version: The unsecure Math.random() is replaced by a monster!
     // At this point, it was easier for me to create the monster than take lessons in using crypto.getRandomValues
-    // or take lessons in correct syntax of regular expressions ;-)
+    // or take lessons in correct use of regular expressions ;-)
     let randomString: string = crypto.randomUUID()
     console.log(randomString)
     while (randomString.indexOf("-") > -1) {
