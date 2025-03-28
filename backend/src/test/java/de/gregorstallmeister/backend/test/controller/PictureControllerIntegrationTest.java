@@ -142,7 +142,6 @@ class PictureControllerIntegrationTest {
                             }
                             """));
         } catch (Exception e) {
-            System.out.println(e);
             Assertions.fail();
         }
     }
