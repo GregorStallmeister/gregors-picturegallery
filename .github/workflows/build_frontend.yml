@@ -1,4 +1,4 @@
-name: gregors-fotogalerie_frontend
+name: gregors-picturegallery_frontend
 on:
   push:
     branches:
