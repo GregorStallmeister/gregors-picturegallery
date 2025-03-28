@@ -20,7 +20,7 @@ export function DisplaySinglePicture() {
             .catch((errorResponse) => {
                 console.log("Error while loading single picture: " + errorResponse)
             })
-    }, [])
+    }, [id])
 
     if (picture !== undefined && picture !== null)
     {
