@@ -7,7 +7,11 @@ type Props = {
 
 export function Home(props: Props) {
 
+    // SonarQube identifies the follwing code as a security hotspot:
     const index: number = Math.floor(Math.random() * (props.pictures.length - 1))
+    // The issue concerns a harmless activity:
+    // random choosing a picture displayed on the welcome site (home) of my picture gallery.
+    // I think, this is no risk.
 
     return (
         <div className="display">
