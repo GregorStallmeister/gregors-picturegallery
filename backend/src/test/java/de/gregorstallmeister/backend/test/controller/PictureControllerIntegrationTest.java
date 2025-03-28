@@ -103,7 +103,7 @@ class PictureControllerIntegrationTest {
 
     @Test
     @DirtiesContext
-    void getAllPicturesWhenNoneIsThere() {
+    void getAllPicturesWhenNoneIsPresent() {
         // given: Nothing
 
         // when + then
@@ -113,6 +113,50 @@ class PictureControllerIntegrationTest {
                     .andExpect(MockMvcResultMatchers.content().json("""                         
                                 []
                             """));
+        } catch (Exception e) {
+            Assertions.fail();
+        }
+    }
+
+    @Test
+    @DirtiesContext
+    void getPictureById() {
+        // given
+        Picture picture = new Picture(
+                "testID-123",
+                "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
+                "Langeoog",
+                Instant.parse("2025-03-26T09:17:30+01:00"));
+        pictureRepository.insert(picture);
+
+        // when + then
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture/testID-123"))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().json("""                          
+                            {
+                                  "id": "testID-123",
+                                  "imagePath": "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
+                                  "location": "Langeoog",
+                                  instant: "2025-03-26T08:17:30Z"
+                            }
+                            """));
+        } catch (Exception e) {
+            System.out.println(e);
+            Assertions.fail();
+        }
+    }
+
+    @Test
+    @DirtiesContext
+    void getPictureByIdWhenNotPresent() {
+        // given: no Picture, nothing else but the class members
+
+        // when + then
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture/testID-123"))
+                    .andExpect(MockMvcResultMatchers.status().isNotFound())
+                    .andExpect(MockMvcResultMatchers.content().string(""));
         } catch (Exception e) {
             Assertions.fail();
         }
