@@ -64,7 +64,7 @@ function App() {
             .then((response) => {
                 console.log(response)
                 loadPictures()
-                alert("Foto wurde gelöscht")
+                alert("Foto wurde gelöscht.")
             })
             .catch((errorResponse) => {
                 console.log(errorResponse)
