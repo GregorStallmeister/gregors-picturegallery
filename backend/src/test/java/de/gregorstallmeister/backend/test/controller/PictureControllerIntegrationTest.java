@@ -184,7 +184,7 @@ class PictureControllerIntegrationTest {
                                         "instant": "2024-03-26T09:17:30+01:00"
                                     }
                                     """))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
                                         "id": "testID-123",
@@ -206,8 +206,8 @@ class PictureControllerIntegrationTest {
         // when + then
         try {
             mockMvc.perform(MockMvcRequestBuilders.put("/api/picture/test123")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content("""                                    
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""                                    
                                     {
                                         "imagePath": "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
                                         "location": "Mainz",
@@ -217,12 +217,54 @@ class PictureControllerIntegrationTest {
                     .andExpect(MockMvcResultMatchers.status().isNotFound())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
-                                "message": "An error occurred: Picture to update not found with ID: test123"
+                                "message": "An error occurred: Picture to update was not found with ID: test123"
                             }
                             """))
                     .andExpect(jsonPath("$.instant").isNotEmpty());
+        } catch (Exception e) {
+            Assertions.fail();
         }
-        catch (Exception e) {
+    }
+
+    @Test
+    @DirtiesContext
+    void deletePicture() {
+        // given
+        String id = "test-1234";
+        Picture picture = new Picture(
+                id,
+                "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
+                "unbekannt",
+                Instant.parse("2025-03-26T09:17:30+01:00"));
+        pictureRepository.insert(picture);
+
+        // when + then
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.delete("/api/picture/" + id))
+                    .andExpect(MockMvcResultMatchers.status().isNoContent())
+                    .andExpect(MockMvcResultMatchers.content().string(""));
+        } catch (Exception e) {
+            Assertions.fail();
+        }
+    }
+
+    @Test
+    @DirtiesContext
+    void deletePictureWhenNotPresent() {
+        // given
+        String id = "test-1234";
+
+        // when + then
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.delete("/api/picture/" + id))
+                    .andExpect(MockMvcResultMatchers.status().isNotFound())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                "message": "An error occurred: Picture to delete was not found with ID: test-1234"
+                            }
+                            """))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty());
+        } catch (Exception e) {
             Assertions.fail();
         }
     }

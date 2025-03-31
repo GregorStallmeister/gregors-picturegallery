@@ -169,4 +169,32 @@ class PictureServiceTest {
         assertThrows(NoSuchElementException.class, () -> pictureService.updatePicture(pictureInsertDto , id));
         verify(pictureRepository).findById(id);
     }
+
+    @Test
+    void deletePicture() {
+        // given
+        IdService idService = new IdService();
+        String id = idService.generateRandomId();
+        String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
+        String location = "Langeoog";
+        Instant instant = Instant.now();
+        Picture picture = new Picture(id, imagePath, location, instant);
+       when (pictureRepository.findById(id)).thenReturn(Optional.of(picture));
+
+        // when
+        pictureService.deletePicture(id);
+
+        // then
+        verify(pictureRepository).deleteById(id);
+        assertEquals(0, pictureRepository.count());
+    }
+
+    @Test
+    void deletePictureWhenNotPresent() {
+        // given: No picture; an ID only
+        String id = "test1234";
+
+        // when + then
+        assertThrows(NoSuchElementException.class, () ->  pictureService.deletePicture(id));
+    }
 }
