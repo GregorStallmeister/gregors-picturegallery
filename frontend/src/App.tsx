@@ -8,6 +8,7 @@ import {Home} from "./components/Home.tsx";
 import {DisplayPictures} from "./components/DisplayPictures.tsx";
 import {useEffect, useState} from "react";
 import {DisplaySinglePicture} from "./components/DisplaySinglePicture.tsx";
+import {UpdatePicture} from "./components/UpdatePicture.tsx";
 
 function App() {
 
@@ -44,6 +45,19 @@ function App() {
             })
     }
 
+    function updatePicture(picture: Picture) {
+        axios.put("/api/picture/" + picture.id, picture)
+            .then((response) => {
+                console.log(response)
+                loadPictures()
+                alert("Foto wurde erfolgreich aktualisiert.")
+            })
+            .catch((errorResponse) => {
+                console.log(errorResponse)
+                alert("Fehler beim Aktualisieren des Fotos!")
+            })
+    }
+
     return (
         <div className="app">
             <Header/>
@@ -53,6 +67,7 @@ function App() {
                 <Route path={"/add"} element={<AddPicture insertPicture={insertPicture}/>}/>
                 <Route path={"/pictures"} element={<DisplayPictures pictures={pictures}/>}/>
                 <Route path={"/picture/:id"} element={<DisplaySinglePicture/>}/>
+                <Route path={"/update_picture/:id"} element={<UpdatePicture updatePicture={updatePicture}/>}/>
             </Routes>
         </div>
     )

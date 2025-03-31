@@ -46,6 +46,13 @@ export function PictureCard(props: Props) {
                               navigate("/picture/" + props.picture.id)
                           }}>Detailansicht
                     </Link>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <Link to="/picture/{id}"
+                          onClick={(event) => {
+                              event.preventDefault()
+                              navigate("/update_picture/" + props.picture.id)
+                          }}>Bearbeiten
+                    </Link>
                 </div>
             </div>
         )
