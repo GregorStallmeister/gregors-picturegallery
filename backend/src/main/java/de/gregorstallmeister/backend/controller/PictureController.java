@@ -42,4 +42,9 @@ public class PictureController {
                 -> ResponseEntity.ok(PictureWrapper.wrapPictureForGet(picture)))
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
+
+    @PutMapping("/picture/{id}")
+    public PictureGetDto updatePicture(@RequestBody PictureGetDto pictureGetDto, @PathVariable String id) {
+        return PictureWrapper.wrapPictureForGet(pictureService.updatePicture(pictureGetDto, id));
+    }
 }

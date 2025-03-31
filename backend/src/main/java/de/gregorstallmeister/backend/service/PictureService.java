@@ -2,11 +2,14 @@ package de.gregorstallmeister.backend.service;
 
 import de.gregorstallmeister.backend.model.IdService;
 import de.gregorstallmeister.backend.model.Picture;
+import de.gregorstallmeister.backend.model.PictureGetDto;
 import de.gregorstallmeister.backend.model.PictureInsertDto;
 import de.gregorstallmeister.backend.repository.PictureRepository;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -17,7 +20,7 @@ public class PictureService {
 
     private final PictureRepository pictureRepository;
 
-    public Picture insertPicture(PictureInsertDto pictureInsertDto) {
+    public Picture insertPicture(@NotNull PictureInsertDto pictureInsertDto) {
         IdService idService = new IdService();
         Picture pictureToInsert = new Picture(
                 idService.generateRandomId(),
@@ -38,15 +41,17 @@ public class PictureService {
         return pictureRepository.findById(id);
     }
 
-    public Picture updatePicture(Picture picture) throws NoSuchElementException {
-        Optional<Picture> optionalPicture = pictureRepository.findById(picture.id());
+    public Picture updatePicture(@NotNull PictureGetDto pictureGetDto, String id) throws NoSuchElementException {
+        Optional<Picture> optionalPicture = pictureRepository.findById(id);
 
-        if (optionalPicture.isPresent()) {
-            pictureRepository.save(picture);
-            return picture;
-        }
-        else {
-            throw new  NoSuchElementException("Picture not found with ID: " + picture.id());
+        if (optionalPicture.isPresent() && optionalPicture.get().id().equals(id)) {
+            Picture pictureUpdated = new Picture(id, pictureGetDto.imagePath(), pictureGetDto.location(), pictureGetDto.instant());
+            pictureRepository.save(pictureUpdated);
+            return pictureUpdated;
+        } else if (optionalPicture.isPresent()) {
+            throw new InputMismatchException("Two different picture IDs given: " + id + " as id, " + pictureGetDto.id() + " within DTO!");
+        } else {
+            throw new  NoSuchElementException("Picture not found with ID: " + id);
         }
     }
 }

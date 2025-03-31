@@ -1,8 +1,6 @@
 package de.gregorstallmeister.backend.test.service;
 
-import de.gregorstallmeister.backend.model.IdService;
-import de.gregorstallmeister.backend.model.Picture;
-import de.gregorstallmeister.backend.model.PictureInsertDto;
+import de.gregorstallmeister.backend.model.*;
 import de.gregorstallmeister.backend.repository.PictureRepository;
 import de.gregorstallmeister.backend.service.PictureService;
 import org.junit.jupiter.api.BeforeEach;
@@ -145,7 +143,8 @@ class PictureServiceTest {
 
         // when
         Picture pictureModified = new Picture(id, imagePathUpdated, locationUpdated, instantUpdated);
-        Picture pictureUpdated = pictureService.updatePicture(pictureModified);
+        Picture pictureUpdated = pictureService.updatePicture(
+                PictureWrapper.wrapPictureForGet(pictureModified), pictureModified.id());
 
         // then
         verify(pictureRepository).save(pictureModified);
@@ -162,8 +161,9 @@ class PictureServiceTest {
         String location = "Langeoog";
         Instant instant = Instant.now();
         Picture pictureModified = new Picture(id, imagePath, location, instant);
+        PictureGetDto pictureGetDto = PictureWrapper.wrapPictureForGet(pictureModified);
 
         // when + then
-        assertThrows(NoSuchElementException.class, () -> pictureService.updatePicture(pictureModified));
+        assertThrows(NoSuchElementException.class, () -> pictureService.updatePicture(pictureGetDto , id));
     }
 }
