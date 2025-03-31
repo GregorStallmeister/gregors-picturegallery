@@ -9,6 +9,7 @@ import {DisplayPictures} from "./components/DisplayPictures.tsx";
 import {useEffect, useState} from "react";
 import {DisplaySinglePicture} from "./components/DisplaySinglePicture.tsx";
 import {UpdatePicture} from "./components/UpdatePicture.tsx";
+import {PictureInsertDto} from "./model/PictureInsertDto.tsx";
 
 function App() {
 
@@ -32,8 +33,8 @@ function App() {
         loadPictures()
     }, [])
 
-    function insertPicture(picture: Picture) {
-        axios.post("/api/picture", picture)
+    function insertPicture(pictureInsertDto: PictureInsertDto) {
+        axios.post("/api/picture", pictureInsertDto)
             .then((response) => {
                 console.log(response)
                 loadPictures()
