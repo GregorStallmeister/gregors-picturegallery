@@ -15,13 +15,13 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoSuchElementException.class)
     public ErrorMessage handleNoSuchElementException(Exception ex) {
-        return new ErrorMessage("Ein Fehler ist aufgetreten: " + ex.getMessage(), Instant.now());
+        return new ErrorMessage("An error occurred: " + ex.getMessage(), Instant.now());
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ErrorMessage handleException(Exception ex) {
 
-        return new ErrorMessage("Ein nicht bekannter Fehler ist aufgetreten: " + ex.getMessage(), Instant.now());
+        return new ErrorMessage("A not covered error occurred: " + ex.getMessage(), Instant.now());
     }
 }
