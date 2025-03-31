@@ -2,7 +2,6 @@ package de.gregorstallmeister.backend.service;
 
 import de.gregorstallmeister.backend.model.IdService;
 import de.gregorstallmeister.backend.model.Picture;
-import de.gregorstallmeister.backend.model.PictureGetDto;
 import de.gregorstallmeister.backend.model.PictureInsertDto;
 import de.gregorstallmeister.backend.repository.PictureRepository;
 import lombok.RequiredArgsConstructor;
