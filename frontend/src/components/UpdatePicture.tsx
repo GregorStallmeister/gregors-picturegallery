@@ -5,6 +5,7 @@ import axios from "axios";
 
 type Props = {
     updatePicture(picture: Picture): void
+    deletePicture(id: string): void
 }
 
 export function UpdatePicture(props: Props) {
@@ -50,7 +51,19 @@ export function UpdatePicture(props: Props) {
                     <input name="instant" placeholder={"Datum und Uhrzeit"} value={picture.instant} size={80}
                            onChange={event => updatePicture(event)}/>
                     <br/>&nbsp;<br/>
-                    <button>Speichern</button>
+                    <button type="submit">Speichern</button>
+                    &nbsp;&nbsp;&nbsp;
+                    <button onClick={(event => {
+                        event.preventDefault()
+                        if (confirm ("Wollen Sie das Foto wirklich löschen?")) {
+                            props.deletePicture(id)
+                        }
+                        else {
+                            alert("Das Foto bleibt erhalten!")
+                        }
+                        navigate("/pictures")
+                    })
+                    }>L&ouml;schen</button>
                 </form>
             </div>
         )

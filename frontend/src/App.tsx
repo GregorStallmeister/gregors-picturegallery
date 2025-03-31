@@ -59,6 +59,19 @@ function App() {
             })
     }
 
+    function deletePicture(id: string) {
+        axios.delete("/api/picture/" + id)
+            .then((response) => {
+                console.log(response)
+                loadPictures()
+                alert("Foto wurde gelöscht")
+            })
+            .catch((errorResponse) => {
+                console.log(errorResponse)
+                alert("Fehler beim Löschen des Fotos!")
+            })
+    }
+
     return (
         <div className="app">
             <Header/>
@@ -68,7 +81,8 @@ function App() {
                 <Route path={"/add"} element={<AddPicture insertPicture={insertPicture}/>}/>
                 <Route path={"/pictures"} element={<DisplayPictures pictures={pictures}/>}/>
                 <Route path={"/picture/:id"} element={<DisplaySinglePicture/>}/>
-                <Route path={"/update_picture/:id"} element={<UpdatePicture updatePicture={updatePicture}/>}/>
+                <Route path={"/update_picture/:id"} element={<UpdatePicture
+                    updatePicture={updatePicture} deletePicture={deletePicture}/>}/>
             </Routes>
         </div>
     )
