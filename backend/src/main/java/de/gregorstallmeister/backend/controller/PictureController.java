@@ -44,7 +44,7 @@ public class PictureController {
     }
 
     @PutMapping("/picture/{id}")
-    public PictureGetDto updatePicture(@RequestBody PictureGetDto pictureGetDto, @PathVariable String id) {
-        return PictureWrapper.wrapPictureForGet(pictureService.updatePicture(pictureGetDto, id));
+    public PictureGetDto updatePicture(@RequestBody PictureInsertDto pictureInsertDto, @PathVariable String id) {
+        return PictureWrapper.wrapPictureForGet(pictureService.updatePicture(pictureInsertDto, id));
     }
 }

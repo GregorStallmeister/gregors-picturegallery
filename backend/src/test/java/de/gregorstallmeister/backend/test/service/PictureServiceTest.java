@@ -142,10 +142,12 @@ class PictureServiceTest {
         String locationUpdated = "Carolinensiel";
         Instant instantUpdated = Instant.parse("2025-08-26T09:17:30+02:00");
 
-        // when
         Picture pictureModified = new Picture(id, imagePathUpdated, locationUpdated, instantUpdated);
-        Picture pictureUpdated = pictureService.updatePicture(
-                PictureWrapper.wrapPictureForGet(pictureModified), pictureModified.id());
+
+        // when
+        PictureInsertDto pictureInsertDto = new PictureInsertDto(pictureModified.imagePath(),
+                pictureModified.location(), pictureModified.instant());
+        Picture pictureUpdated = pictureService.updatePicture(pictureInsertDto, id);
 
         // then
         verify(pictureRepository).save(pictureModified);
@@ -161,30 +163,10 @@ class PictureServiceTest {
         String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
         String location = "Langeoog";
         Instant instant = Instant.now();
-        Picture pictureModified = new Picture(id, imagePath, location, instant);
-        PictureGetDto pictureGetDto = PictureWrapper.wrapPictureForGet(pictureModified);
+        PictureInsertDto pictureInsertDto = new PictureInsertDto(imagePath, location, instant);
 
         // when + then
-        assertThrows(NoSuchElementException.class, () -> pictureService.updatePicture(pictureGetDto , id));
+        assertThrows(NoSuchElementException.class, () -> pictureService.updatePicture(pictureInsertDto , id));
         verify(pictureRepository).findById(id);
-    }
-
-    @Test
-    void updatePictureWhenPresentButDifferentIDs() {
-        // given
-        IdService idService = new IdService();
-        String id = idService.generateRandomId();
-        String idDiferent = idService.generateRandomId();
-        String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
-        String location = "Langeoog";
-        Instant instant = Instant.now();
-        Picture pictureToUpdate = new Picture(id, imagePath, location, instant);
-        Picture pictureDifferent = new Picture(idDiferent, imagePath, location, instant);
-        PictureGetDto pictureGetDto = PictureWrapper.wrapPictureForGet(pictureToUpdate);
-        when(pictureRepository.findById(idDiferent)).thenReturn(Optional.of(pictureDifferent));
-
-        // when + then
-        assertThrows(InputMismatchException.class, () -> pictureService.updatePicture(pictureGetDto , idDiferent));
-        verify(pictureRepository).findById(idDiferent);
     }
 }

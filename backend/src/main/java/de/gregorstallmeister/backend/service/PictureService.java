@@ -38,16 +38,14 @@ public class PictureService {
         return pictureRepository.findById(id);
     }
 
-    public Picture updatePicture(@NotNull PictureGetDto pictureGetDto, String id) throws NoSuchElementException {
+    public Picture updatePicture(@NotNull PictureInsertDto pictureInsertDto, String id) throws NoSuchElementException {
         Optional<Picture> optionalPicture = pictureRepository.findById(id);
 
-        if (optionalPicture.isPresent() && optionalPicture.get().id().equals(pictureGetDto.id())) {
-            Picture pictureUpdated = new Picture(id, pictureGetDto.imagePath(), pictureGetDto.location(), pictureGetDto.instant());
+        if (optionalPicture.isPresent()) {
+            Picture pictureUpdated = new Picture(id, pictureInsertDto.imagePath(), pictureInsertDto.location(), pictureInsertDto.instant());
             pictureRepository.save(pictureUpdated);
             return pictureUpdated;
-        } else if (optionalPicture.isPresent()) {
-            throw new InputMismatchException("Two different picture IDs given: " + id + " as id, " + pictureGetDto.id() + " within DTO!");
-        } else {
+                } else {
             throw new  NoSuchElementException("Picture not found with ID: " + id);
         }
     }
