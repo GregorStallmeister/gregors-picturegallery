@@ -41,7 +41,7 @@ public class PictureService {
     public Picture updatePicture(@NotNull PictureGetDto pictureGetDto, String id) throws NoSuchElementException {
         Optional<Picture> optionalPicture = pictureRepository.findById(id);
 
-        if (optionalPicture.isPresent() && Objects.equals(optionalPicture.get().id(), pictureGetDto.id())) {
+        if (optionalPicture.isPresent() && optionalPicture.get().id().equals(pictureGetDto.id())) {
             Picture pictureUpdated = new Picture(id, pictureGetDto.imagePath(), pictureGetDto.location(), pictureGetDto.instant());
             pictureRepository.save(pictureUpdated);
             return pictureUpdated;
