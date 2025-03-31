@@ -8,6 +8,8 @@ import {Home} from "./components/Home.tsx";
 import {DisplayPictures} from "./components/DisplayPictures.tsx";
 import {useEffect, useState} from "react";
 import {DisplaySinglePicture} from "./components/DisplaySinglePicture.tsx";
+import {UpdatePicture} from "./components/UpdatePicture.tsx";
+import {PictureInsertDto} from "./model/PictureInsertDto.tsx";
 
 function App() {
 
@@ -31,8 +33,8 @@ function App() {
         loadPictures()
     }, [])
 
-    function insertPicture(picture: Picture) {
-        axios.post("/api/picture", picture)
+    function insertPicture(pictureInsertDto: PictureInsertDto) {
+        axios.post("/api/picture", pictureInsertDto)
             .then((response) => {
                 console.log(response)
                 loadPictures()
@@ -41,6 +43,19 @@ function App() {
             .catch((errorResponse) => {
                 console.log(errorResponse)
                 alert("Fehler beim Hinzufügen des Fotos!")
+            })
+    }
+
+    function updatePicture(picture: Picture) {
+        axios.put("/api/picture/" + picture.id, picture)
+            .then((response) => {
+                console.log(response)
+                loadPictures()
+                alert("Foto wurde erfolgreich aktualisiert.")
+            })
+            .catch((errorResponse) => {
+                console.log(errorResponse)
+                alert("Fehler beim Aktualisieren des Fotos!")
             })
     }
 
@@ -53,6 +68,7 @@ function App() {
                 <Route path={"/add"} element={<AddPicture insertPicture={insertPicture}/>}/>
                 <Route path={"/pictures"} element={<DisplayPictures pictures={pictures}/>}/>
                 <Route path={"/picture/:id"} element={<DisplaySinglePicture/>}/>
+                <Route path={"/update_picture/:id"} element={<UpdatePicture updatePicture={updatePicture}/>}/>
             </Routes>
         </div>
     )

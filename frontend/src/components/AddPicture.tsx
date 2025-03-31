@@ -1,15 +1,14 @@
 import {ChangeEvent, useState} from "react";
-import {Picture} from "../model/Picture.tsx";
 import {useNavigate} from "react-router-dom";
+import {PictureInsertDto} from "../model/PictureInsertDto.tsx";
 
 type Props = {
-    insertPicture(picture: Picture): void
+    insertPicture(pictureInsertDto: PictureInsertDto): void
 }
 
 export function AddPicture(props: Props) {
 
-    const [picture, setPicture] = useState<Picture>({
-        id: "id_dummy",
+    const [pictureInsertDto, setPictureInsertDto] = useState<PictureInsertDto>({
         imagePath: "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
         location: "",
         instant: "2025-03-26T09:17:30+01:00"
@@ -19,7 +18,7 @@ export function AddPicture(props: Props) {
     function updatePicture(event: ChangeEvent<HTMLInputElement>) {
         const key: string = event.target.name
         const value: string = event.target.value
-        setPicture({...picture, [key]: value})
+        setPictureInsertDto({...pictureInsertDto, [key]: value})
     }
 
     return (
@@ -27,16 +26,16 @@ export function AddPicture(props: Props) {
             <h2>Foto hinzuf&uuml;gen</h2>
             <form onSubmit={(event => {
                 event.preventDefault()
-                props.insertPicture(picture)
+                props.insertPicture(pictureInsertDto)
                 navigate("/pictures")
             })}>
-                <input name="imagePath" placeholder={"Foto URL"} value={picture.imagePath} size={80}
+                <input name="imagePath" placeholder={"Foto URL"} value={pictureInsertDto.imagePath} size={80}
                        onChange={event => updatePicture(event)}/>
                 <br/>&nbsp;<br/>
-                <input name="location" placeholder={"Aufnahmeort"} value={picture.location} size={80}
+                <input name="location" placeholder={"Aufnahmeort"} value={pictureInsertDto.location} size={80}
                        onChange={event => updatePicture(event)}/>
                 <br/>&nbsp;<br/>
-                <input name="instant" placeholder={"Datum und Uhrzeit"} value={picture.instant} size={80}
+                <input name="instant" placeholder={"Datum und Uhrzeit"} value={pictureInsertDto.instant} size={80}
                        onChange={event => updatePicture(event)}/>
                 <br/>&nbsp;<br/>
                 <button>Speichern</button>
