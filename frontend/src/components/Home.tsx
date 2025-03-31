@@ -25,8 +25,12 @@ export function Home(props: Props) {
         }
     }
     console.log(randomString)
-    randomString = randomString.substring(0, 6)
 
+    while (randomString.length < 6) {
+        randomString = randomString + randomString
+    }
+
+    randomString = randomString.substring(0, 6)
     let indexBase: number = Number(randomString)
     indexBase = indexBase / 1000000
     console.log(indexBase)
