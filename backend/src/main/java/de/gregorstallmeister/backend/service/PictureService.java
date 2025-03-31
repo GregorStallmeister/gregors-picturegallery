@@ -1,6 +1,6 @@
 package de.gregorstallmeister.backend.service;
 
-import de.gregorstallmeister.backend.model.IdService;
+import de.gregorstallmeister.backend.helpers.IdService;
 import de.gregorstallmeister.backend.model.Picture;
 import de.gregorstallmeister.backend.model.PictureInsertDto;
 import de.gregorstallmeister.backend.repository.PictureRepository;
@@ -45,7 +45,7 @@ public class PictureService {
             pictureRepository.save(pictureUpdated);
             return pictureUpdated;
                 } else {
-            throw new  NoSuchElementException("Picture not found with ID: " + id);
+            throw new  NoSuchElementException("Picture to update not found with ID: " + id);
         }
     }
 }

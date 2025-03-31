@@ -1,4 +1,4 @@
-package de.gregorstallmeister.backend.model;
+package de.gregorstallmeister.backend.helpers;
 
 import java.util.UUID;
 
