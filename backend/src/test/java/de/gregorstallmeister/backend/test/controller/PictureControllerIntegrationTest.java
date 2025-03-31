@@ -160,4 +160,70 @@ class PictureControllerIntegrationTest {
             Assertions.fail();
         }
     }
+
+    @Test
+    @DirtiesContext
+    void updatePicture() {
+        // given
+        String id = "testID-123";
+        Picture picture = new Picture(
+                id,
+                "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
+                "Langeoog",
+                Instant.parse("2025-03-26T09:17:30+01:00"));
+        pictureRepository.insert(picture);
+
+        // when + then
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.put("/api/picture/" + id)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""                                    
+                                    {
+                                        "imagePath": "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
+                                        "location": "Mainz",
+                                        "instant": "2024-03-26T09:17:30+01:00"
+                                    }
+                                    """))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                        "id": "testID-123",
+                                        "imagePath": "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
+                                        "location": "Mainz",
+                                        "instant": "2024-03-26T08:17:30Z"
+                            }
+                            """));
+        } catch (Exception e) {
+            Assertions.fail();
+        }
+    }
+
+    @Test
+    @DirtiesContext
+    void updatePictureWhenNotPresent() {
+        // given: No picture, nothing but the class members
+
+        // when + then
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.put("/api/picture/test123")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("""                                    
+                                    {
+                                        "imagePath": "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
+                                        "location": "Mainz",
+                                        "instant": "2024-03-26T09:17:30+01:00"
+                                    }
+                                    """))
+                    .andExpect(MockMvcResultMatchers.status().isNotFound())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                                "message": "An error occurred: Picture to update not found with ID: test123"
+                            }
+                            """))
+                    .andExpect(jsonPath("$.instant").isNotEmpty());
+        }
+        catch (Exception e) {
+            Assertions.fail();
+        }
+    }
 }

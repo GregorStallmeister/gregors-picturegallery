@@ -17,10 +17,6 @@ export function PictureCard(props: Props) {
         )
     }
 
-    function navigateToSinglePictuere(id: string) {
-        navigate("/picture/" + id)
-    }
-
     if (props.large) {
         return (
             <div className="card">
@@ -47,7 +43,7 @@ export function PictureCard(props: Props) {
                     <Link to="/picture/{id}"
                           onClick={(event) => {
                               event.preventDefault()
-                              navigateToSinglePictuere(props.picture.id)
+                              navigate("/picture/" + props.picture.id)
                           }}>Detailansicht
                     </Link>
                 </div>

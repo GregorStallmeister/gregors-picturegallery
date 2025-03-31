@@ -1,14 +1,14 @@
 package de.gregorstallmeister.backend.service;
 
-import de.gregorstallmeister.backend.model.IdService;
+import de.gregorstallmeister.backend.helpers.IdService;
 import de.gregorstallmeister.backend.model.Picture;
 import de.gregorstallmeister.backend.model.PictureInsertDto;
 import de.gregorstallmeister.backend.repository.PictureRepository;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -16,7 +16,7 @@ public class PictureService {
 
     private final PictureRepository pictureRepository;
 
-    public Picture insertPicture(PictureInsertDto pictureInsertDto) {
+    public Picture insertPicture(@NotNull PictureInsertDto pictureInsertDto) {
         IdService idService = new IdService();
         Picture pictureToInsert = new Picture(
                 idService.generateRandomId(),
@@ -35,5 +35,17 @@ public class PictureService {
 
     public Optional<Picture> getPictureById(String id) {
         return pictureRepository.findById(id);
+    }
+
+    public Picture updatePicture(@NotNull PictureInsertDto pictureInsertDto, String id) throws NoSuchElementException {
+        Optional<Picture> optionalPicture = pictureRepository.findById(id);
+
+        if (optionalPicture.isPresent()) {
+            Picture pictureUpdated = new Picture(id, pictureInsertDto.imagePath(), pictureInsertDto.location(), pictureInsertDto.instant());
+            pictureRepository.save(pictureUpdated);
+            return pictureUpdated;
+                } else {
+            throw new  NoSuchElementException("Picture to update not found with ID: " + id);
+        }
     }
 }

@@ -1,6 +1,6 @@
 package de.gregorstallmeister.backend.test.model;
 
-import de.gregorstallmeister.backend.model.IdService;
+import de.gregorstallmeister.backend.helpers.IdService;
 import de.gregorstallmeister.backend.model.Picture;
 import org.junit.jupiter.api.Test;
 
