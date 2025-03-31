@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.Instant;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -165,5 +166,25 @@ class PictureServiceTest {
 
         // when + then
         assertThrows(NoSuchElementException.class, () -> pictureService.updatePicture(pictureGetDto , id));
+        verify(pictureRepository).findById(id);
+    }
+
+    @Test
+    void updatePictureWhenPresentButDifferentIDs() {
+        // given
+        IdService idService = new IdService();
+        String id = idService.generateRandomId();
+        String idDiferent = idService.generateRandomId();
+        String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
+        String location = "Langeoog";
+        Instant instant = Instant.now();
+        Picture pictureToUpdate = new Picture(id, imagePath, location, instant);
+        Picture pictureDifferent = new Picture(idDiferent, imagePath, location, instant);
+        PictureGetDto pictureGetDto = PictureWrapper.wrapPictureForGet(pictureToUpdate);
+        when(pictureRepository.findById(idDiferent)).thenReturn(Optional.of(pictureDifferent));
+
+        // when + then
+        assertThrows(InputMismatchException.class, () -> pictureService.updatePicture(pictureGetDto , idDiferent));
+        verify(pictureRepository).findById(idDiferent);
     }
 }

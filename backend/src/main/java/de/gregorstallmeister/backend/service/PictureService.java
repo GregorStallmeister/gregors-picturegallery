@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -44,7 +41,7 @@ public class PictureService {
     public Picture updatePicture(@NotNull PictureGetDto pictureGetDto, String id) throws NoSuchElementException {
         Optional<Picture> optionalPicture = pictureRepository.findById(id);
 
-        if (optionalPicture.isPresent() && optionalPicture.get().id().equals(id)) {
+        if (optionalPicture.isPresent() && Objects.equals(optionalPicture.get().id(), pictureGetDto.id())) {
             Picture pictureUpdated = new Picture(id, pictureGetDto.imagePath(), pictureGetDto.location(), pictureGetDto.instant());
             pictureRepository.save(pictureUpdated);
             return pictureUpdated;
