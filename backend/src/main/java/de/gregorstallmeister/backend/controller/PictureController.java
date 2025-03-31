@@ -48,4 +48,10 @@ public class PictureController {
     public PictureGetDto updatePicture(@RequestBody PictureInsertDto pictureInsertDto, @PathVariable String id) {
         return PictureWrapper.wrapPictureForGet(pictureService.updatePicture(pictureInsertDto, id));
     }
+
+    @DeleteMapping("/picture/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT) // design decision: 204 - no content when successful
+    public void deletePicture(@PathVariable String id) {
+        pictureService.deletePicture(id);
+    }
 }
