@@ -48,4 +48,13 @@ public class PictureService {
             throw new  NoSuchElementException("Picture to update not found with ID: " + id);
         }
     }
+
+    public void deletePicture(String id) {
+        Optional<Picture> optionalPicture = pictureRepository.findById(id);
+
+        if (optionalPicture.isPresent())
+            pictureRepository.deleteById(id);
+        else
+            throw new NoSuchElementException("Picture to delete not found with id: " + id);
+    }
 }
