@@ -28,9 +28,20 @@ function App() {
             })
     }
 
+    function loadUser() {
+        axios.get("api/auth/me")
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(errorResponse => {
+                console.log(errorResponse)
+            })
+    }
+
     useEffect(() => {
         console.log("Mounting App!")
         loadPictures()
+        loadUser()
     }, [])
 
     function insertPicture(pictureInsertDto: PictureInsertDto) {
