@@ -20,7 +20,7 @@ export function DisplayPictures(props: Props) {
         <div className="display">
             {
                 props.pictures.map(picture => (
-                    <PictureCard  key={picture.id} picture={picture}/>
+                    <PictureCard  key={picture.id} picture={picture} user={props.user}/>
                 ))
             }
         </div>

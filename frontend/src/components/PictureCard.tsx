@@ -3,6 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 
 type Props = {
     picture: Picture
+    user: string | null | undefined
 }
 
 export function PictureCard(props: Props) {
@@ -12,6 +13,25 @@ export function PictureCard(props: Props) {
         return (
             <div>
                 ... lade Foto
+            </div>
+        )
+    }
+
+    if (props.user === null || props.user === undefined) {
+        return (
+            <div className="card">
+                <div className="cardEntry">
+                    <img src={props.picture.imagePath.replace(".jpg", "_205.jpg")}
+                         alt={"Foto: " + props.picture.imagePath}/>
+                </div>
+                <div className="cardEntry">
+                    <Link to="/picture/{id}"
+                          onClick={(event) => {
+                              event.preventDefault()
+                              navigate("/picture/" + props.picture.id)
+                          }}>Detailansicht
+                    </Link>
+                </div>
             </div>
         )
     }
