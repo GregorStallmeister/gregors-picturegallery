@@ -14,6 +14,7 @@ import {PictureInsertDto} from "./model/PictureInsertDto.tsx";
 function App() {
 
     const [pictures, setPictures] = useState<Picture[]>([])
+    const [user, setUser] = useState<string | null | undefined>(undefined)
 
     function loadPictures() {
         axios.get("/api/picture_get")
@@ -32,9 +33,11 @@ function App() {
         axios.get("api/auth/me")
             .then(response => {
                 console.log(response.data)
+                setUser(response.data)
             })
             .catch(errorResponse => {
                 console.log(errorResponse)
+                setUser(null)
             })
     }
 
@@ -85,7 +88,7 @@ function App() {
 
     return (
         <div className="app">
-            <Header/>
+            <Header user={user}/>
             <Routes>
                 <Route path={"/"} element={<Home pictures={pictures}/>}/>
                 <Route path={"/home"} element={<Home pictures={pictures}/>}/>

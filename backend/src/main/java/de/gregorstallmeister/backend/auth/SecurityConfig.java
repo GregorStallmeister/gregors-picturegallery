@@ -36,7 +36,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
-                .logout(l -> l.logoutSuccessUrl(appUrl + "/logout")) // change string if you want to navigate somewhere
+                .logout(l -> l.logoutSuccessUrl(appUrl)) // change string if you want to navigate somewhere
                 .exceptionHandling(e -> e
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .oauth2Login(o -> o.defaultSuccessUrl(appUrl + "/home")); // change string if you want to navigate somewhere
