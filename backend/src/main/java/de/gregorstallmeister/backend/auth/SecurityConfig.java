@@ -20,17 +20,21 @@ public class SecurityConfig {
     private String appUrl;
 
     @Bean
-    @SuppressWarnings("squid:S4502")
+    @SuppressWarnings("squid:S4502") // to confirm, that disabling csfr is safe in my application
     public SecurityFilterChain securityFilterChain(HttpSecurity currywurst) throws Exception {
-        currywurst
-                // bei username password muss das csrf definitiv enabled sein, bei oauth wird das für uns geregelt
-                .csrf(AbstractHttpConfigurer::disable) // Compliant //cross site reforgery token, gegen hacker, anfrage muss immer vom selben host kommen
+        currywurst // My coach Marcell said, the name does not matter, I can name this object "currywurst" ;-)
+                // Thanks to him for all his coaching, my best wishes and greetings!
+                // And greetings to Dortmund, where he lives, next to my hometown Hagen.
+                // In both cities you can eat currywurst (curry sausage), a popular delicious fast food, typical for the Ruhr area.
+
+                // with login by username password csrf must be enabled, with oauth we need not to care about it.
+                .csrf(AbstractHttpConfigurer::disable) // Compliant //cross site reforgery token, against hackers, request must always come from the same host
                 .authorizeHttpRequests(a -> a
                         .requestMatchers("/api/auth/me").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
-//                .logout(l -> l.logoutSuccessUrl(appUrl + "/logout")) // change string if you want to navigate somewhere
+                .logout(l -> l.logoutSuccessUrl(appUrl + "/logout")) // change string if you want to navigate somewhere
                 .exceptionHandling(e -> e
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .oauth2Login(o -> o.defaultSuccessUrl(appUrl + "/home")); // change string if you want to navigate somewhere

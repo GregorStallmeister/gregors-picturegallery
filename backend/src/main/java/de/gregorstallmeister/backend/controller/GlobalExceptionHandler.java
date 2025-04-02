@@ -21,7 +21,6 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ErrorMessage handleException(Exception ex) {
-
         return new ErrorMessage("A not covered error occurred: " + ex.getMessage(), Instant.now());
     }
 }
