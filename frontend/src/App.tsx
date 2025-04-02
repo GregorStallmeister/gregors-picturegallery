@@ -10,10 +10,12 @@ import {useEffect, useState} from "react";
 import {DisplaySinglePicture} from "./components/DisplaySinglePicture.tsx";
 import {UpdatePicture} from "./components/UpdatePicture.tsx";
 import {PictureInsertDto} from "./model/PictureInsertDto.tsx";
+import {ProtectedRoutes} from "./components/ProtectedRoutes.tsx";
 
 function App() {
 
     const [pictures, setPictures] = useState<Picture[]>([])
+    const [user, setUser] = useState<string | null | undefined>(undefined)
 
     function loadPictures() {
         axios.get("/api/picture_get")
@@ -32,9 +34,11 @@ function App() {
         axios.get("api/auth/me")
             .then(response => {
                 console.log(response.data)
+                setUser(response.data)
             })
             .catch(errorResponse => {
                 console.log(errorResponse)
+                setUser(null)
             })
     }
 
@@ -85,15 +89,18 @@ function App() {
 
     return (
         <div className="app">
-            <Header/>
+            <Header user={user}/>
             <Routes>
                 <Route path={"/"} element={<Home pictures={pictures}/>}/>
                 <Route path={"/home"} element={<Home pictures={pictures}/>}/>
-                <Route path={"/add"} element={<AddPicture insertPicture={insertPicture}/>}/>
-                <Route path={"/pictures"} element={<DisplayPictures pictures={pictures}/>}/>
+                <Route path={"/pictures"} element={<DisplayPictures pictures={pictures} user={user}/>}/>
                 <Route path={"/picture/:id"} element={<DisplaySinglePicture/>}/>
-                <Route path={"/update_picture/:id"} element={<UpdatePicture
-                    updatePicture={updatePicture} deletePicture={deletePicture}/>}/>
+
+                <Route element={<ProtectedRoutes user={user}/>}>
+                    <Route path={"/add"} element={<AddPicture insertPicture={insertPicture}/>}/>
+                    <Route path={"/update_picture/:id"} element={<UpdatePicture
+                        updatePicture={updatePicture} deletePicture={deletePicture}/>}/>
+                </Route>
             </Routes>
         </div>
     )

@@ -3,6 +3,7 @@ import {Picture} from "../model/Picture.tsx";
 
 type Props = {
     pictures: Picture[]
+    user: string | null | undefined
 }
 
 export function DisplayPictures(props: Props) {
@@ -19,7 +20,7 @@ export function DisplayPictures(props: Props) {
         <div className="display">
             {
                 props.pictures.map(picture => (
-                    <PictureCard  key={picture.id} picture={picture} large={false}/>
+                    <PictureCard  key={picture.id} picture={picture} user={props.user}/>
                 ))
             }
         </div>
