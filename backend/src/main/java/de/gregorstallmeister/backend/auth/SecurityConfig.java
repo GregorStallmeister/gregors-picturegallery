@@ -30,6 +30,8 @@ public class SecurityConfig {
                 // with login by username password csrf must be enabled, with oauth we need not to care about it.
                 .csrf(AbstractHttpConfigurer::disable) // Compliant //cross site reforgery token, against hackers, request must always come from the same host
                 .authorizeHttpRequests(a -> a
+                        .requestMatchers("/api/picture_get").permitAll()
+                        .requestMatchers("/api/picture_get/{id}").permitAll()
                         .requestMatchers("/api/auth/me").permitAll()
                         .anyRequest().authenticated()
                 )

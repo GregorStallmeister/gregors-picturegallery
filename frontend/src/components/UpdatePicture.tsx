@@ -16,7 +16,7 @@ export function UpdatePicture(props: Props) {
     const navigate = useNavigate()
 
     useEffect(() => {
-        axios.get("/api/picture/" + id)
+        axios.get("/api/picture_get/" + id)
             .then((response) => {
                 setPicture(response.data)
                 console.log("Picture to update loaded!")

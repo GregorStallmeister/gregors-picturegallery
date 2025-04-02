@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 export function Header() {
 
     function login() {
-        alert("Login")
+        // alert("Login")
 
         const host
             = window.location.host === 'localhost:5173'
@@ -23,7 +23,7 @@ export function Header() {
             &nbsp;&nbsp;+++&nbsp;&nbsp;
             <Link to="/add">Foto hinzuf&uuml;gen</Link>
             &nbsp;&nbsp;+++&nbsp;&nbsp;
-            <button onClick={login}>Login</button>
+            <button onClick={login}>Login mit GitHub</button>
             <hr/>
         </div>
     )

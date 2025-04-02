@@ -28,13 +28,13 @@ public class PictureController {
         return PictureWrapper.wrapPictureForGet(pictureInserted);
     }
 
-    @GetMapping("/picture")
+    @GetMapping("/picture_get")
     @ResponseStatus(HttpStatus.OK)  // 200 - Standard for correct response, the returned list can be empty
     public List<PictureGetDto> getAllPictures() {
         return PictureWrapper.wrapPicturesForGet(pictureService.getPictures());
     }
 
-    @GetMapping("/picture/{id}")
+    @GetMapping("/picture_get/{id}")
     public ResponseEntity<PictureGetDto> getPictureById(@PathVariable String id) {
         Optional<Picture> optionalPicture = pictureService.getPictureById(id);
 

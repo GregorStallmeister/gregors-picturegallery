@@ -16,7 +16,7 @@ function App() {
     const [pictures, setPictures] = useState<Picture[]>([])
 
     function loadPictures() {
-        axios.get("/api/picture")
+        axios.get("/api/picture_get")
             .then((response) => {
                 console.log("Pictures loaded!")
                 console.log(response)
