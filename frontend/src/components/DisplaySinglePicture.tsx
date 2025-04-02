@@ -2,7 +2,7 @@ import {useLocation} from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import {Picture} from "../model/Picture.tsx";
-import {PictureCard} from "./PictureCard.tsx";
+import {PictureDetailed} from "./PictureDetailed.tsx";
 
 export function DisplaySinglePicture() {
     const location = useLocation()
@@ -26,7 +26,7 @@ export function DisplaySinglePicture() {
     {
         return (
             <div>
-                <PictureCard picture={picture} large={true}/>
+                <PictureDetailed picture={picture}/>
             </div>
         )
     }

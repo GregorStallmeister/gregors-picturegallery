@@ -1,5 +1,5 @@
 import {Picture} from "../model/Picture.tsx";
-import {PictureCard} from "./PictureCard.tsx";
+import {PictureDetailed} from "./PictureDetailed.tsx";
 
 type Props = {
     pictures: Picture[]
@@ -40,7 +40,7 @@ export function Home(props: Props) {
     return (
         <div className="display">
             <h2>Herzlich willkommen in meiner Galerie mit einem Zufallsfoto!</h2>
-            <PictureCard picture={props.pictures[index]} large={true}/>
+            <PictureDetailed picture={props.pictures[index]}/>
         </div>
     )
 }

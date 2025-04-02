@@ -3,7 +3,6 @@ import {Link, useNavigate} from "react-router-dom";
 
 type Props = {
     picture: Picture
-    large: boolean
 }
 
 export function PictureCard(props: Props) {
@@ -17,44 +16,27 @@ export function PictureCard(props: Props) {
         )
     }
 
-    if (props.large) {
-        return (
-            <div className="card">
-                <div className="cardEntry">
-                    <img src={props.picture.imagePath.replace(".jpg", "_800.jpg")}
-                         alt={"Foto: " + props.picture.imagePath}/>
-                    <br/>
-                </div>
-                <div className="cardEntry">
-                    Aufnameort: {props.picture.location.toString()}
-                    <br/>
-                    Datum und Uhrzeit: {props.picture.instant.toString()}
-                </div>
+    return (
+        <div className="card">
+            <div className="cardEntry">
+                <img src={props.picture.imagePath.replace(".jpg", "_205.jpg")}
+                     alt={"Foto: " + props.picture.imagePath}/>
             </div>
-        )
-    } else {
-        return (
-            <div className="card">
-                <div className="cardEntry">
-                    <img src={props.picture.imagePath.replace(".jpg", "_205.jpg")}
-                         alt={"Foto: " + props.picture.imagePath}/>
-                </div>
-                <div className="cardEntry">
-                    <Link to="/picture/{id}"
-                          onClick={(event) => {
-                              event.preventDefault()
-                              navigate("/picture/" + props.picture.id)
-                          }}>Detailansicht
-                    </Link>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <Link to="/picture/{id}"
-                          onClick={(event) => {
-                              event.preventDefault()
-                              navigate("/update_picture/" + props.picture.id)
-                          }}>Bearbeiten
-                    </Link>
-                </div>
+            <div className="cardEntry">
+                <Link to="/picture/{id}"
+                      onClick={(event) => {
+                          event.preventDefault()
+                          navigate("/picture/" + props.picture.id)
+                      }}>Detailansicht
+                </Link>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <Link to="/picture/{id}"
+                      onClick={(event) => {
+                          event.preventDefault()
+                          navigate("/update_picture/" + props.picture.id)
+                      }}>Bearbeiten
+                </Link>
             </div>
-        )
-    }
+        </div>
+    )
 }

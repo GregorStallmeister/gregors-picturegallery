@@ -93,7 +93,7 @@ function App() {
                 <Route path={"/"} element={<Home pictures={pictures}/>}/>
                 <Route path={"/home"} element={<Home pictures={pictures}/>}/>
                 <Route path={"/add"} element={<AddPicture insertPicture={insertPicture}/>}/>
-                <Route path={"/pictures"} element={<DisplayPictures pictures={pictures}/>}/>
+                <Route path={"/pictures"} element={<DisplayPictures pictures={pictures} user={user}/>}/>
                 <Route path={"/picture/:id"} element={<DisplaySinglePicture/>}/>
                 <Route path={"/update_picture/:id"} element={<UpdatePicture
                     updatePicture={updatePicture} deletePicture={deletePicture}/>}/>
