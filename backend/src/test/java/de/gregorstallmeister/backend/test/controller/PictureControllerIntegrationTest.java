@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -29,6 +30,7 @@ class PictureControllerIntegrationTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser
     void postPicture() {
         // given: the class members, nothing else
 
@@ -61,6 +63,7 @@ class PictureControllerIntegrationTest {
 
     @Test
     @DirtiesContext
+    // This test must run without a MockUser, because get does not require a login.
     void getAllPictures() {
         // given
         Picture picture1 = new Picture(
@@ -78,7 +81,7 @@ class PictureControllerIntegrationTest {
 
         // when + then
         try {
-            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture"))
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture_get"))
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             [
@@ -103,12 +106,13 @@ class PictureControllerIntegrationTest {
 
     @Test
     @DirtiesContext
+    // This test must run without a MockUser, because get does not require a login.
     void getAllPicturesWhenNoneIsPresent() {
         // given: Nothing
 
         // when + then
         try {
-            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture"))
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture_get"))
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().json("""                         
                                 []
@@ -120,6 +124,7 @@ class PictureControllerIntegrationTest {
 
     @Test
     @DirtiesContext
+    // This test must run without a MockUser, because get does not require a login.
     void getPictureById() {
         // given
         Picture picture = new Picture(
@@ -131,7 +136,7 @@ class PictureControllerIntegrationTest {
 
         // when + then
         try {
-            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture/testID-123"))
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture_get/testID-123"))
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().json("""                          
                             {
@@ -148,12 +153,13 @@ class PictureControllerIntegrationTest {
 
     @Test
     @DirtiesContext
+    // This test must run without a MockUser, because get does not require a login.
     void getPictureByIdWhenNotPresent() {
         // given: no Picture, nothing else but the class members
 
         // when + then
         try {
-            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture/testID-123"))
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture_get/testID-123"))
                     .andExpect(MockMvcResultMatchers.status().isNotFound())
                     .andExpect(MockMvcResultMatchers.content().string(""));
         } catch (Exception e) {
@@ -163,6 +169,7 @@ class PictureControllerIntegrationTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser
     void updatePicture() {
         // given
         String id = "testID-123";
@@ -200,6 +207,7 @@ class PictureControllerIntegrationTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser
     void updatePictureWhenNotPresent() {
         // given: No picture, nothing but the class members
 
@@ -228,6 +236,7 @@ class PictureControllerIntegrationTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser
     void deletePicture() {
         // given
         String id = "test-1234";
@@ -250,6 +259,7 @@ class PictureControllerIntegrationTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser
     void deletePictureWhenNotPresent() {
         // given
         String id = "test-1234";

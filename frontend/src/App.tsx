@@ -16,7 +16,7 @@ function App() {
     const [pictures, setPictures] = useState<Picture[]>([])
 
     function loadPictures() {
-        axios.get("/api/picture")
+        axios.get("/api/picture_get")
             .then((response) => {
                 console.log("Pictures loaded!")
                 console.log(response)
@@ -28,9 +28,20 @@ function App() {
             })
     }
 
+    function loadUser() {
+        axios.get("api/auth/me")
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(errorResponse => {
+                console.log(errorResponse)
+            })
+    }
+
     useEffect(() => {
         console.log("Mounting App!")
         loadPictures()
+        loadUser()
     }, [])
 
     function insertPicture(pictureInsertDto: PictureInsertDto) {

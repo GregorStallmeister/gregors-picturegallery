@@ -12,7 +12,7 @@ export function DisplaySinglePicture() {
     const [picture, setPicture] = useState<Picture>()
 
     useEffect(() => {
-        axios.get("/api/picture/" + id)
+        axios.get("/api/picture_get/" + id)
             .then((response) => {
                 setPicture(response.data)
                 console.log("Single Picture loaded!")
