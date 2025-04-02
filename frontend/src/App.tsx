@@ -10,6 +10,7 @@ import {useEffect, useState} from "react";
 import {DisplaySinglePicture} from "./components/DisplaySinglePicture.tsx";
 import {UpdatePicture} from "./components/UpdatePicture.tsx";
 import {PictureInsertDto} from "./model/PictureInsertDto.tsx";
+import {ProtectedRoutes} from "./components/ProtectedRoutes.tsx";
 
 function App() {
 
@@ -92,11 +93,14 @@ function App() {
             <Routes>
                 <Route path={"/"} element={<Home pictures={pictures}/>}/>
                 <Route path={"/home"} element={<Home pictures={pictures}/>}/>
-                <Route path={"/add"} element={<AddPicture insertPicture={insertPicture}/>}/>
                 <Route path={"/pictures"} element={<DisplayPictures pictures={pictures} user={user}/>}/>
                 <Route path={"/picture/:id"} element={<DisplaySinglePicture/>}/>
-                <Route path={"/update_picture/:id"} element={<UpdatePicture
-                    updatePicture={updatePicture} deletePicture={deletePicture}/>}/>
+
+                <Route element={<ProtectedRoutes user={user}/>}>
+                    <Route path={"/add"} element={<AddPicture insertPicture={insertPicture}/>}/>
+                    <Route path={"/update_picture/:id"} element={<UpdatePicture
+                        updatePicture={updatePicture} deletePicture={deletePicture}/>}/>
+                </Route>
             </Routes>
         </div>
     )
