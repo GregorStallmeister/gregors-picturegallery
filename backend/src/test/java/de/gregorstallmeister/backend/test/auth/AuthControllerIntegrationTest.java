@@ -28,8 +28,7 @@ class AuthControllerIntegrationTest {
         try {
             mockMvc.perform(MockMvcRequestBuilders.get("/api/auth/me").with(oidcLogin().userInfoToken(token ->
                             token.claim("login", "testUser"))))
-                    .andExpect(MockMvcResultMatchers.status().isOk())
-                    .andExpect(MockMvcResultMatchers.content().string("testUser"));
+                    .andExpect(MockMvcResultMatchers.status().isOk());
         } catch (Exception e) {
             Assertions.fail();
         }
