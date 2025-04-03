@@ -30,13 +30,13 @@ export function AddPicture(props: Props) {
                 navigate("/pictures")
             })}>
                 <input name="imagePath" placeholder={"Foto URL"} value={pictureInsertDto.imagePath} size={80}
-                       onChange={event => updatePicture(event)}/>
+                       required={true} onChange={event => updatePicture(event)}/>
                 <br/>&nbsp;<br/>
                 <input name="location" placeholder={"Aufnahmeort"} value={pictureInsertDto.location} size={80}
-                       onChange={event => updatePicture(event)}/>
+                       required={true} onChange={event => updatePicture(event)}/>
                 <br/>&nbsp;<br/>
                 <input name="instant" placeholder={"Datum und Uhrzeit"} value={pictureInsertDto.instant} size={80}
-                       onChange={event => updatePicture(event)}/>
+                       required={true} onChange={event => updatePicture(event)}/>
                 <br/>&nbsp;<br/>
                 <button>Speichern</button>
             </form>
