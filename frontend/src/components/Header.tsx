@@ -1,7 +1,8 @@
 import {Link} from "react-router-dom";
+import {AppUser} from "../model/AppUser.tsx";
 
 type Props = {
-    user: string | null | undefined
+    user: AppUser | null | undefined
 }
 
 export function Header(props: Props) {
@@ -50,6 +51,8 @@ export function Header(props: Props) {
             <Link to="/pictures">Fotos ansehen</Link>
             &nbsp;&nbsp;+++&nbsp;&nbsp;
             <Link to="/add">Foto hinzuf&uuml;gen</Link>
+            &nbsp;&nbsp;+++&nbsp;&nbsp;
+            <label>Eingeloggt als: {props.user.username}</label>
             &nbsp;&nbsp;+++&nbsp;&nbsp;
             <button onClick={logout}>Logout</button>
             <hr/>
