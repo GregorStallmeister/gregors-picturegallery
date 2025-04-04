@@ -30,7 +30,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         return appUser;
     }
 
-    private AppUser saveUser(OAuth2User oAuth2User) {
+    public AppUser saveUser(OAuth2User oAuth2User) {
         return appUserRepository.save(AppUser.builder()
                 .id(oAuth2User.getName())
                 .username(oAuth2User.getAttributes().get("login").toString())
