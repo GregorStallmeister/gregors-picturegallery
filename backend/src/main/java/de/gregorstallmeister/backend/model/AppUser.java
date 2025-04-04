@@ -17,6 +17,7 @@ public class AppUser implements OAuth2User {
     String id;
     String username;
     String role;
+    List<String> favoritePicturesIds;
 
     @Transient
     private Map<String, Object> attributes;
@@ -34,10 +35,13 @@ public class AppUser implements OAuth2User {
         this.role = role;
     }
 
-    public AppUser(String id, String username, String role, Map<String, Object> attributes, List<SimpleGrantedAuthority> simpleGrantedAuthorities) {
+    public AppUser(String id, String username, String role, List<String> favoritePicturesIds,
+                   Map<String, Object> attributes, List<SimpleGrantedAuthority> simpleGrantedAuthorities) {
         this.id = id;
         this.username = username;
         this.role = role;
+        this.favoritePicturesIds = favoritePicturesIds;
+
         this.attributes = attributes;
         this.simpleGrantedAuthorities = simpleGrantedAuthorities;
     }

@@ -52,19 +52,22 @@ class AppUserTest {
         String id = "test-id-1234";
         String username = "test-name";
         String role = "test-role";
+        ArrayList<String> favoritePicturesIds = new ArrayList<>();
+        favoritePicturesIds.add("test-pictureId");
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("test-id", "test-value");
         List<SimpleGrantedAuthority> simpleGrantedAuthorityList = new ArrayList<>();
         simpleGrantedAuthorityList.add(new SimpleGrantedAuthority("ADMIN"));
 
         // when
-        AppUser appUser = new AppUser(id, username, role, attributes, simpleGrantedAuthorityList);
+        AppUser appUser = new AppUser(id, username, role, favoritePicturesIds, attributes, simpleGrantedAuthorityList);
 
         // then
         assertEquals(id, appUser.getId());
         assertEquals(id, appUser.getName());
         assertEquals(username, appUser.getUsername());
         assertEquals(role, appUser.getRole());
+        assertEquals(favoritePicturesIds, appUser.getFavoritePicturesIds());
         assertEquals(attributes, appUser.getAttributes());
         assertEquals(simpleGrantedAuthorityList, appUser.getAuthorities());
     }
