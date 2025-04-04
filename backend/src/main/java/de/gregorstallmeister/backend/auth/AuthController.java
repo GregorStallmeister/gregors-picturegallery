@@ -22,7 +22,7 @@ public class AuthController {
             return appUser;
         }
         else {
-            return null;
+            throw new CustomAuthenticationException("logged in user is no AppUser!");
         }
     }
 }
