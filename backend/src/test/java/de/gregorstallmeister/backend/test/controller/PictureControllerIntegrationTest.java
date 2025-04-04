@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.Instant;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
@@ -63,7 +64,7 @@ class PictureControllerIntegrationTest {
 
     @Test
     @DirtiesContext
-    // This test must run without a MockUser, because get does not require a login.
+        // This test must run without a MockUser, because get does not require a login.
     void getAllPictures() {
         // given
         Picture picture1 = new Picture(
@@ -106,7 +107,7 @@ class PictureControllerIntegrationTest {
 
     @Test
     @DirtiesContext
-    // This test must run without a MockUser, because get does not require a login.
+        // This test must run without a MockUser, because get does not require a login.
     void getAllPicturesWhenNoneIsPresent() {
         // given: Nothing
 
@@ -124,7 +125,7 @@ class PictureControllerIntegrationTest {
 
     @Test
     @DirtiesContext
-    // This test must run without a MockUser, because get does not require a login.
+        // This test must run without a MockUser, because get does not require a login.
     void getPictureById() {
         // given
         Picture picture = new Picture(
@@ -153,7 +154,7 @@ class PictureControllerIntegrationTest {
 
     @Test
     @DirtiesContext
-    // This test must run without a MockUser, because get does not require a login.
+        // This test must run without a MockUser, because get does not require a login.
     void getPictureByIdWhenNotPresent() {
         // given: no Picture, nothing else but the class members
 
@@ -236,7 +237,6 @@ class PictureControllerIntegrationTest {
 
     @Test
     @DirtiesContext
-    @WithMockUser
     void deletePicture() {
         // given
         String id = "test-1234";
@@ -249,7 +249,8 @@ class PictureControllerIntegrationTest {
 
         // when + then
         try {
-            mockMvc.perform(MockMvcRequestBuilders.delete("/api/picture/" + id))
+            mockMvc.perform(MockMvcRequestBuilders.delete("/api/picture/" + id)
+                            .with(user("admin").roles("ADMIN")))
                     .andExpect(MockMvcResultMatchers.status().isNoContent())
                     .andExpect(MockMvcResultMatchers.content().string(""));
         } catch (Exception e) {
@@ -266,7 +267,8 @@ class PictureControllerIntegrationTest {
 
         // when + then
         try {
-            mockMvc.perform(MockMvcRequestBuilders.delete("/api/picture/" + id))
+            mockMvc.perform(MockMvcRequestBuilders.delete("/api/picture/" + id)
+                    .with(user("admin").roles("ADMIN")))
                     .andExpect(MockMvcResultMatchers.status().isNotFound())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {
