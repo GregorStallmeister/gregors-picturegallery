@@ -63,8 +63,6 @@ class CustomOAuth2UserServiceTest {
 
         // when + then
         assertThrows(OAuth2AuthenticationException.class, () ->
-        {
-            customOAuth2UserService.loadUser(oAuth2UserRequest);
-        });
+                customOAuth2UserService.loadUser(oAuth2UserRequest));
     }
 }
