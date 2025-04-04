@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.time.Instant;
@@ -60,10 +61,10 @@ class CustomOAuth2UserServiceTest {
         OAuth2UserRequest oAuth2UserRequest = new OAuth2UserRequest(clientRegistration, oAuth2AccessToken);
         CustomOAuth2UserService customOAuth2UserService = new CustomOAuth2UserService(appUserRepository);
 
-        // when
-        OAuth2User appUser = customOAuth2UserService.loadUser(oAuth2UserRequest);
-
-        // then
-        assertNotNull(appUser);
+        // when + then
+        assertThrows(OAuth2AuthenticationException.class, () ->
+        {
+            customOAuth2UserService.loadUser(oAuth2UserRequest);
+        });
     }
 }
