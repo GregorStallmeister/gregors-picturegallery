@@ -2,7 +2,6 @@ package de.gregorstallmeister.backend.test.auth;
 
 import de.gregorstallmeister.backend.model.AppUser;
 import de.gregorstallmeister.backend.model.AppUserRoles;
-import de.gregorstallmeister.backend.repository.AppUserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ class AuthControllerIntegrationTest {
 
     @Autowired
     MockMvc mockMvc;
-
-    @Autowired
-    AppUserRepository appUserRepository;
 
     @Test
     @DirtiesContext
@@ -44,7 +40,6 @@ class AuthControllerIntegrationTest {
                             }
                             """));
         } catch (Exception e) {
-            System.out.println(e.toString());
             Assertions.fail();
         }
     }
