@@ -1,9 +1,10 @@
 import {Picture} from "../model/Picture.tsx";
 import {Link, useNavigate} from "react-router-dom";
+import {AppUser} from "../model/AppUser.tsx";
 
 type Props = {
     picture: Picture
-    user: string | null | undefined
+    user: AppUser | null | undefined
 }
 
 export function PictureCard(props: Props) {

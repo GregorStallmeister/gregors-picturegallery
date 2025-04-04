@@ -1,9 +1,10 @@
 import {PictureCard} from "./PictureCard.tsx";
 import {Picture} from "../model/Picture.tsx";
+import {AppUser} from "../model/AppUser.tsx";
 
 type Props = {
     pictures: Picture[]
-    user: string | null | undefined
+    user: AppUser | null | undefined
 }
 
 export function DisplayPictures(props: Props) {

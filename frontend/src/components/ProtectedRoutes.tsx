@@ -1,7 +1,8 @@
 import {Navigate, Outlet} from "react-router-dom";
+import {AppUser} from "../model/AppUser.tsx";
 
 type Props = {
-    user: string | null | undefined
+    user: AppUser | null | undefined
 }
 
 export function ProtectedRoutes(props: Props) {

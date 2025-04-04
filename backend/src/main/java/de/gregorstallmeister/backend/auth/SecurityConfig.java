@@ -1,8 +1,10 @@
 package de.gregorstallmeister.backend.auth;
 
+import de.gregorstallmeister.backend.model.AppUserRoles;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -33,6 +35,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/picture_get").permitAll()
                         .requestMatchers("/api/picture_get/{id}").permitAll()
                         .requestMatchers("/api/auth/me").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/api/picture/{id}").hasRole(AppUserRoles.ADMIN.toString())
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))

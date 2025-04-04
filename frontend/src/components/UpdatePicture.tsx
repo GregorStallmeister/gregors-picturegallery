@@ -43,13 +43,13 @@ export function UpdatePicture(props: Props) {
                     navigate("/pictures")
                 })}>
                     <input name="imagePath" placeholder={"Foto URL"} value={picture.imagePath} size={80}
-                           onChange={event => updatePicture(event)}/>
+                           required={true} onChange={event => updatePicture(event)}/>
                     <br/>&nbsp;<br/>
                     <input name="location" placeholder={"Aufnahmeort"} value={picture.location} size={80}
-                           onChange={event => updatePicture(event)}/>
+                           required={true} onChange={event => updatePicture(event)}/>
                     <br/>&nbsp;<br/>
                     <input name="instant" placeholder={"Datum und Uhrzeit"} value={picture.instant} size={80}
-                           onChange={event => updatePicture(event)}/>
+                           required={true} onChange={event => updatePicture(event)}/>
                     <br/>&nbsp;<br/>
                     <button type="submit">Speichern</button>
                     &nbsp;&nbsp;&nbsp;

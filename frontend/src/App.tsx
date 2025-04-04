@@ -11,11 +11,12 @@ import {DisplaySinglePicture} from "./components/DisplaySinglePicture.tsx";
 import {UpdatePicture} from "./components/UpdatePicture.tsx";
 import {PictureInsertDto} from "./model/PictureInsertDto.tsx";
 import {ProtectedRoutes} from "./components/ProtectedRoutes.tsx";
+import {AppUser} from "./model/AppUser.tsx";
 
 function App() {
 
     const [pictures, setPictures] = useState<Picture[]>([])
-    const [user, setUser] = useState<string | null | undefined>(undefined)
+    const [user, setUser] = useState<AppUser | null | undefined>(undefined)
 
     function loadPictures() {
         axios.get("/api/picture_get")

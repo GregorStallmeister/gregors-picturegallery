@@ -1,6 +1,7 @@
 package de.gregorstallmeister.backend.auth;
 
 import de.gregorstallmeister.backend.helpers.CustomAuthenticationException;
+import de.gregorstallmeister.backend.model.AppUser;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     @GetMapping("/me")
-    public String getMe(@AuthenticationPrincipal OAuth2User user) {
-        if (user == null) {
+    public AppUser getMe(@AuthenticationPrincipal OAuth2User oAuth2User) {
+        if (oAuth2User == null) {
             throw new CustomAuthenticationException("User is not logged in!");
         }
 
-        return user.getAttributes().get("login").toString();
+        if (oAuth2User instanceof AppUser appUser) {
+            return appUser;
+        }
+        else {
+            throw new CustomAuthenticationException("logged in user is no AppUser!");
+        }
     }
 }
