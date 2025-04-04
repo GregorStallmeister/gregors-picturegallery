@@ -21,7 +21,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
-        return appUserRepository.findById(oAuth2User.getName()) /* getName() liefert die ID des GitHub-Users */
+        return appUserRepository.findById(oAuth2User.getName()) /* getName() gives the ID of the GitHub user */
                 .orElseGet(() -> saveUser(oAuth2User));
     }
 

@@ -1,6 +1,7 @@
 package de.gregorstallmeister.backend.test.model;
 
 import de.gregorstallmeister.backend.model.AppUser;
+import de.gregorstallmeister.backend.model.AppUserRoles;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -19,7 +20,7 @@ class AppUserTest {
         // given
         String id = "test-id-1234";
         String username = "test-name";
-        String role = "test-role";
+        AppUserRoles role = AppUserRoles.USER;
 
         // when
         AppUser appUser = new AppUser(id, username, role);
@@ -51,7 +52,7 @@ class AppUserTest {
         // given
         String id = "test-id-1234";
         String username = "test-name";
-        String role = "test-role";
+        AppUserRoles role = AppUserRoles.ADMIN;
         ArrayList<String> favoritePicturesIds = new ArrayList<>();
         favoritePicturesIds.add("test-pictureId");
         Map<String, Object> attributes = new HashMap<>();

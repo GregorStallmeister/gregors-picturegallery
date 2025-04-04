@@ -16,7 +16,7 @@ import java.util.Map;
 public class AppUser implements OAuth2User {
     String id;
     String username;
-    String role;
+    AppUserRoles role;
     List<String> favoritePicturesIds;
 
     @Transient
@@ -29,13 +29,13 @@ public class AppUser implements OAuth2User {
 
     }
 
-    public AppUser(String id, String username, String role) {
+    public AppUser(String id, String username, AppUserRoles role) {
         this.id = id;
         this.username = username;
         this.role = role;
     }
 
-    public AppUser(String id, String username, String role, List<String> favoritePicturesIds,
+    public AppUser(String id, String username, AppUserRoles role, List<String> favoritePicturesIds,
                    Map<String, Object> attributes, List<SimpleGrantedAuthority> simpleGrantedAuthorities) {
         this.id = id;
         this.username = username;
