@@ -15,7 +15,7 @@ export function PictureDetailed(props: Props) {
         if (props.appUser !== null && props.appUser !== undefined && props.appUser.favoritePicturesIds.indexOf(props.picture.id) > -1) {
             setBoxChecked(true)
         }
-    }, []);
+    }, [props.appUser]);
 
     if (props.picture === undefined) {
         return (
