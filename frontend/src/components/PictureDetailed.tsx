@@ -8,12 +8,14 @@ type Props = {
     switchFavorite(id: string, boxChecked: boolean): void
 }
 
-export function PictureDetailed(props: Props) {
+export function PictureDetailed( props: Readonly<Props>) {
     const [boxChecked, setBoxChecked] = useState<boolean>(false)
 
     useEffect(() => {
         if (props.appUser !== null && props.appUser !== undefined
             && props.picture !== null && props.picture !== undefined
+            && props.appUser.favoritePicturesIds !== null
+            && props.appUser.favoritePicturesIds !== undefined
             && props.appUser.favoritePicturesIds.indexOf(props.picture.id) > -1) {
             setBoxChecked(true)
         }
@@ -38,8 +40,9 @@ export function PictureDetailed(props: Props) {
                 <div className="cardEntry">
                     {props.picture.location.toString()}, {props.picture.instant.toString()}
                     &nbsp;&nbsp;
-                    <input type="checkbox" id="favorite" value="favorite" disabled={true}/>
-                    <label>Einloggen, um dieses Foto als Favorit festlegen oder abwählen zu können</label>
+                    <label>
+                        <input type='checkbox' id='favorite' value='favorite' disabled={true}/>Einloggen,&nbsp;um&nbsp;dieses&nbsp;Foto&nbsp;als&nbsp;Favorit&nbsp;festlegen&nbsp;oder&nbsp;abwählen&nbsp;zu&nbsp;können
+                    </label>
                 </div>
             </div>
         )
@@ -55,11 +58,13 @@ export function PictureDetailed(props: Props) {
             <div className="cardEntry">
                 {props.picture.location.toString()}, {props.picture.instant.toString()}
                 &nbsp;&nbsp;
-                <input type="checkbox" id="favorite" value="favorite" checked={boxChecked} onChange={
+                <label><input type="checkbox" id="favorite" value="favorite" checked={boxChecked} onChange={
                     event => {
                         setBoxChecked(event.target.checked)
+                        console.log(event.target.checked)
+                        props.switchFavorite(props.picture.id, event.target.checked)
                     }
-                }/><label>Favorit</label>
+                }/>Favorit</label>
             </div>
         </div>
     )

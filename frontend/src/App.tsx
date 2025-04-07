@@ -16,7 +16,7 @@ import {AppUser} from "./model/AppUser.tsx";
 function App() {
 
     const [pictures, setPictures] = useState<Picture[]>([])
-    const [user, setUser] = useState<AppUser | null | undefined>(undefined)
+    const [appUser, setAppUser] = useState<AppUser | null | undefined>(undefined)
 
     function loadPictures() {
         axios.get("/api/picture_get")
@@ -34,12 +34,13 @@ function App() {
     function loadUser() {
         axios.get("api/auth/me")
             .then(response => {
-                console.log(response.data)
-                setUser(response.data)
+                console.log("User loaded!")
+                console.log("Response was: " + response.data)
+                setAppUser(response.data)
             })
             .catch(errorResponse => {
-                console.log(errorResponse)
-                setUser(null)
+                console.log("Error while loading user: " + errorResponse)
+                setAppUser(null)
             })
     }
 
@@ -90,18 +91,37 @@ function App() {
 
     function switchFavorite(id: string, boxChecked: boolean) {
         console.log(id + ", " + boxChecked)
+
+        if (appUser === null || appUser === undefined) {
+            console.log("Shall switch favorite, but no user logged in!")
+            return
+        }
+
+        if (boxChecked) {
+            appUser.favoritePicturesIds.push(id);
+        } else {
+            const index = appUser.favoritePicturesIds.indexOf(id)
+            if (index > -1) {
+                appUser.favoritePicturesIds.splice(index, 1)
+            }
+        }
+
+        console.log(appUser.favoritePicturesIds)
     }
 
     return (
         <div className="app">
-            <Header appUser={user}/>
+            <Header appUser={appUser}/>
             <Routes>
-                <Route path={"/"} element={<Home pictures={pictures} appUser={user} switchFavorite={switchFavorite}/>}/>
-                <Route path={"/home"} element={<Home pictures={pictures} appUser={user} switchFavorite={switchFavorite}/>}/>
-                <Route path={"/pictures"} element={<DisplayPictures pictures={pictures} user={user}/>}/>
-                <Route path={"/picture/:id"} element={<DisplaySinglePicture appUser={user} switchFavorite={switchFavorite}/>}/>
+                <Route path={"/"}
+                       element={<Home pictures={pictures} appUser={appUser} switchFavorite={switchFavorite}/>}/>
+                <Route path={"/home"}
+                       element={<Home pictures={pictures} appUser={appUser} switchFavorite={switchFavorite}/>}/>
+                <Route path={"/pictures"} element={<DisplayPictures pictures={pictures} user={appUser}/>}/>
+                <Route path={"/picture/:id"}
+                       element={<DisplaySinglePicture appUser={appUser} switchFavorite={switchFavorite}/>}/>
 
-                <Route element={<ProtectedRoutes user={user}/>}>
+                <Route element={<ProtectedRoutes user={appUser}/>}>
                     <Route path={"/add"} element={<AddPicture insertPicture={insertPicture}/>}/>
                     <Route path={"/update_picture/:id"} element={<UpdatePicture
                         updatePicture={updatePicture} deletePicture={deletePicture}/>}/>

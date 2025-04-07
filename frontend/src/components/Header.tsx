@@ -5,7 +5,7 @@ type Props = {
     appUser: AppUser | null | undefined
 }
 
-export function Header(props: Props) {
+export function Header(props: Readonly<Props>) {
 
     function login() {
         // alert("Login")
@@ -54,11 +54,7 @@ export function Header(props: Props) {
                 <Link to="/pictures">Fotos ansehen</Link>
                 &nbsp;&nbsp;+++&nbsp;&nbsp;
                 <Link to="/add">Foto hinzuf&uuml;gen</Link>
-                &nbsp;&nbsp;+++&nbsp;&nbsp;
-                <label>Eingeloggt als Admin: {props.appUser.username}</label>
-                &nbsp;&nbsp;+++&nbsp;&nbsp;
-                <button onClick={logout}>Logout</button>
-                <hr/>
+                &nbsp;&nbsp;+++&nbsp;&nbsp;<label>Eingeloggt als:&nbsp;{props.appUser.username}&nbsp;(Admin)</label>&nbsp;&nbsp;+++&nbsp;&nbsp;<button onClick={logout}>Logout</button><hr/>
             </div>
         )
     }
@@ -70,10 +66,7 @@ export function Header(props: Props) {
                 <Link to="/home">Home</Link>
                 &nbsp;&nbsp;+++&nbsp;&nbsp;
                 <Link to="/pictures">Fotos ansehen</Link>
-                &nbsp;&nbsp;+++&nbsp;&nbsp;
-                <label>Eingeloggt als: {props.appUser.username}</label>
-                &nbsp;&nbsp;+++&nbsp;&nbsp;
-                <button onClick={logout}>Logout</button>
+                &nbsp;&nbsp;+++&nbsp;&nbsp;<label>Eingeloggt als: {props.appUser.username}</label>&nbsp;&nbsp;+++&nbsp;&nbsp;<button onClick={logout}>Logout</button>
                 <hr/>
             </div>
         )
