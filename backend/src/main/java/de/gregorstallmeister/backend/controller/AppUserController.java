@@ -17,7 +17,7 @@ public class AppUserController {
 
     @PutMapping("/user/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public AppUserGetDto updateUser (AppUserInsertDto appUserInsertDto, @PathVariable String id) {
+    public AppUserGetDto updateUser (@RequestBody AppUserInsertDto appUserInsertDto, @PathVariable String id) {
         return AppUserWrapper.wrapUserForGet(appUserService.updateUser(appUserInsertDto, id));
     }
 }
