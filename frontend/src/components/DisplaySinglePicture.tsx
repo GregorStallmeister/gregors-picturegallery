@@ -10,7 +10,7 @@ type Props = {
     switchFavorite(id: string, boxChecked: boolean): void
 }
 
-export function DisplaySinglePicture(props: Props) {
+export function DisplaySinglePicture(props: Readonly<Props>) {
     const location = useLocation()
     console.log("location.pathname: " + location.pathname)
     const id: string = location.pathname.substring(location.pathname.lastIndexOf("/") + 1)
