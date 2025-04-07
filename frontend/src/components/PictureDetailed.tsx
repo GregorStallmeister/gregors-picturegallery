@@ -12,7 +12,9 @@ export function PictureDetailed(props: Props) {
     const [boxChecked, setBoxChecked] = useState<boolean>(false)
 
     useEffect(() => {
-        if (props.appUser !== null && props.appUser !== undefined && props.appUser.favoritePicturesIds.indexOf(props.picture.id) > -1) {
+        if (props.appUser !== null && props.appUser !== undefined
+            && props.picture !== null && props.picture !== undefined
+            && props.appUser.favoritePicturesIds.indexOf(props.picture.id) > -1) {
             setBoxChecked(true)
         }
     }, [props.appUser]);

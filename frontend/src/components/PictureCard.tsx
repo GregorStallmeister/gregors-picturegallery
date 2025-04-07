@@ -37,27 +37,47 @@ export function PictureCard(props: Props) {
         )
     }
 
-    return (
-        <div className="card">
-            <div className="cardEntry">
-                <img src={props.picture.imagePath.replace(".jpg", "_205.jpg")}
-                     alt={"Foto: " + props.picture.imagePath}/>
+    if (props.user.role === "ADMIN") {
+        return (
+            <div className="card">
+                <div className="cardEntry">
+                    <img src={props.picture.imagePath.replace(".jpg", "_205.jpg")}
+                         alt={"Foto: " + props.picture.imagePath}/>
+                </div>
+                <div className="cardEntry">
+                    <Link to="/picture/{id}"
+                          onClick={(event) => {
+                              event.preventDefault()
+                              navigate("/picture/" + props.picture.id)
+                          }}>Detailansicht
+                    </Link>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <Link to="/picture/{id}"
+                          onClick={(event) => {
+                              event.preventDefault()
+                              navigate("/update_picture/" + props.picture.id)
+                          }}>Bearbeiten
+                    </Link>
+                </div>
             </div>
-            <div className="cardEntry">
-                <Link to="/picture/{id}"
-                      onClick={(event) => {
-                          event.preventDefault()
-                          navigate("/picture/" + props.picture.id)
-                      }}>Detailansicht
-                </Link>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <Link to="/picture/{id}"
-                      onClick={(event) => {
-                          event.preventDefault()
-                          navigate("/update_picture/" + props.picture.id)
-                      }}>Bearbeiten
-                </Link>
+        )
+    }
+    else {
+        return (
+            <div className="card">
+                <div className="cardEntry">
+                    <img src={props.picture.imagePath.replace(".jpg", "_205.jpg")}
+                         alt={"Foto: " + props.picture.imagePath}/>
+                </div>
+                <div className="cardEntry">
+                    <Link to="/picture/{id}"
+                          onClick={(event) => {
+                              event.preventDefault()
+                              navigate("/picture/" + props.picture.id)
+                          }}>Detailansicht
+                    </Link>
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }

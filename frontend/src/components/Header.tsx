@@ -71,7 +71,7 @@ export function Header(props: Props) {
                 &nbsp;&nbsp;+++&nbsp;&nbsp;
                 <Link to="/pictures">Fotos ansehen</Link>
                 &nbsp;&nbsp;+++&nbsp;&nbsp;
-                <label>Eingeloggt als User: {props.appUser.username}</label>
+                <label>Eingeloggt als: {props.appUser.username}</label>
                 &nbsp;&nbsp;+++&nbsp;&nbsp;
                 <button onClick={logout}>Logout</button>
                 <hr/>

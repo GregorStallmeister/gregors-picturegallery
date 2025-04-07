@@ -39,6 +39,7 @@ class PictureControllerIntegrationTest {
         try {
             mockMvc.perform(MockMvcRequestBuilders
                             .post("/api/picture")
+                            .with(user("admin").roles("ADMIN"))
                             .contentType(MediaType.APPLICATION_JSON)
                             .content("""
                                      {
@@ -184,6 +185,7 @@ class PictureControllerIntegrationTest {
         // when + then
         try {
             mockMvc.perform(MockMvcRequestBuilders.put("/api/picture/" + id)
+                            .with(user("admin").roles("ADMIN"))
                             .contentType(MediaType.APPLICATION_JSON)
                             .content("""                                    
                                     {
@@ -215,6 +217,7 @@ class PictureControllerIntegrationTest {
         // when + then
         try {
             mockMvc.perform(MockMvcRequestBuilders.put("/api/picture/test123")
+                            .with(user("admin").roles("ADMIN"))
                             .contentType(MediaType.APPLICATION_JSON)
                             .content("""                                    
                                     {
