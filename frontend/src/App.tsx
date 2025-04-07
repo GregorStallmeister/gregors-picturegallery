@@ -107,6 +107,16 @@ function App() {
         }
 
         console.log(appUser.favoritePicturesIds)
+
+        axios.put("/api/user/" + appUser.id, appUser)
+            .then((response) => {
+                    console.log(response)
+                    loadUser()
+                }
+            )
+            .catch((errorResponse) => {
+                console.log(errorResponse)
+            })
     }
 
     return (
