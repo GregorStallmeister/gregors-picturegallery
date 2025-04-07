@@ -19,6 +19,9 @@ export function PictureDetailed( props: Readonly<Props>) {
             && props.appUser.favoritePicturesIds.indexOf(props.picture.id) > -1) {
             setBoxChecked(true)
         }
+        else {
+            setBoxChecked(false)
+        }
     }, [props.appUser, props.picture]);
 
     if (props.picture === undefined) {
