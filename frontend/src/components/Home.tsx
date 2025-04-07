@@ -1,8 +1,11 @@
 import {Picture} from "../model/Picture.tsx";
 import {PictureDetailed} from "./PictureDetailed.tsx";
+import {AppUser} from "../model/AppUser.tsx";
 
 type Props = {
     pictures: Picture[]
+    appUser: AppUser | null | undefined
+    switchFavorite(id: string, boxChecked: boolean): void
 }
 
 export function Home(props: Props) {
@@ -40,7 +43,7 @@ export function Home(props: Props) {
     return (
         <div className="display">
             <h2>Herzlich willkommen in meiner Galerie mit einem Zufallsfoto!</h2>
-            <PictureDetailed picture={props.pictures[index]}/>
+            <PictureDetailed picture={props.pictures[index]} appUser={props.appUser} switchFavorite={props.switchFavorite}/>
         </div>
     )
 }

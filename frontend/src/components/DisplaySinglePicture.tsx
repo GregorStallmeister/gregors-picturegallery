@@ -3,8 +3,14 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import {Picture} from "../model/Picture.tsx";
 import {PictureDetailed} from "./PictureDetailed.tsx";
+import {AppUser} from "../model/AppUser.tsx";
 
-export function DisplaySinglePicture() {
+type Props = {
+    appUser: AppUser | null | undefined
+    switchFavorite(id: string, boxChecked: boolean): void
+}
+
+export function DisplaySinglePicture(props: Props) {
     const location = useLocation()
     console.log("location.pathname: " + location.pathname)
     const id: string = location.pathname.substring(location.pathname.lastIndexOf("/") + 1)
@@ -26,7 +32,7 @@ export function DisplaySinglePicture() {
     {
         return (
             <div>
-                <PictureDetailed picture={picture}/>
+                <PictureDetailed picture={picture} appUser={props.appUser} switchFavorite={props.switchFavorite}/>
             </div>
         )
     }

@@ -88,14 +88,18 @@ function App() {
             })
     }
 
+    function switchFavorite(id: string, boxChecked: boolean) {
+        console.log(id + ", " + boxChecked)
+    }
+
     return (
         <div className="app">
-            <Header user={user}/>
+            <Header appUser={user}/>
             <Routes>
-                <Route path={"/"} element={<Home pictures={pictures}/>}/>
-                <Route path={"/home"} element={<Home pictures={pictures}/>}/>
+                <Route path={"/"} element={<Home pictures={pictures} appUser={user} switchFavorite={switchFavorite}/>}/>
+                <Route path={"/home"} element={<Home pictures={pictures} appUser={user} switchFavorite={switchFavorite}/>}/>
                 <Route path={"/pictures"} element={<DisplayPictures pictures={pictures} user={user}/>}/>
-                <Route path={"/picture/:id"} element={<DisplaySinglePicture/>}/>
+                <Route path={"/picture/:id"} element={<DisplaySinglePicture appUser={user} switchFavorite={switchFavorite}/>}/>
 
                 <Route element={<ProtectedRoutes user={user}/>}>
                     <Route path={"/add"} element={<AddPicture insertPicture={insertPicture}/>}/>
