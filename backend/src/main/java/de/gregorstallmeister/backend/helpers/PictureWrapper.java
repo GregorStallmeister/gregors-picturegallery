@@ -1,4 +1,7 @@
-package de.gregorstallmeister.backend.model;
+package de.gregorstallmeister.backend.helpers;
+
+import de.gregorstallmeister.backend.model.Picture;
+import de.gregorstallmeister.backend.model.PictureGetDto;
 
 import java.util.List;
 

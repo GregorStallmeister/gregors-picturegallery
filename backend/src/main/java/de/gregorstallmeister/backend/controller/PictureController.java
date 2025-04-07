@@ -3,7 +3,7 @@ package de.gregorstallmeister.backend.controller;
 import de.gregorstallmeister.backend.model.Picture;
 import de.gregorstallmeister.backend.model.PictureGetDto;
 import de.gregorstallmeister.backend.model.PictureInsertDto;
-import de.gregorstallmeister.backend.model.PictureWrapper;
+import de.gregorstallmeister.backend.helpers.PictureWrapper;
 import de.gregorstallmeister.backend.service.PictureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
