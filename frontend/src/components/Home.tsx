@@ -8,7 +8,7 @@ type Props = {
     switchFavorite(id: string, boxChecked: boolean): void
 }
 
-export function Home(props: Props) {
+export function Home(props: Readonly<Props>) {
 
     // SonarQube identifies the follwing code as a security hotspot:
     // const index: number = Math.floor(Math.random() * (props.pictures.length - 1))
@@ -22,9 +22,9 @@ export function Home(props: Props) {
     let randomString: string = crypto.randomUUID()
     console.log(randomString)
     const stringsToReplace: string[] = ["-", "a", "b", "c", "d", "e", "f"]
-    for (let i: number = 0; i < stringsToReplace.length; i++) {
-        while (randomString.indexOf(stringsToReplace[i]) > -1) {
-            randomString = randomString.replace(stringsToReplace[i], "")
+    for (const element of stringsToReplace) {
+        while (randomString.indexOf(element) > -1) {
+            randomString = randomString.replace(element, "")
         }
     }
     console.log(randomString)
