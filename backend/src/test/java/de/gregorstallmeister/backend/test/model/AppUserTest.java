@@ -33,6 +33,26 @@ class AppUserTest {
     }
 
     @Test
+    void constructorTestAllDatabaseArgs() {
+        // given
+        String id = "test-id-1234";
+        String username = "test-name";
+        AppUserRoles role = AppUserRoles.USER;
+        ArrayList<String> favoritePicturesIds = new ArrayList<>();
+        favoritePicturesIds.add("test-pictureId");
+
+        // when
+        AppUser appUser = new AppUser(id, username, role, favoritePicturesIds);
+
+        // then
+        assertEquals(id, appUser.getId());
+        assertEquals(id, appUser.getName());
+        assertEquals(username, appUser.getUsername());
+        assertEquals(role, appUser.getRole());
+        assertEquals(favoritePicturesIds, appUser.getFavoritePicturesIds());
+    }
+
+    @Test
     void constructorNoArgsTest() {
         // given: no args
 
