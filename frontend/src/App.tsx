@@ -32,7 +32,7 @@ function App() {
     }
 
     function loadUser() {
-        axios.get("api/auth/me")
+        axios.get("/api/auth/me")
             .then(response => {
                 console.log("User loaded!")
                 console.log("Response was: " + response.data)
