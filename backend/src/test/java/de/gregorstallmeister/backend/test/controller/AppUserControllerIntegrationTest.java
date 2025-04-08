@@ -93,7 +93,7 @@ class AppUserControllerIntegrationTest {
                     .andExpect(MockMvcResultMatchers.status().isNotFound())
                     .andExpect(MockMvcResultMatchers.content().json("""
                                     {
-                                      "message": "An error occurred: User to update with id test1234 is not present in database!"                                     
+                                      "message": "An error occurred: User to update with id test1234 is not present in database!"
                                     }
                             """))
                     .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty());
