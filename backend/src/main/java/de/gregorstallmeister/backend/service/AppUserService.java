@@ -25,7 +25,7 @@ public class AppUserService {
             return appUserUpdated;
         }
         else {
-            throw new NoSuchElementException("User to update is not present in database!");
+            throw new NoSuchElementException("User to update with id " + id + " is not present in database!");
         }
     }
 
