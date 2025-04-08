@@ -71,6 +71,28 @@ class AuthControllerIntegrationTest {
 
     @Test
     @DirtiesContext
+    void getMeUserNotInDatabase() {
+        // given: nothing but the class members
+        String id = "123456";
+        AppUser appUser = new AppUser(id, "test-name", AppUserRoles.USER);
+
+        // when + then
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/auth/me").with(oauth2Login().oauth2User(appUser)))
+                    .andExpect(MockMvcResultMatchers.status().isUnauthorized())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                              "message": "An error occurred: Error while loading user from database!"
+                            }
+                            """))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty());
+        } catch (Exception e) {
+            Assertions.fail();
+        }
+    }
+
+    @Test
+    @DirtiesContext
     void getMeWhenNoUserLoggedIn() {
         // given: nothing but the class members
 
