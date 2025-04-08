@@ -7,10 +7,10 @@ type Props = {
     user: AppUser | null | undefined
 }
 
-export function PictureCard(props: Props) {
+export function PictureCard(props: Readonly<Props>) {
     const navigate = useNavigate()
 
-    if (props === undefined || props.picture === undefined) {
+    if (props?.picture === undefined) {
         return (
             <div>
                 ... lade Foto
@@ -18,7 +18,7 @@ export function PictureCard(props: Props) {
         )
     }
 
-    if (props.user === null || props.user === undefined) {
+    if (props.user === null || props.user === undefined || props.user.role !== "ADMIN") {
         return (
             <div className="card">
                 <div className="cardEntry">

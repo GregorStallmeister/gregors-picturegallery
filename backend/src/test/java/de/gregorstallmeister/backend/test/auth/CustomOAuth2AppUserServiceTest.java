@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class CustomOAuth2UserServiceTest {
+class CustomOAuth2AppUserServiceTest {
 
     @Autowired
     AppUserRepository appUserRepository;

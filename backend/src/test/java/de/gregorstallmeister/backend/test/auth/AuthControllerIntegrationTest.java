@@ -2,6 +2,7 @@ package de.gregorstallmeister.backend.test.auth;
 
 import de.gregorstallmeister.backend.model.AppUser;
 import de.gregorstallmeister.backend.model.AppUserRoles;
+import de.gregorstallmeister.backend.repository.AppUserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 
 @SpringBootTest
@@ -21,12 +21,16 @@ class AuthControllerIntegrationTest {
     @Autowired
     MockMvc mockMvc;
 
+    @Autowired
+    AppUserRepository appUserRepository;
+
     @Test
     @DirtiesContext
     void getMe() {
         // given: nothing but the class members
         String id = "123456";
         AppUser appUser = new AppUser(id, "test-name", AppUserRoles.USER);
+        appUserRepository.save(appUser);
 
         // when + then
         try {

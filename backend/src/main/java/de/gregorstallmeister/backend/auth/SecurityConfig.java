@@ -36,6 +36,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/picture_get/{id}").permitAll()
                         .requestMatchers("/api/auth/me").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/picture/{id}").hasRole(AppUserRoles.ADMIN.toString())
+                        .requestMatchers(HttpMethod.PUT, "/api/picture/{id}").hasRole(AppUserRoles.ADMIN.toString())
+                        .requestMatchers(HttpMethod.POST, "/api/picture").hasRole(AppUserRoles.ADMIN.toString())
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))

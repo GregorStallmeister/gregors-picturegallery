@@ -35,6 +35,13 @@ public class AppUser implements OAuth2User {
         this.role = role;
     }
 
+    public AppUser(String id, String username, AppUserRoles role, List<String> favoritePicturesIds) {
+        this.id = id;
+        this.username = username;
+        this.role = role;
+        this.favoritePicturesIds = favoritePicturesIds;
+    }
+
     public AppUser(String id, String username, AppUserRoles role, List<String> favoritePicturesIds,
                    Map<String, Object> attributes, List<SimpleGrantedAuthority> simpleGrantedAuthorities) {
         this.id = id;

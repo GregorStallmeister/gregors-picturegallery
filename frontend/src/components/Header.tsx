@@ -2,10 +2,10 @@ import {Link} from "react-router-dom";
 import {AppUser} from "../model/AppUser.tsx";
 
 type Props = {
-    user: AppUser | null | undefined
+    appUser: AppUser | null | undefined
 }
 
-export function Header(props: Props) {
+export function Header(props: Readonly<Props>) {
 
     function login() {
         // alert("Login")
@@ -27,7 +27,9 @@ export function Header(props: Props) {
         window.open(host + '/logout', '_self')
     }
 
-    if (props.user === null || props.user === undefined) {
+    console.log("Header has following data: " + props.appUser?.id + ", " + props.appUser?.username + ", " + props.appUser?.role)
+
+    if (props.appUser === null || props.appUser === undefined) {
         return (
             <div className="header">
                 Gregors Fotogalerie
@@ -42,20 +44,31 @@ export function Header(props: Props) {
         )
     }
 
-    return (
-        <div className="header">
-            Gregors Fotogalerie
-            &nbsp;&nbsp;+++&nbsp;&nbsp;
-            <Link to="/home">Home</Link>
-            &nbsp;&nbsp;+++&nbsp;&nbsp;
-            <Link to="/pictures">Fotos ansehen</Link>
-            &nbsp;&nbsp;+++&nbsp;&nbsp;
-            <Link to="/add">Foto hinzuf&uuml;gen</Link>
-            &nbsp;&nbsp;+++&nbsp;&nbsp;
-            <label>Eingeloggt als: {props.user.username}</label>
-            &nbsp;&nbsp;+++&nbsp;&nbsp;
-            <button onClick={logout}>Logout</button>
-            <hr/>
-        </div>
-    )
+    if (props.appUser.role === "ADMIN") {
+        return (
+            <div className="header">
+                Gregors Fotogalerie
+                &nbsp;&nbsp;+++&nbsp;&nbsp;
+                <Link to="/home">Home</Link>
+                &nbsp;&nbsp;+++&nbsp;&nbsp;
+                <Link to="/pictures">Fotos ansehen</Link>
+                &nbsp;&nbsp;+++&nbsp;&nbsp;
+                <Link to="/add">Foto hinzuf&uuml;gen</Link>
+                &nbsp;&nbsp;+++&nbsp;&nbsp;<label>Eingeloggt als:&nbsp;{props.appUser.username}&nbsp;(Admin)</label>&nbsp;&nbsp;+++&nbsp;&nbsp;<button onClick={logout}>Logout</button><hr/>
+            </div>
+        )
+    }
+    else {
+        return (
+            <div className="header">
+                Gregors Fotogalerie
+                &nbsp;&nbsp;+++&nbsp;&nbsp;
+                <Link to="/home">Home</Link>
+                &nbsp;&nbsp;+++&nbsp;&nbsp;
+                <Link to="/pictures">Fotos ansehen</Link>
+                &nbsp;&nbsp;+++&nbsp;&nbsp;<label>Eingeloggt als: {props.appUser.username}</label>&nbsp;&nbsp;+++&nbsp;&nbsp;<button onClick={logout}>Logout</button>
+                <hr/>
+            </div>
+        )
+    }
 }
