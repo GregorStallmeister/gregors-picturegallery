@@ -98,8 +98,10 @@ function App() {
         }
 
         if (boxChecked) {
+            console.log("Favorite box is checked")
             appUser.favoritePicturesIds.push(id);
         } else {
+            console.log("Favorite box is not checked")
             const index = appUser.favoritePicturesIds.indexOf(id)
             if (index > -1) {
                 appUser.favoritePicturesIds.splice(index, 1)
@@ -110,12 +112,12 @@ function App() {
 
         axios.put("/api/user/" + appUser.id, appUser)
             .then((response) => {
-                    console.log(response)
+                    console.log("User was putted - " + response)
                     loadUser()
                 }
             )
             .catch((errorResponse) => {
-                console.log(errorResponse)
+                console.log("Error while putting user: " + errorResponse)
             })
     }
 

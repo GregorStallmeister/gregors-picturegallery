@@ -28,4 +28,14 @@ public class AppUserService {
             throw new NoSuchElementException("User to update is not present in database!");
         }
     }
+
+    public AppUser findUserById(String id) throws NoSuchElementException {
+        Optional<AppUser> optionalAppUser = appUserRepository.findById(id);
+
+        if (optionalAppUser.isPresent()) {
+            return optionalAppUser.get();
+        }
+
+        throw new NoSuchElementException("User with id " + id + " was not found!");
+    }
 }
