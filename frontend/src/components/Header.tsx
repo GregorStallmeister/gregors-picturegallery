@@ -38,7 +38,7 @@ export function Header(props: Readonly<Props>) {
                 &nbsp;&nbsp;+++&nbsp;&nbsp;
                 <Link to="/pictures">Fotos ansehen</Link>
                 &nbsp;&nbsp;+++&nbsp;&nbsp;
-                <button onClick={login}>Login mit GitHub</button>
+                <button onClick={login}>Login mit GitHub</button> (ggf. können Sie beim Login ein GitHub-Account erstellen)
                 <hr/>
             </div>
         )
