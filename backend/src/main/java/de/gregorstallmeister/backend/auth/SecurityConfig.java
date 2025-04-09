@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .logout(l -> l.logoutSuccessUrl(appUrl)) // change string if you want to navigate somewhere
                 .exceptionHandling(e -> e
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                .oauth2Login(o -> o.defaultSuccessUrl(appUrl + "/home")); // change string if you want to navigate somewhere
+                .oauth2Login(o -> o.defaultSuccessUrl(appUrl)); // change string if you want to navigate somewhere
 
         return currywurst.build();
     }
