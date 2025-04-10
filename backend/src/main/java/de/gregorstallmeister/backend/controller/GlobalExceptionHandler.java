@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.Instant;
 import java.util.NoSuchElementException;
 
-import static java.lang.System.getenv;
-
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
