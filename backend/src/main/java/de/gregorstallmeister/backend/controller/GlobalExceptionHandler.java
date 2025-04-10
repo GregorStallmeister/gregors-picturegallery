@@ -33,7 +33,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoResourceFoundException.class)
     public String handleNoResourceFoundException(@NotNull NoResourceFoundException ex) {
         return "<html><head><title>Gregors Fotogalerie - Fehlerseite</title>" +
-                "<meta http-equiv=\"Refresh\" content=\"5;URL=\"" + getenv("APP_URL") + "\"/></head>" +
+                "<script>\n" +
+                "    window.location.href = \"" + getenv("APP_URL") + " \";\n" +
+                "  </script></head>" +
                 "<body style=\"background-color:#F6F2B4;\">Gregors Fotogalerie - schön, dass Sie da sind und herzlich willkommen!" +
                 "<br><br>Diese Seite ist leider nicht an allen Stellen kompatibel zum Neu-Laden per Browser-Button." +
                 "Sie werden in 5 Sekunden automatisch zur Startseite weitergeleitet. Sollte dies nicht geschehen, " +
