@@ -12,6 +12,8 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 import java.time.Instant;
 import java.util.NoSuchElementException;
 
+import static java.lang.System.getenv;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -31,11 +33,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoResourceFoundException.class)
     public String handleNoResourceFoundException(@NotNull NoResourceFoundException ex) {
         return "<html><head><title>Gregors Fotogalerie - Fehlerseite</title>" +
-                "<meta http-equiv=\"Refresh\" content=\"5; URL=\"${APP_URL}\" /></head>" +
+                "<meta http-equiv=\"Refresh\" content=\"5; URL=\"" + getenv("APP_URL") + "\" /></head>" +
                 "<body style=\"background-color:#F6F2B4;\">Gregors Fotogalerie - schön, dass Sie da sind und herzlich willkommen!" +
                 "<br><br>Diese Seite ist leider nicht an allen Stellen kompatibel zum Neu-Laden per Browser-Button." +
                 "Sie werden in 5 Sekunden automatisch zur Startseite weitergeleitet. Sollte dies nicht geschehen," +
-                "klicken Sie bitte <a href=\"${APP_URL}\">hier.</a>" +
+                "klicken Sie bitte <a href=\"\"" + getenv("APP_URL") + "\"\">hier</a>." +
                 "<br/>Vielen Dank und weiterhin viel Surf-Vergnügen!" +
                 "<br><br>Die Fehlermeldung war: " + ex.getMessage() + "</body></html>";
     }
