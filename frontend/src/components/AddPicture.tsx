@@ -6,12 +6,13 @@ type Props = {
     insertPicture(pictureInsertDto: PictureInsertDto): void
 }
 
-export function AddPicture(props: Props) {
+export function AddPicture(props: Readonly<Props>) {
 
     const [pictureInsertDto, setPictureInsertDto] = useState<PictureInsertDto>({
         imagePath: "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
         location: "",
-        instant: "2025-03-26T09:17:30+01:00"
+        instant: "2025-03-26T09:17:30+01:00",
+        positionInGrid: "latitude=51.7474&longitude=7.4926"
     })
     const navigate = useNavigate()
 
@@ -37,6 +38,8 @@ export function AddPicture(props: Props) {
                 <br/>&nbsp;<br/>
                 <input name="instant" placeholder={"Datum und Uhrzeit"} value={pictureInsertDto.instant} size={80}
                        required={true} onChange={event => updatePicture(event)}/>
+                <br/>&nbsp;<br/><input name="positionInGrid" placeholder={"Lage im Gradnetz"} value={pictureInsertDto.positionInGrid} size={80}
+                                       required={true} onChange={event => updatePicture(event)}/>
                 <br/>&nbsp;<br/>
                 <button>Speichern</button>
             </form>

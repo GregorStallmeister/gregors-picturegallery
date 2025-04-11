@@ -3,4 +3,5 @@ export type Picture = {
     imagePath: string
     location: string
     instant: string
+    positionInGrid: string
 }
