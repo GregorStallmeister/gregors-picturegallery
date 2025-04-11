@@ -6,6 +6,7 @@ public record Picture (
         String id,
         String imagePath,
         String location,
-        Instant instant
+        Instant instant,
+        String positionInGrid
 ) {
     }

@@ -45,7 +45,8 @@ class PictureControllerIntegrationTest {
                                      {
                                           "imagePath": "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
                                           "location": "Langeoog",
-                                          "instant": "2025-03-26T09:17:30+01:00"                                                                                          \s
+                                          "instant": "2025-03-26T09:17:30+01:00",
+                                          "positionInGrid": "latitude=53.7474&longitude=7.4926"                                                                                          \s
                                      }
                                     \s"""))
                     .andExpect(MockMvcResultMatchers.status().isCreated())
@@ -54,7 +55,8 @@ class PictureControllerIntegrationTest {
                                      {
                                           "imagePath": "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
                                           "location": "Langeoog",
-                                          "instant": "2025-03-26T08:17:30Z"                                                                                          \s
+                                          "instant": "2025-03-26T08:17:30Z",
+                                          "positionInGrid": "latitude=53.7474&longitude=7.4926"                                                                                          \s
                                      }
                             """))
                     .andExpect(jsonPath("$.id").isNotEmpty());
@@ -72,12 +74,14 @@ class PictureControllerIntegrationTest {
                 "testID-123",
                 "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
                 "Langeoog",
-                Instant.parse("2025-03-26T09:17:30+01:00"));
+                Instant.parse("2025-03-26T09:17:30+01:00"),
+                "latitude=53.7474&longitude=7.4926");
         Picture picture2 = new Picture(
                 "testID-124",
                 "https://gregorstallmeister.de/fotogalerie/bilder/test124.jpg",
                 "Carolinensiel",
-                Instant.parse("2025-08-26T09:17:30+02:00"));
+                Instant.parse("2025-08-26T09:17:30+02:00"),
+                "latitude=53.6922&longitude=7.8025");
         pictureRepository.insert(picture1);
         pictureRepository.insert(picture2);
 
@@ -91,13 +95,15 @@ class PictureControllerIntegrationTest {
                                   "id": "testID-123",
                                   "imagePath": "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
                                   "location": "Langeoog",
-                                  instant: "2025-03-26T08:17:30Z"
+                                  "instant": "2025-03-26T08:17:30Z",
+                                  "positionInGrid": "latitude=53.7474&longitude=7.4926"
                               },
                               {
                                   "id": "testID-124",
                                   "imagePath": "https://gregorstallmeister.de/fotogalerie/bilder/test124.jpg",
                                   "location": "Carolinensiel",
-                                  instant: "2025-08-26T07:17:30Z"
+                                  "instant": "2025-08-26T07:17:30Z",
+                                  "positionInGrid": "latitude=53.6922&longitude=7.8025"
                               }
                             ]
                             """));
@@ -133,7 +139,8 @@ class PictureControllerIntegrationTest {
                 "testID-123",
                 "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
                 "Langeoog",
-                Instant.parse("2025-03-26T09:17:30+01:00"));
+                Instant.parse("2025-03-26T09:17:30+01:00"),
+                "latitude=53.7474&longitude=7.4926");
         pictureRepository.insert(picture);
 
         // when + then
@@ -145,7 +152,8 @@ class PictureControllerIntegrationTest {
                                   "id": "testID-123",
                                   "imagePath": "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
                                   "location": "Langeoog",
-                                  instant: "2025-03-26T08:17:30Z"
+                                  instant: "2025-03-26T08:17:30Z",
+                                  "positionInGrid": "latitude=53.7474&longitude=7.4926"
                             }
                             """));
         } catch (Exception e) {
@@ -179,7 +187,8 @@ class PictureControllerIntegrationTest {
                 id,
                 "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
                 "Langeoog",
-                Instant.parse("2025-03-26T09:17:30+01:00"));
+                Instant.parse("2025-03-26T09:17:30+01:00"),
+                "latitude=53.7474&longitude=7.4926");
         pictureRepository.insert(picture);
 
         // when + then
@@ -191,7 +200,8 @@ class PictureControllerIntegrationTest {
                                     {
                                         "imagePath": "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
                                         "location": "Mainz",
-                                        "instant": "2024-03-26T09:17:30+01:00"
+                                        "instant": "2024-03-26T09:17:30+01:00",
+                                        "positionInGrid": "latitude=51.7474&longitude=7.4926"
                                     }
                                     """))
                     .andExpect(MockMvcResultMatchers.status().isOk())
@@ -200,7 +210,8 @@ class PictureControllerIntegrationTest {
                                         "id": "testID-123",
                                         "imagePath": "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
                                         "location": "Mainz",
-                                        "instant": "2024-03-26T08:17:30Z"
+                                        "instant": "2024-03-26T08:17:30Z",
+                                        "positionInGrid": "latitude=51.7474&longitude=7.4926"
                             }
                             """));
         } catch (Exception e) {
@@ -223,7 +234,8 @@ class PictureControllerIntegrationTest {
                                     {
                                         "imagePath": "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
                                         "location": "Mainz",
-                                        "instant": "2024-03-26T09:17:30+01:00"
+                                        "instant": "2024-03-26T09:17:30+01:00",
+                                        "positionInGrid": "latitude=53.7474&longitude=7.4926"
                                     }
                                     """))
                     .andExpect(MockMvcResultMatchers.status().isNotFound())
@@ -247,7 +259,8 @@ class PictureControllerIntegrationTest {
                 id,
                 "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
                 "unbekannt",
-                Instant.parse("2025-03-26T09:17:30+01:00"));
+                Instant.parse("2025-03-26T09:17:30+01:00"),
+                "latitude=53.7474&longitude=7.4926");
         pictureRepository.insert(picture);
 
         // when + then
@@ -271,7 +284,7 @@ class PictureControllerIntegrationTest {
         // when + then
         try {
             mockMvc.perform(MockMvcRequestBuilders.delete("/api/picture/" + id)
-                    .with(user("admin").roles("ADMIN")))
+                            .with(user("admin").roles("ADMIN")))
                     .andExpect(MockMvcResultMatchers.status().isNotFound())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             {

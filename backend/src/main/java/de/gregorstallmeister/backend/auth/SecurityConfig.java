@@ -38,10 +38,10 @@ public class SecurityConfig {
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
-                .logout(l -> l.logoutSuccessUrl(appUrl)) // change string if you want to navigate somewhere
+                .logout(l -> l.logoutSuccessUrl(appUrl)) // change positionInGrid if you want to navigate somewhere
                 .exceptionHandling(e -> e
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                .oauth2Login(o -> o.defaultSuccessUrl(appUrl)); // change string if you want to navigate somewhere
+                .oauth2Login(o -> o.defaultSuccessUrl(appUrl)); // change positionInGrid if you want to navigate somewhere
 
         return currywurst.build();
     }

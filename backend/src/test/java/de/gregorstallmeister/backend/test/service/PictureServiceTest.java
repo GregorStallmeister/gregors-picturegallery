@@ -38,8 +38,9 @@ class PictureServiceTest {
         String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
         String location = "Langeoog";
         Instant instant = Instant.now();
-        Picture pictureToInsert = new Picture(id, imagePath, location, instant);
-        PictureInsertDto pictureToInsertDto = new PictureInsertDto(imagePath, location, instant);
+        String positionInGrid = "latitude=53.7474&longitude=7.4926";
+        Picture pictureToInsert = new Picture(id, imagePath, location, instant, positionInGrid);
+        PictureInsertDto pictureToInsertDto = new PictureInsertDto(imagePath, location, instant, positionInGrid);
         when(pictureRepository.insert(pictureToInsert)).thenReturn(pictureToInsert);
 
         // when
@@ -62,12 +63,14 @@ class PictureServiceTest {
                 idService.generateRandomId(),
                 "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
                 "Langeoog",
-                Instant.parse("2025-03-26T09:17:30+01:00"));
+                Instant.parse("2025-03-26T09:17:30+01:00"),
+                "latitude=53.7474&longitude=7.4926");
         Picture picture2 = new Picture(
                 idService.generateRandomId(),
                 "https://gregorstallmeister.de/fotogalerie/bilder/test124.jpg",
                 "Carolinensiel",
-                Instant.parse("2025-08-26T09:17:30+02:00"));
+                Instant.parse("2025-08-26T09:17:30+02:00"),
+                "latitude=53.6922&longitude=7.8025");
         List<Picture> expected = List.of(picture1, picture2);
         when(pictureRepository.findAll()).thenReturn(List.of(picture1, picture2));
 
@@ -100,7 +103,8 @@ class PictureServiceTest {
         String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
         String location = "Langeoog";
         Instant instant = Instant.now();
-        Picture pictureToFind = new Picture(id, imagePath, location, instant);
+        String positionInGrid = "latitude=53.7474&longitude=7.4926";
+        Picture pictureToFind = new Picture(id, imagePath, location, instant, positionInGrid);
         when(pictureRepository.findById(id)).thenReturn(Optional.of(pictureToFind));
 
         // when
@@ -135,18 +139,20 @@ class PictureServiceTest {
         String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
         String location = "Langeoog";
         Instant instant = Instant.now();
-        Picture pictureToUpdate = new Picture(id, imagePath, location, instant);
+        String positionInGrid = "latitude=53.7474&longitude=7.4926";
+        Picture pictureToUpdate = new Picture(id, imagePath, location, instant, positionInGrid);
         when(pictureRepository.findById(id)).thenReturn(Optional.of(pictureToUpdate));
 
         String imagePathUpdated = "https://gregorstallmeister.de/fotogalerie/bilder/test123456.jpg";
         String locationUpdated = "Carolinensiel";
         Instant instantUpdated = Instant.parse("2025-08-26T09:17:30+02:00");
+        String positionInGridUpdated = "latitude=53.6922&longitude=7.8025";
 
-        Picture pictureModified = new Picture(id, imagePathUpdated, locationUpdated, instantUpdated);
+        Picture pictureModified = new Picture(id, imagePathUpdated, locationUpdated, instantUpdated, positionInGridUpdated);
 
         // when
         PictureInsertDto pictureInsertDto = new PictureInsertDto(pictureModified.imagePath(),
-                pictureModified.location(), pictureModified.instant());
+                pictureModified.location(), pictureModified.instant(), pictureModified.positionInGrid());
         Picture pictureUpdated = pictureService.updatePicture(pictureInsertDto, id);
 
         // then
@@ -163,7 +169,8 @@ class PictureServiceTest {
         String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
         String location = "Langeoog";
         Instant instant = Instant.now();
-        PictureInsertDto pictureInsertDto = new PictureInsertDto(imagePath, location, instant);
+        String positionInGrid = "latitude=53.7474&longitude=7.4926";
+        PictureInsertDto pictureInsertDto = new PictureInsertDto(imagePath, location, instant, positionInGrid);
 
         // when + then
         assertThrows(NoSuchElementException.class, () -> pictureService.updatePicture(pictureInsertDto , id));
@@ -178,7 +185,8 @@ class PictureServiceTest {
         String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
         String location = "Langeoog";
         Instant instant = Instant.now();
-        Picture picture = new Picture(id, imagePath, location, instant);
+        String positionInGrid = "latitude=53.7474&longitude=7.4926";
+        Picture picture = new Picture(id, imagePath, location, instant, positionInGrid);
        when (pictureRepository.findById(id)).thenReturn(Optional.of(picture));
 
         // when
