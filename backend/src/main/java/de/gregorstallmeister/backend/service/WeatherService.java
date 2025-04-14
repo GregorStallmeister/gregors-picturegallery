@@ -5,6 +5,8 @@ import de.gregorstallmeister.backend.model.weather.WeatherResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
+import java.util.NoSuchElementException;
+
 @Service
 public class WeatherService {
 
@@ -26,6 +28,10 @@ public class WeatherService {
 
     public WeatherResponse getWeather(String positionInGrid) {
         OpenMeteoResponse openMeteoResponse = this.getWeatherRaw(positionInGrid);
+
+        if (openMeteoResponse == null) {
+            throw new NoSuchElementException("No weather available for position in grid: " + positionInGrid);
+        }
 
         String time = openMeteoResponse.current().time();
         int interval = openMeteoResponse.current().interval();

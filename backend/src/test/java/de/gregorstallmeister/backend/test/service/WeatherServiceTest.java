@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -40,6 +42,18 @@ class WeatherServiceTest {
     }
 
     @Test
+    void getWeatherRawWithGruetze() {
+        // given
+        String positionInGrid = "grütze";
+
+        // when
+        OpenMeteoResponse openMeteoResponse = weatherService.getWeatherRaw(positionInGrid);
+
+        // then
+        assertNull(openMeteoResponse);
+    }
+
+    @Test
     void getWeather() {
         // given
         String positionInGrid = "latitude=48.8109&longitude=9.3644";
@@ -51,5 +65,19 @@ class WeatherServiceTest {
         assertNotNull(weatherResponse);
         assertEquals(positionInGrid, weatherResponse.positionInGrid());
         assertEquals(900, weatherResponse.interval());
+    }
+
+    @Test
+    void getWeatherWithGruetze() {
+        // given
+        String positionInGrid = "grütze";
+
+        // when + then
+        try {
+            weatherService.getWeather(positionInGrid);
+        } catch (Exception e) {
+            assertInstanceOf(NoSuchElementException.class, e);
+            assertEquals("No weather available for position in grid: grütze", e.getMessage());
+        }
     }
 }

@@ -40,4 +40,26 @@ class WeatherControllerIntegrationTest {
             Assertions.fail();
         }
     }
+
+    @Test
+    @DirtiesContext
+    void getWeatherWithGruetze() {
+        // given
+        String positionInGrid = "grütze";
+
+        // when + then
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/" + positionInGrid))
+                    .andExpect(MockMvcResultMatchers.status().isNotFound())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                              "message": "An error occurred: No weather available for position in grid: grütze"
+                            }
+                            """))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty());
+        }
+        catch (Exception e) {
+            Assertions.fail();
+        }
+    }
 }
