@@ -8,7 +8,7 @@ type Props = {
     deletePicture(id: string): void
 }
 
-export function UpdatePicture(props: Props) {
+export function UpdatePicture(props: Readonly<Props>) {
     const location = useLocation()
     const id: string = location.pathname.substring(location.pathname.lastIndexOf("/") + 1)
 
@@ -50,6 +50,9 @@ export function UpdatePicture(props: Props) {
                     <br/>&nbsp;<br/>
                     <input name="instant" placeholder={"Datum und Uhrzeit"} value={picture.instant} size={80}
                            required={true} onChange={event => updatePicture(event)}/>
+                    <br/>&nbsp;<br/>
+                    <input name="positionInGrid" placeholder={"Lage im Gradnetz"} value={picture.positionInGrid} size={80}
+                                           required={true} onChange={event => updatePicture(event)}/>
                     <br/>&nbsp;<br/>
                     <button type="submit">Speichern</button>
                     &nbsp;&nbsp;&nbsp;

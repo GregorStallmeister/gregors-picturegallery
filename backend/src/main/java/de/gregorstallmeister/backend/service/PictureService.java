@@ -22,7 +22,8 @@ public class PictureService {
                 idService.generateRandomId(),
                 pictureInsertDto.imagePath(),
                 pictureInsertDto.location(),
-                pictureInsertDto.instant());
+                pictureInsertDto.instant(),
+                pictureInsertDto.positionInGrid());
 
         pictureRepository.insert(pictureToInsert);
 
@@ -41,7 +42,8 @@ public class PictureService {
         Optional<Picture> optionalPicture = pictureRepository.findById(id);
 
         if (optionalPicture.isPresent()) {
-            Picture pictureUpdated = new Picture(id, pictureInsertDto.imagePath(), pictureInsertDto.location(), pictureInsertDto.instant());
+            Picture pictureUpdated = new Picture(id, pictureInsertDto.imagePath(), pictureInsertDto.location(),
+                    pictureInsertDto.instant(), pictureInsertDto.positionInGrid());
             pictureRepository.save(pictureUpdated);
             return pictureUpdated;
                 } else {
