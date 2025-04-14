@@ -35,7 +35,7 @@ public class WeatherService {
         String humidity = openMeteoResponse.current().relative_humidity_2m() + " " + openMeteoResponse.current_units().relative_humidity_2m();
         String windSpeed = openMeteoResponse.current().wind_speed_10m() + " " + openMeteoResponse.current_units().wind_speed_10m();
         int windDirection = openMeteoResponse.current().wind_direction_10m();
-        String windGusts = openMeteoResponse.current().wind_gusts_10m() + " " + openMeteoResponse.current().wind_gusts_10m();
+        String windGusts = openMeteoResponse.current().wind_gusts_10m() + " " + openMeteoResponse.current_units().wind_gusts_10m();
         String snowHeight = openMeteoResponse.current().snowfall() + " " + openMeteoResponse.current_units().snowfall();
 
         return new WeatherResponse(positionInGrid, time, interval, temperature, tempApparent, rain, humidity, windSpeed,
