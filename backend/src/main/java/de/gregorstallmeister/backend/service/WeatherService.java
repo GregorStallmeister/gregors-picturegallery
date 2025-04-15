@@ -22,7 +22,7 @@ public class WeatherService {
                     "wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature,is_day," +
                     "cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure,wind_gusts_10m";
 
-    WeatherService(RestClient.Builder builder, WeatherResponseRepository weatherResponseRepository) {
+    public WeatherService(RestClient.Builder builder, WeatherResponseRepository weatherResponseRepository) {
         this.restClient = builder.baseUrl("https://api.open-meteo.com/v1").build();
         this.weatherResponseRepository = weatherResponseRepository;
     }
