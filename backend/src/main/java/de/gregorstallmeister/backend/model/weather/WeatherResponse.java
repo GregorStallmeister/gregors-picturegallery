@@ -6,11 +6,12 @@ public record WeatherResponse(
         int interval,
         String temperature,
         String tempApparent,
-        String rain,
-        String humidity,
+        String precipitation,
+        String relative_humidity,
         String windSpeed,
         int windDirection,
         String windGusts,
-        String snowHeight
+        String cloud_cover,
+        String surface_pressure
 ) {
 }

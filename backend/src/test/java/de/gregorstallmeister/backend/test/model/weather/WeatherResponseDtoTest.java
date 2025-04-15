@@ -13,25 +13,27 @@ class WeatherResponseDtoTest {
         // given
         String temperature = "22 °C";
         String tempApparent = "15 °C";
-        String rain = "10 mm";
-        String humidity = "73 %";
+        String precipitation = "10 mm";
+        String relativeHumidity = "73 %";
         String windSpeed = "20 km/h";
         int windDirection = 271;
         String windGusts = "55 km/h";
-        String snowHeight = "0 cm";
+        String cloudCover = "58 %";
+        String surfacePressure = "1018 hPa";
 
         // when
-        WeatherResponseDto weatherResponseDto = new WeatherResponseDto(temperature, tempApparent, rain,
-                humidity, windSpeed, windDirection, windGusts, snowHeight);
+        WeatherResponseDto weatherResponseDto = new WeatherResponseDto(temperature, tempApparent, precipitation,
+                relativeHumidity, windSpeed, windDirection, windGusts, cloudCover, surfacePressure);
 
         // then
         assertEquals(temperature, weatherResponseDto.temperature());
         assertEquals(tempApparent, weatherResponseDto.tempApparent());
-        assertEquals(rain, weatherResponseDto.rain());
-        assertEquals(humidity, weatherResponseDto.humidity());
+        assertEquals(precipitation, weatherResponseDto.precipitation());
+        assertEquals(relativeHumidity, weatherResponseDto.relative_humidity());
         assertEquals(windSpeed, weatherResponseDto.windSpeed());
         assertEquals(windDirection, weatherResponseDto.windDirection());
         assertEquals(windGusts, weatherResponseDto.windGusts());
-        assertEquals(snowHeight, weatherResponseDto.snowHeight());
+        assertEquals(cloudCover, weatherResponseDto.cloud_cover());
+        assertEquals(surfacePressure, weatherResponseDto.surface_pressure());
     }
 }

@@ -15,7 +15,7 @@ public class WeatherService {
 
     private static final String REQUEST_STRING =
             "forecast?positionInGrid&models=icon_seamless&current=temperature_2m,relative_humidity_2m," +
-                    "wind_speed_10m,wind_direction_10m,rain,snowfall,apparent_temperature,is_day," +
+                    "wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature,is_day," +
                     "cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure,wind_gusts_10m";
 
     WeatherService(RestClient.Builder builder) {
@@ -42,10 +42,9 @@ public class WeatherService {
             try {
                 return restClient.get().uri("/" + requestString)
                         .retrieve().body(OpenMeteoResponse.class);
-            }
-            catch (HttpClientErrorException httpClientErrorException) {
+            } catch (HttpClientErrorException httpClientErrorException) {
                 throw new NoSuchElementException("No weather available for position in grid: " + positionInGrid
-                + " - The cause was: " + httpClientErrorException.getMessage());
+                        + " - The cause was: " + httpClientErrorException.getMessage());
             }
         }
 
@@ -63,14 +62,15 @@ public class WeatherService {
         int interval = openMeteoResponse.current().interval();
         String temperature = openMeteoResponse.current().temperature_2m() + " " + openMeteoResponse.current_units().temperature_2m();
         String tempApparent = openMeteoResponse.current().apparent_temperature() + " " + openMeteoResponse.current_units().apparent_temperature();
-        String rain = openMeteoResponse.current().rain() + " " + openMeteoResponse.current_units().rain();
-        String humidity = openMeteoResponse.current().relative_humidity_2m() + " " + openMeteoResponse.current_units().relative_humidity_2m();
+        String precipitation = openMeteoResponse.current().precipitation() + " " + openMeteoResponse.current_units().precipitation();
+        String relativeHumidity = openMeteoResponse.current().relative_humidity_2m() + " " + openMeteoResponse.current_units().relative_humidity_2m();
         String windSpeed = openMeteoResponse.current().wind_speed_10m() + " " + openMeteoResponse.current_units().wind_speed_10m();
         int windDirection = openMeteoResponse.current().wind_direction_10m();
         String windGusts = openMeteoResponse.current().wind_gusts_10m() + " " + openMeteoResponse.current_units().wind_gusts_10m();
-        String snowHeight = openMeteoResponse.current().snowfall() + " " + openMeteoResponse.current_units().snowfall();
+        String cloudCover = openMeteoResponse.current().cloud_cover() + " " + openMeteoResponse.current_units().cloud_cover();
+        String surfacePressure = openMeteoResponse.current().surface_pressure() + " " + openMeteoResponse.current_units().surface_pressure();
 
-        return new WeatherResponse(positionInGrid, time, interval, temperature, tempApparent, rain, humidity, windSpeed,
-                windDirection, windGusts, snowHeight);
+        return new WeatherResponse(positionInGrid, time, interval, temperature, tempApparent, precipitation, relativeHumidity,
+                windSpeed, windDirection, windGusts, cloudCover, surfacePressure);
     }
 }
