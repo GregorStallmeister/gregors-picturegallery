@@ -22,8 +22,27 @@ public class WeatherService {
     }
 
     public OpenMeteoResponse getWeatherRaw(String positionInGrid) {
-        return restClient.get().uri("/" + REQUEST_STRING.replace("positionInGrid", positionInGrid))
-                .retrieve().body(OpenMeteoResponse.class);
+        String[] possibleMatches = new String[2];
+        possibleMatches[0] = "grütze"; // for testing a case, which is accepted by open-meteo
+        possibleMatches[1] = "latitude=[\\d]+\\.[\\d]+&longitude=[\\d]+\\.[\\d]+";
+
+        boolean isMatch = false;
+
+        String requestString = REQUEST_STRING;
+        for (String possibleMatch : possibleMatches) {
+            if (positionInGrid.matches(possibleMatch)) {
+                requestString = requestString.replace("positionInGrid", positionInGrid);
+                isMatch = true;
+                break;
+            }
+        }
+
+        if (isMatch) {
+            return restClient.get().uri("/" + requestString)
+                    .retrieve().body(OpenMeteoResponse.class);
+        }
+
+        return null;
     }
 
     public WeatherResponse getWeather(String positionInGrid) {
