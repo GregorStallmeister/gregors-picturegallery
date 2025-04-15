@@ -125,6 +125,25 @@ class WeatherServiceTest {
     }
 
     @Test
+    void getWeatherRawWithMist() {
+        // given
+        String positionInGrid = "mist";
+        mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
+                        "gr%C3%BCtze&models=icon_seamless&current=temperature_2m," +
+                        "relative_humidity_2m,wind_speed_10m,wind_direction_10m,rain,snowfall,apparent_temperature," +
+                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "wind_gusts_10m"))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withSuccess("", MediaType.APPLICATION_JSON));
+
+        // when
+        OpenMeteoResponse openMeteoResponse = weatherService.getWeatherRaw(positionInGrid);
+
+        // then
+        assertNull(openMeteoResponse);
+    }
+
+    @Test
     void getWeather() {
         // given
         String positionInGrid = "latitude=48.8109&longitude=9.3644";
@@ -212,6 +231,27 @@ class WeatherServiceTest {
         } catch (Exception e) {
             assertInstanceOf(NoSuchElementException.class, e);
             assertEquals("No weather available for position in grid: grütze", e.getMessage());
+        }
+    }
+
+    @Test
+    void getWeatherWithMist() {
+        // given
+        String positionInGrid = "mist";
+        mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
+                        "gr%C3%BCtze&models=icon_seamless&current=temperature_2m," +
+                        "relative_humidity_2m,wind_speed_10m,wind_direction_10m,rain,snowfall,apparent_temperature," +
+                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "wind_gusts_10m"))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withSuccess("", MediaType.APPLICATION_JSON));
+
+        // when + then
+        try {
+            weatherService.getWeather(positionInGrid);
+        } catch (Exception e) {
+            assertInstanceOf(NoSuchElementException.class, e);
+            assertEquals("No weather available for position in grid: mist", e.getMessage());
         }
     }
 }
