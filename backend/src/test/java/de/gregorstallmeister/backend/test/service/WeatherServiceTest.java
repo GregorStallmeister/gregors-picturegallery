@@ -266,7 +266,6 @@ class WeatherServiceTest {
     void getWeatherWhenNotPresent() {
         // given
         String positionInGrid = "latitude=48.8109&longitude=9.3644";
-//        WeatherService weatherService1 = new WeatherService(RestClient.builder(), mockWeatherResponseRepository);
         when(mockWeatherResponseRepository.findById(positionInGrid)).thenReturn(Optional.empty());
         mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
                         "latitude=48.8109&longitude=9.3644&models=icon_seamless&current=temperature_2m," +
@@ -374,7 +373,7 @@ class WeatherServiceTest {
                                                           "wind_gusts_10m": "km/h"
                                                       },
                                                       "current": {
-                                                          "time": "2025-04-15T07:00",
+                                                          "time": "2025-04-14T07:00",
                                                           "interval": 900,
                                                           "temperature_2m": 12.1,
                                                           "relative_humidity_2m": 83,
