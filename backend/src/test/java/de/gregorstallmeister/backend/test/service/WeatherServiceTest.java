@@ -16,6 +16,7 @@ import java.util.NoSuchElementException;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withBadRequest;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @SpringBootTest
@@ -144,6 +145,52 @@ class WeatherServiceTest {
     }
 
     @Test
+    void getWeatherRawWithInadmissibleLatitude() {
+        // given
+        String positionInGrid = "latitude=4800.8109&longitude=9.3644";
+        mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
+                        "latitude=4800.8109&longitude=9.3644&models=icon_seamless&current=temperature_2m," +
+                        "relative_humidity_2m,wind_speed_10m,wind_direction_10m,rain,snowfall,apparent_temperature," +
+                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "wind_gusts_10m"))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withBadRequest());
+
+        // when
+        try {
+            weatherService.getWeatherRaw(positionInGrid);
+        } catch (Exception e) {
+            // then
+            assertInstanceOf(NoSuchElementException.class, e);
+            assertTrue(e.getMessage().startsWith("No weather available for position in grid: latitude=4800.8109&longitude=9.3644"));
+            assertTrue(e.getMessage().matches(".*The cause was: .*"));
+        }
+    }
+
+    @Test
+    void getWeatherRawWithInadmissibleLongitude() {
+        // given
+        String positionInGrid = "latitude=48.8109&longitude=900.3644";
+        mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
+                        "latitude=48.8109&longitude=900.3644&models=icon_seamless&current=temperature_2m," +
+                        "relative_humidity_2m,wind_speed_10m,wind_direction_10m,rain,snowfall,apparent_temperature," +
+                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "wind_gusts_10m"))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withBadRequest());
+
+        // when
+        try {
+            weatherService.getWeatherRaw(positionInGrid);
+        } catch (Exception e) {
+            // then
+            assertInstanceOf(NoSuchElementException.class, e);
+            assertTrue(e.getMessage().startsWith("No weather available for position in grid: latitude=48.8109&longitude=900.3644"));
+            assertTrue(e.getMessage().matches(".*The cause was: .*"));
+        }
+    }
+
+    @Test
     void getWeather() {
         // given
         String positionInGrid = "latitude=48.8109&longitude=9.3644";
@@ -252,6 +299,52 @@ class WeatherServiceTest {
         } catch (Exception e) {
             assertInstanceOf(NoSuchElementException.class, e);
             assertEquals("No weather available for position in grid: mist", e.getMessage());
+        }
+    }
+
+    @Test
+    void getWeatherWithInadmissibleLatitude() {
+        // given
+        String positionInGrid = "latitude=4800.8109&longitude=9.3644";
+        mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
+                        "latitude=4800.8109&longitude=9.3644&models=icon_seamless&current=temperature_2m," +
+                        "relative_humidity_2m,wind_speed_10m,wind_direction_10m,rain,snowfall,apparent_temperature," +
+                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "wind_gusts_10m"))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withBadRequest());
+
+        // when
+        try {
+            weatherService.getWeather(positionInGrid);
+        } catch (Exception e) {
+            // then
+            assertInstanceOf(NoSuchElementException.class, e);
+            assertTrue(e.getMessage().startsWith("No weather available for position in grid: latitude=4800.8109&longitude=9.3644"));
+            assertTrue(e.getMessage().matches(".*The cause was: .*"));
+        }
+    }
+
+    @Test
+    void getWeatherWithInadmissibleLongitude() {
+        // given
+        String positionInGrid = "latitude=48.8109&longitude=900.3644";
+        mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
+                        "latitude=48.8109&longitude=900.3644&models=icon_seamless&current=temperature_2m," +
+                        "relative_humidity_2m,wind_speed_10m,wind_direction_10m,rain,snowfall,apparent_temperature," +
+                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "wind_gusts_10m"))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withBadRequest());
+
+        // when
+        try {
+            weatherService.getWeather(positionInGrid);
+        } catch (Exception e) {
+            // then
+            assertInstanceOf(NoSuchElementException.class, e);
+            assertTrue(e.getMessage().startsWith("No weather available for position in grid: latitude=48.8109&longitude=900.3644"));
+            assertTrue(e.getMessage().matches(".*The cause was: .*"));
         }
     }
 }

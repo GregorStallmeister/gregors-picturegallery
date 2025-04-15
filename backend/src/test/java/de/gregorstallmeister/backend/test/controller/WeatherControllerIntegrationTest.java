@@ -146,4 +146,88 @@ class WeatherControllerIntegrationTest {
             Assertions.fail();
         }
     }
+
+    @Test
+    @DirtiesContext
+    void getWeatherWithMist() {
+        // given
+        String positionInGrid = "mist";
+        mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
+                        "mist&models=icon_seamless&current=temperature_2m," +
+                        "relative_humidity_2m,wind_speed_10m,wind_direction_10m,rain,snowfall,apparent_temperature," +
+                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "wind_gusts_10m"))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withSuccess("", MediaType.APPLICATION_JSON));
+
+        // when + then
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/" + positionInGrid))
+                    .andExpect(MockMvcResultMatchers.status().isNotFound())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                              "message": "An error occurred: No weather available for position in grid: mist"
+                            }
+                            """))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty());
+        } catch (Exception e) {
+            Assertions.fail();
+        }
+    }
+
+    @Test
+    @DirtiesContext
+    void getWeatherWithInadmissibleLatitude() {
+        // given
+        String positionInGrid = "latitude=4800.8109&longitude=9.3644";
+        mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
+                        "latitude=4800.8109&longitude=9.3644&models=icon_seamless&current=temperature_2m," +
+                        "relative_humidity_2m,wind_speed_10m,wind_direction_10m,rain,snowfall,apparent_temperature," +
+                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "wind_gusts_10m"))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withSuccess("", MediaType.APPLICATION_JSON));
+
+        // when + then
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/" + positionInGrid))
+                    .andExpect(MockMvcResultMatchers.status().isNotFound())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                              "message": "An error occurred: No weather available for position in grid: latitude=4800.8109&longitude=9.3644"
+                            }
+                            """))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty());
+        } catch (Exception e) {
+            Assertions.fail();
+        }
+    }
+
+    @Test
+    @DirtiesContext
+    void getWeatherWithInadmissibleLongitude() {
+        // given
+        String positionInGrid = "latitude=48.8109&longitude=900.3644";
+        mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
+                        "latitude=48.8109&longitude=900.3644&models=icon_seamless&current=temperature_2m," +
+                        "relative_humidity_2m,wind_speed_10m,wind_direction_10m,rain,snowfall,apparent_temperature," +
+                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "wind_gusts_10m"))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withSuccess("", MediaType.APPLICATION_JSON));
+
+        // when + then
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/weather/" + positionInGrid))
+                    .andExpect(MockMvcResultMatchers.status().isNotFound())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            {
+                              "message": "An error occurred: No weather available for position in grid: latitude=48.8109&longitude=900.3644"
+                            }
+                            """))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty());
+        } catch (Exception e) {
+            Assertions.fail();
+        }
+    }
 }
