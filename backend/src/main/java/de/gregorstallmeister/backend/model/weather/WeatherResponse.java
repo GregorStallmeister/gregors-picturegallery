@@ -1,9 +1,13 @@
 package de.gregorstallmeister.backend.model.weather;
 
+
+import org.springframework.data.annotation.Id;
+
 public record WeatherResponse(
+        @Id
         String positionInGrid,
         String time,
-        int interval,
+        long interval,
         String temperature,
         String tempApparent,
         String precipitation,

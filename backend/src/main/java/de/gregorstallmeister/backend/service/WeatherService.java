@@ -2,24 +2,29 @@ package de.gregorstallmeister.backend.service;
 
 import de.gregorstallmeister.backend.model.weather.OpenMeteoResponse;
 import de.gregorstallmeister.backend.model.weather.WeatherResponse;
+import de.gregorstallmeister.backend.repository.WeatherResponseRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
+import java.time.Instant;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class WeatherService {
 
     private final RestClient restClient;
+    private final WeatherResponseRepository weatherResponseRepository;
 
     private static final String REQUEST_STRING =
             "forecast?positionInGrid&models=icon_seamless&current=temperature_2m,relative_humidity_2m," +
                     "wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature,is_day," +
                     "cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure,wind_gusts_10m";
 
-    WeatherService(RestClient.Builder builder) {
+    WeatherService(RestClient.Builder builder, WeatherResponseRepository weatherResponseRepository) {
         this.restClient = builder.baseUrl("https://api.open-meteo.com/v1").build();
+        this.weatherResponseRepository = weatherResponseRepository;
     }
 
     public OpenMeteoResponse getWeatherRaw(String positionInGrid) {
@@ -52,6 +57,17 @@ public class WeatherService {
     }
 
     public WeatherResponse getWeather(String positionInGrid) {
+        Optional<WeatherResponse> optionalWeatherResponse = weatherResponseRepository.findById(positionInGrid);
+
+        if (optionalWeatherResponse.isPresent()) {
+            WeatherResponse weatherResponse = optionalWeatherResponse.get();
+            Instant instant = Instant.parse(weatherResponse.time() + ":00.502320300Z");
+
+            if (instant.plusSeconds(weatherResponse.interval()).compareTo(Instant.now()) > 0) {
+                return weatherResponse;
+            }
+        }
+
         OpenMeteoResponse openMeteoResponse = this.getWeatherRaw(positionInGrid);
 
         if (openMeteoResponse == null) {
@@ -70,7 +86,10 @@ public class WeatherService {
         String cloudCover = openMeteoResponse.current().cloud_cover() + " " + openMeteoResponse.current_units().cloud_cover();
         String surfacePressure = openMeteoResponse.current().surface_pressure() + " " + openMeteoResponse.current_units().surface_pressure();
 
-        return new WeatherResponse(positionInGrid, time, interval, temperature, tempApparent, precipitation, relativeHumidity,
-                windSpeed, windDirection, windGusts, cloudCover, surfacePressure);
+        WeatherResponse weatherResponse = new WeatherResponse(positionInGrid, time, interval, temperature, tempApparent,
+                precipitation, relativeHumidity, windSpeed, windDirection, windGusts, cloudCover, surfacePressure);
+
+        weatherResponseRepository.save(weatherResponse);
+        return weatherResponse;
     }
 }
