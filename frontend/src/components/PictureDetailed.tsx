@@ -9,7 +9,7 @@ type Props = {
 }
 
 export function PictureDetailed( props: Readonly<Props>) {
-    const [boxChecked, setBoxChecked] = useState<boolean>(false)
+    const [boxFavoriteChecked, setBoxFavoriteChecked] = useState<boolean>(false)
 
     useEffect(() => {
         if (props.appUser !== null && props.appUser !== undefined
@@ -17,10 +17,10 @@ export function PictureDetailed( props: Readonly<Props>) {
             && props.appUser.favoritePicturesIds !== null
             && props.appUser.favoritePicturesIds !== undefined
             && props.appUser.favoritePicturesIds.indexOf(props.picture.id) > -1) {
-            setBoxChecked(true)
+            setBoxFavoriteChecked(true)
         }
         else {
-            setBoxChecked(false)
+            setBoxFavoriteChecked(false)
         }
     }, [props.appUser, props.picture]);
 
@@ -61,9 +61,9 @@ export function PictureDetailed( props: Readonly<Props>) {
             <div className="cardEntry">
                 {props.picture.location.toString()}, {props.picture.instant.toString()}
                 &nbsp;&nbsp;
-                <label><input type="checkbox" id="favorite" value="favorite" checked={boxChecked} onChange={
+                <label><input type="checkbox" id="favorite" value="favorite" checked={boxFavoriteChecked} onChange={
                     event => {
-                        setBoxChecked(event.target.checked)
+                        setBoxFavoriteChecked(event.target.checked)
                         console.log(event.target.checked)
                         props.switchFavorite(props.picture.id, event.target.checked)
                     }
