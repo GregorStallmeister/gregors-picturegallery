@@ -16,8 +16,8 @@ import static org.mockito.Mockito.*;
 
 class AppUserServiceTest {
 
-    private AppUserRepository appUserRepository = mock(AppUserRepository.class);
-    private AppUserService appUserService = new AppUserService(appUserRepository);
+    private final AppUserRepository appUserRepository = mock(AppUserRepository.class);
+    private final AppUserService appUserService = new AppUserService(appUserRepository);
 
     @Test
     void updateUser() {
