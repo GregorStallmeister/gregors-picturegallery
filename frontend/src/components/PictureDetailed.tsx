@@ -41,7 +41,7 @@ export function PictureDetailed( props: Readonly<Props>) {
         else {
             setBoxFavoriteChecked(false)
         }
-    }, [props.appUser, props.picture]);
+    }, [props.appUser, props.picture, loadWeather]);
 
     if (props.picture === undefined) {
         return (
