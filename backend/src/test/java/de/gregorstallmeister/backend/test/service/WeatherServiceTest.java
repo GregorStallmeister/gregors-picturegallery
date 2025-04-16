@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestClient;
 
+import java.time.Instant;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 class WeatherServiceTest {
 
 
-    // The following 4 lines are from a refactoring with help by my coach Florian.
+    // The following 4 code lines are from a refactoring with help by my coach Florian.
     // Many thanks to Florian for this and many more teaching and coaching, which cannot be overvalued!
     // My best wishes to him!
     WeatherResponseRepository mockWeatherResponseRepository = mock(WeatherResponseRepository.class);
@@ -193,9 +194,15 @@ class WeatherServiceTest {
     }
 
     @Test
-    void getWeather() {
+    void getWeatherWhenPresentInDatabase() {
         // given
         String positionInGrid = "latitude=48.8109&longitude=9.3644";
+        String timeString = Instant.now().toString();
+        timeString = timeString.substring(0, timeString.lastIndexOf(':'));
+        WeatherResponse weatherResponseInDatabase = new WeatherResponse(positionInGrid, timeString, 900,
+                "13.6 °C", "13.3 °C", "0.0 mm", "86 %", "4.4 km/h",
+                305, "5.8 km/h", "91 %", "978.7 hPa");
+        when(mockWeatherResponseRepository.findById(positionInGrid)).thenReturn(Optional.of(weatherResponseInDatabase));
         mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
                         "latitude=48.8109&longitude=9.3644&models=icon_seamless&current=temperature_2m," +
                         "relative_humidity_2m,wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature," +
@@ -256,10 +263,12 @@ class WeatherServiceTest {
         WeatherResponse weatherResponse = weatherService.getWeather(positionInGrid);
 
         // then
+        verify(mockWeatherResponseRepository).findById(positionInGrid);
         assertNotNull(weatherResponse);
         assertEquals(positionInGrid, weatherResponse.positionInGrid());
         assertEquals(900, weatherResponse.interval());
-        assertEquals("1.1 km/h", weatherResponse.windSpeed());
+        assertEquals("4.4 km/h", weatherResponse.windSpeed());
+        assertEquals(timeString, weatherResponse.time());
     }
 
     @Test
@@ -338,6 +347,10 @@ class WeatherServiceTest {
     void getWeatherWhenExpired() {
         // given
         String positionInGrid = "latitude=48.8109&longitude=9.3644";
+        WeatherResponse weatherResponseExpired = new WeatherResponse(positionInGrid, "2025-04-16T07:15", 900,
+                "13.6 °C", "13.3 °C", "0.0 mm", "86 %", "4.4 km/h",
+                305, "5.8 km/h", "91 %", "978.7 hPa");
+        when(mockWeatherResponseRepository.findById(positionInGrid)).thenReturn(Optional.of(weatherResponseExpired));
         mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
                         "latitude=48.8109&longitude=9.3644&models=icon_seamless&current=temperature_2m," +
                         "relative_humidity_2m,wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature," +
@@ -398,10 +411,12 @@ class WeatherServiceTest {
         WeatherResponse weatherResponse = weatherService.getWeather(positionInGrid);
 
         // then
+        verify(mockWeatherResponseRepository).findById(positionInGrid);
         assertNotNull(weatherResponse);
         assertEquals(positionInGrid, weatherResponse.positionInGrid());
         assertEquals(900, weatherResponse.interval());
         assertEquals("1.1 km/h", weatherResponse.windSpeed());
+        assertEquals("2025-04-14T07:00", weatherResponse.time());
     }
 
     @Test
