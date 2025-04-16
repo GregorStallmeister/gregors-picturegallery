@@ -5,7 +5,7 @@
 
  The crud functionality I finished within 5,5 days, including all tests with maven CI and SonarQube.
  Security and login with GitHub are finished. The user handling is finished. A not logged-in user can see all pictures and each picture with it's detailed information. A logged-in user additioanly can set/unset and see their favorites. A logged-in admin additionally can post, update and delete pictures.
-My gallery is online! https://gregors-picturegallery.onrender.com/ The next step will be the displaying of the current weather with the picture details, which I will fetch from the open-meteo api.
+My gallery is online! https://gregors-picturegallery.onrender.com/ The current weather is displayed with the picture details, which I fetch from the open-meteo api and cahce it.
  More will follow. Stay tuned!
 
  Feel free to look into my code and contact me.
