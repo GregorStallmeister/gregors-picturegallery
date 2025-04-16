@@ -9,7 +9,7 @@ public class WeatherWrapper {
 
     public static WeatherResponseDto wrapForGet(WeatherResponse weatherResponse){
         return new WeatherResponseDto(weatherResponse.temperature(), weatherResponse.tempApparent(),
-                weatherResponse.rain(), weatherResponse.humidity(), weatherResponse.windSpeed(), weatherResponse.windDirection(),
-                weatherResponse.windGusts(), weatherResponse.snowHeight());
+                weatherResponse.precipitation(), weatherResponse.relative_humidity(), weatherResponse.windSpeed(), weatherResponse.windDirection(),
+                weatherResponse.windGusts(), weatherResponse.cloud_cover(), weatherResponse.surface_pressure());
     }
 }

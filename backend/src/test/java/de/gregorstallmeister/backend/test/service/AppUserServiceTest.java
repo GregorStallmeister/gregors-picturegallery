@@ -5,10 +5,7 @@ import de.gregorstallmeister.backend.model.AppUserInsertDto;
 import de.gregorstallmeister.backend.model.AppUserRoles;
 import de.gregorstallmeister.backend.repository.AppUserRepository;
 import de.gregorstallmeister.backend.service.AppUserService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -17,18 +14,10 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
-@AutoConfigureMockMvc
 class AppUserServiceTest {
 
-    private AppUserRepository appUserRepository;
-    private AppUserService appUserService;
-
-    @BeforeEach
-    void setup() {
-        appUserRepository = mock(AppUserRepository.class);
-        appUserService = new AppUserService(appUserRepository);
-    }
+    private final AppUserRepository appUserRepository = mock(AppUserRepository.class);
+    private final AppUserService appUserService = new AppUserService(appUserRepository);
 
     @Test
     void updateUser() {

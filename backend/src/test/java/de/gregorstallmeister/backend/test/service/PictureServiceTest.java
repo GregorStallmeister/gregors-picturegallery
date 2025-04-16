@@ -4,10 +4,7 @@ import de.gregorstallmeister.backend.helpers.IdService;
 import de.gregorstallmeister.backend.model.*;
 import de.gregorstallmeister.backend.repository.PictureRepository;
 import de.gregorstallmeister.backend.service.PictureService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.Instant;
 import java.util.List;
@@ -17,18 +14,10 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
-@AutoConfigureMockMvc
 class PictureServiceTest {
 
-    private PictureRepository pictureRepository;
-    private PictureService pictureService;
-
-    @BeforeEach
-    void setup() {
-        pictureRepository = mock(PictureRepository.class);
-        pictureService = new PictureService(pictureRepository);
-    }
+    private final PictureRepository pictureRepository = mock(PictureRepository.class);
+    private final PictureService pictureService = new PictureService(pictureRepository);
 
     @Test
     void insertPicture() {

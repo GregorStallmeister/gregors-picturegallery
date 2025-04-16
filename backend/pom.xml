@@ -72,6 +72,9 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- The following dependency solved my reload-via-browser-button-issue. My coach Martin helped me with this.
+             Many thanks to Martin for this and a lot more of coaching and teaching!
+             My best wishes to him! -->
         <dependency>
             <groupId>de.neuefische.java</groupId>
             <artifactId>spring-boot-starter-fallback-page</artifactId>

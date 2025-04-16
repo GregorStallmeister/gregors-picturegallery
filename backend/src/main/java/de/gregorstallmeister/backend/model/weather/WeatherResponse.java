@@ -1,16 +1,21 @@
 package de.gregorstallmeister.backend.model.weather;
 
+
+import org.springframework.data.annotation.Id;
+
 public record WeatherResponse(
+        @Id
         String positionInGrid,
         String time,
-        int interval,
+        long interval,
         String temperature,
         String tempApparent,
-        String rain,
-        String humidity,
+        String precipitation,
+        String relative_humidity,
         String windSpeed,
         int windDirection,
         String windGusts,
-        String snowHeight
+        String cloud_cover,
+        String surface_pressure
 ) {
 }
