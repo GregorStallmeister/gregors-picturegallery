@@ -10,12 +10,12 @@ type Props = {
     switchFavorite(id: string, boxChecked: boolean): void
 }
 
-export function PictureDetailed( props: Readonly<Props>) {
+export function PictureDetailed({appUser, picture, switchFavorite}: Readonly<Props>) {
     const [boxFavoriteChecked, setBoxFavoriteChecked] = useState<boolean>(false)
     const [weatherResponse, setWeatherResponse] = useState<WeatherResponse | null | undefined>()
 
     function loadWeather() {
-        axios.get("/api/weather/" + props.picture.positionInGrid)
+        axios.get("/api/weather/" + picture.positionInGrid)
             .then((response) => {
                 setWeatherResponse(response.data)
                 console.log("Weather loaded!")
@@ -27,23 +27,23 @@ export function PictureDetailed( props: Readonly<Props>) {
     }
 
     useEffect(() => {
-        if (props.picture !== undefined && props.picture !== null) {
+        if (picture !== undefined && picture !== null) {
             loadWeather()
         }
 
-        if (props.appUser !== null && props.appUser !== undefined
-            && props.picture !== null && props.picture !== undefined
-            && props.appUser.favoritePicturesIds !== null
-            && props.appUser.favoritePicturesIds !== undefined
-            && props.appUser.favoritePicturesIds.indexOf(props.picture.id) > -1) {
+        if (appUser !== null && appUser !== undefined
+            && picture !== null && picture !== undefined
+            && appUser.favoritePicturesIds !== null
+            && appUser.favoritePicturesIds !== undefined
+            && appUser.favoritePicturesIds.indexOf(picture.id) > -1) {
             setBoxFavoriteChecked(true)
         }
         else {
             setBoxFavoriteChecked(false)
         }
-    }, [props.appUser, props.picture, loadWeather]);
+    }, [appUser, picture]);
 
-    if (props.picture === undefined) {
+    if (picture === undefined) {
         return (
             <div>
                 ... (noch) kein Foto vorhanden
@@ -105,16 +105,16 @@ export function PictureDetailed( props: Readonly<Props>) {
         return weatherString
     }
 
-    if (props.appUser === null || props.appUser === undefined) {
+    if (appUser === null || appUser === undefined) {
         return (
             <div className="card">
                 <div className="cardEntry">
-                    <img src={props.picture.imagePath.replace(".jpg", "_800.jpg")}
-                         alt={"Foto: " + props.picture.imagePath}/>
+                    <img src={picture.imagePath.replace(".jpg", "_800.jpg")}
+                         alt={"Foto: " + picture.imagePath}/>
                     <br/>
                 </div>
                 <div className="cardEntry">
-                    {props.picture.location.toString()}, {props.picture.instant.toString()}
+                    {picture.location.toString()}, {picture.instant.toString()}
                     &nbsp;&nbsp;
                     <label>
                         <input type='checkbox' id='favorite' value='favorite' disabled={true}/>Einloggen,&nbsp;um&nbsp;dieses&nbsp;Foto&nbsp;als&nbsp;Favorit&nbsp;festlegen&nbsp;oder&nbsp;abwählen&nbsp;zu&nbsp;können
@@ -130,18 +130,18 @@ export function PictureDetailed( props: Readonly<Props>) {
     return (
         <div className="card">
             <div className="cardEntry">
-                <img src={props.picture.imagePath.replace(".jpg", "_800.jpg")}
-                     alt={"Foto: " + props.picture.imagePath}/>
+                <img src={picture.imagePath.replace(".jpg", "_800.jpg")}
+                     alt={"Foto: " + picture.imagePath}/>
                 <br/>
             </div>
             <div className="cardEntry">
-                {props.picture.location.toString()}, {props.picture.instant.toString()}
+                {picture.location.toString()}, {picture.instant.toString()}
                 &nbsp;&nbsp;
                 <label><input type="checkbox" id="favorite" value="favorite" checked={boxFavoriteChecked} onChange={
                     event => {
                         setBoxFavoriteChecked(event.target.checked)
                         console.log(event.target.checked)
-                        props.switchFavorite(props.picture.id, event.target.checked)
+                        switchFavorite(picture.id, event.target.checked)
                     }
                 }/>Favorit</label>
             </div>
