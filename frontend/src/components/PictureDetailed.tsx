@@ -41,7 +41,7 @@ export function PictureDetailed({appUser, picture, switchFavorite}: Readonly<Pro
         else {
             setBoxFavoriteChecked(false)
         }
-    }, []);
+    });
 
     if (picture === undefined) {
         return (
