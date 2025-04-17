@@ -39,7 +39,7 @@ public class AppUserController {
         }
 
         if (!Objects.equals(appUser.getId(), id)) {
-            throw new CustomAuthenticationException("ID of logged in user to update their favorites is not the id specified!");
+            throw new CustomAuthenticationException("ID of logged in user to update their favorites is not the ID specified!");
         }
 
         return AppUserWrapper.wrapUserForGet(appUserService.updateUserFavorites(appUserUpdateFavoritesDto, id));
