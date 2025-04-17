@@ -29,12 +29,13 @@ public class SecurityConfig {
                 // And greetings to Dortmund, where he lives, next to my hometown Hagen.
                 // In both cities you can eat currywurst (curry sausage), a popular delicious fast food, typical for the Ruhr area.
 
-                // with login by username password csrf must be enabled, with oauth we need not to care about it.
+                // with login by id password csrf must be enabled, with oauth we need not to care about it.
                 .csrf(AbstractHttpConfigurer::disable) // Compliant //cross site reforgery token, against hackers, request must always come from the same host
                 .authorizeHttpRequests(a -> a
                         .requestMatchers(HttpMethod.DELETE, "/api/picture/{id}").hasRole(AppUserRoles.ADMIN.toString())
                         .requestMatchers(HttpMethod.PUT, "/api/picture/{id}").hasRole(AppUserRoles.ADMIN.toString())
                         .requestMatchers(HttpMethod.POST, "/api/picture").hasRole(AppUserRoles.ADMIN.toString())
+                        .requestMatchers("/user/{id}").authenticated()
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))

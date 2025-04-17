@@ -1,7 +1,7 @@
 package de.gregorstallmeister.backend.test.service;
 
 import de.gregorstallmeister.backend.model.AppUser;
-import de.gregorstallmeister.backend.model.AppUserInsertDto;
+import de.gregorstallmeister.backend.model.AppUserUpdateFavoritesDto;
 import de.gregorstallmeister.backend.model.AppUserRoles;
 import de.gregorstallmeister.backend.repository.AppUserRepository;
 import de.gregorstallmeister.backend.service.AppUserService;
@@ -20,7 +20,7 @@ class AppUserServiceTest {
     private final AppUserService appUserService = new AppUserService(appUserRepository);
 
     @Test
-    void updateUser() {
+    void updateUserFavorites() {
         // given
         String id = "123456";
         String username = "test-name";
@@ -29,10 +29,10 @@ class AppUserServiceTest {
         AppUser appUser = new AppUser(id, username, appUserRoles, favoritesPicturesIds);
         when(appUserRepository.findById(id)).thenReturn(Optional.of(appUser));
         List<String> favoritesPicturesIdsUpdated = List.of("test123", "test124");
-        AppUserInsertDto appUserInsertDto = new AppUserInsertDto(username, appUserRoles, favoritesPicturesIdsUpdated);
+        AppUserUpdateFavoritesDto appUserUpdateFavoritesDto = new AppUserUpdateFavoritesDto(id, favoritesPicturesIdsUpdated);
 
         // when
-        AppUser appUserUpdated = appUserService.updateUser(appUserInsertDto, id);
+        AppUser appUserUpdated = appUserService.updateUserFavorites(appUserUpdateFavoritesDto, id);
 
         // then
         assertEquals(id, appUserUpdated.getId());
@@ -42,17 +42,15 @@ class AppUserServiceTest {
     }
 
     @Test
-    void updateUserWhenNotPresent() {
+    void updateUserFavoritesWhenNotPresent() {
         // given
         String id = "123456";
-        String username = "test-name";
-        AppUserRoles appUserRoles = AppUserRoles.USER;
         List<String> favoritesPicturesIdsUpdated = List.of("test123", "test124");
-        AppUserInsertDto appUserInsertDto = new AppUserInsertDto(username, appUserRoles, favoritesPicturesIdsUpdated);
+        AppUserUpdateFavoritesDto appUserUpdateFavoritesDto = new AppUserUpdateFavoritesDto(id, favoritesPicturesIdsUpdated);
 
         // when + then
         try {
-            AppUser appUserUpdated = appUserService.updateUser(appUserInsertDto, id);
+            AppUser appUserUpdated = appUserService.updateUserFavorites(appUserUpdateFavoritesDto, id);
             System.out.println(appUserUpdated);
         }
         catch (Exception e) {

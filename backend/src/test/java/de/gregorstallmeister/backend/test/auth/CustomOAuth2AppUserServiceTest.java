@@ -54,7 +54,7 @@ class CustomOAuth2AppUserServiceTest {
         ClientRegistration clientRegistration = ClientRegistration.withRegistrationId("123456")
                 .authorizationGrantType(AuthorizationGrantType.JWT_BEARER)
                 .userInfoUri("http://localhost:8080/api/auth/me")
-                .userNameAttributeName("test-username")
+                .userNameAttributeName("test-id")
                 .build();
         OAuth2AccessToken oAuth2AccessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER, "myToken",
                 Instant.now(), Instant.MAX);
