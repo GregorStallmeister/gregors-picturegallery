@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
@@ -35,6 +37,7 @@ class AppUserControllerIntegrationTest {
         String id = "test1234";
         List<String> favoritePicturesIds = List.of("picture-120");
         AppUser appUser = new AppUser(id, "test-user", AppUserRoles.ADMIN, favoritePicturesIds);
+        SecurityContextHolder.getContext().setAuthentication(new OAuth2AuthenticationToken(appUser, null, id));
         appUserRepository.insert(appUser);
 
         // when + then
@@ -74,6 +77,9 @@ class AppUserControllerIntegrationTest {
     void updateUserFavoritesWhenNotPresent() {
         // given
         String id = "test1234";
+        List<String> favoritePicturesIds = List.of("picture-120");
+        AppUser appUser = new AppUser(id, "test-user", AppUserRoles.ADMIN, favoritePicturesIds);
+        SecurityContextHolder.getContext().setAuthentication(new OAuth2AuthenticationToken(appUser, null, id));
 
         // when + then
         try {
