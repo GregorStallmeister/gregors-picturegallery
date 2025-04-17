@@ -19,15 +19,14 @@ public class AppUserService {
     public AppUser updateUserFavorites(@NotNull AppUserUpdateFavoritesDto appUserUpdateFavoritesDto, String id) throws NoSuchElementException {
         Optional<AppUser> appUserOptional = appUserRepository.findById(id);
 
-        if (appUserOptional.isPresent()) {
-            AppUser appUserUpdated = new AppUser(id, appUserOptional.get().getUsername(), appUserOptional.get().getRole(),
-                    appUserUpdateFavoritesDto.favoritePicturesIds());
-            appUserRepository.save(appUserUpdated);
-            return appUserUpdated;
-        }
-        else {
+        if (appUserOptional.isEmpty()) {
             throw new NoSuchElementException("User to update with id " + id + " is not present in database!");
         }
+
+        AppUser appUserUpdated = new AppUser(id, appUserOptional.get().getUsername(), appUserOptional.get().getRole(),
+                appUserUpdateFavoritesDto.favoritePicturesIds());
+        appUserRepository.save(appUserUpdated);
+        return appUserUpdated;
     }
 
     public AppUser findUserById(String id) throws NoSuchElementException {
