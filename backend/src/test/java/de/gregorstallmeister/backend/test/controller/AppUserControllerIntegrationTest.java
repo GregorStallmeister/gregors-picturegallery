@@ -30,7 +30,7 @@ class AppUserControllerIntegrationTest {
     @Test
     @DirtiesContext
     @WithMockUser
-    void updateUser() {
+    void updateUserFavorites() {
         // given
         String id = "test1234";
         List<String> favoritePicturesIds = List.of("picture-120");
@@ -71,7 +71,7 @@ class AppUserControllerIntegrationTest {
     @Test
     @DirtiesContext
     @WithMockUser
-    void updateUserWhenNotPresent() {
+    void updateUserFavoritesWhenNotPresent() {
         // given
         String id = "test1234";
 

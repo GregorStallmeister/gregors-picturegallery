@@ -1,7 +1,7 @@
 package de.gregorstallmeister.backend.service;
 
 import de.gregorstallmeister.backend.model.AppUser;
-import de.gregorstallmeister.backend.model.AppUserInsertDto;
+import de.gregorstallmeister.backend.model.AppUserUpdateFavoritesDto;
 import de.gregorstallmeister.backend.repository.AppUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -16,11 +16,12 @@ public class AppUserService {
 
     private final AppUserRepository appUserRepository;
 
-    public AppUser updateUser(@NotNull AppUserInsertDto appUserInsertDto, String id) throws NoSuchElementException {
+    public AppUser updateUserFavorites(@NotNull AppUserUpdateFavoritesDto appUserUpdateFavoritesDto, String id) throws NoSuchElementException {
         Optional<AppUser> appUserOptional = appUserRepository.findById(id);
 
         if (appUserOptional.isPresent()) {
-            AppUser appUserUpdated = new AppUser(id, appUserInsertDto.username(), appUserInsertDto.role(), appUserInsertDto.favoritePicturesIds());
+            AppUser appUserUpdated = new AppUser(id, appUserOptional.get().getUsername(), appUserOptional.get().getRole(),
+                    appUserUpdateFavoritesDto.favoritePicturesIds());
             appUserRepository.save(appUserUpdated);
             return appUserUpdated;
         }
