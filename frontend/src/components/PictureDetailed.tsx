@@ -105,6 +105,10 @@ export function PictureDetailed({appUser, picture, switchFavorite}: Readonly<Pro
         return weatherString
     }
 
+    function createDatTimeString(): string {
+        return picture.instant.replace("T", ", ").replace("Z", " (GMT)")
+    }
+
     if (appUser === null || appUser === undefined) {
         return (
             <div className="card">
@@ -114,7 +118,7 @@ export function PictureDetailed({appUser, picture, switchFavorite}: Readonly<Pro
                     <br/>
                 </div>
                 <div className="cardEntry">
-                    {picture.location.toString()}, {picture.instant.toString()}
+                    {picture.location.toString()}, {createDatTimeString()}
                     &nbsp;&nbsp;
                     <label>
                         <input type='checkbox' id='favorite' value='favorite' disabled={true}/>Einloggen,&nbsp;um&nbsp;dieses&nbsp;Foto&nbsp;als&nbsp;Favorit&nbsp;festlegen&nbsp;oder&nbsp;abwählen&nbsp;zu&nbsp;können
@@ -135,7 +139,7 @@ export function PictureDetailed({appUser, picture, switchFavorite}: Readonly<Pro
                 <br/>
             </div>
             <div className="cardEntry">
-                {picture.location.toString()}, {picture.instant.toString()}
+                {picture.location.toString()}, {createDatTimeString()}
                 &nbsp;&nbsp;
                 <label><input type="checkbox" id="favorite" value="favorite" checked={boxFavoriteChecked} onChange={
                     event => {
