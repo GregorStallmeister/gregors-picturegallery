@@ -27,8 +27,20 @@ class WeatherResponseTest {
         String surfacePressure = "1018 hPa";
 
         // when
-        WeatherResponse weatherResponse = new WeatherResponse(positionInGrid, time, interval, temperature, tempApparent, precipitation,
-                relativeHumidity, windSpeed, windDirection, windGusts, cloudCover, surfacePressure);
+        WeatherResponse weatherResponse = WeatherResponse.builder()
+                .positionInGrid(positionInGrid)
+                .time(time)
+                .interval(interval)
+                .temperature(temperature)
+                .tempApparent(tempApparent)
+                .precipitation(precipitation)
+                .relative_humidity(relativeHumidity)
+                .windSpeed(windSpeed)
+                .windDirection(windDirection)
+                .windGusts(windGusts)
+                .cloud_cover(cloudCover)
+                .surface_pressure(surfacePressure)
+                .build();
 
         // then
         assertEquals(positionInGrid, weatherResponse.positionInGrid());
