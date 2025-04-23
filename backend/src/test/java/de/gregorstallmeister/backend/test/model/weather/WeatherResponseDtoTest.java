@@ -36,4 +36,43 @@ class WeatherResponseDtoTest {
         assertEquals(cloudCover, weatherResponseDto.cloud_cover());
         assertEquals(surfacePressure, weatherResponseDto.surface_pressure());
     }
+
+    @Test
+    void builderTest() {
+
+        // given
+        String temperature = "22 °C";
+        String tempApparent = "15 °C";
+        String precipitation = "10 mm";
+        String relativeHumidity = "73 %";
+        String windSpeed = "20 km/h";
+        int windDirection = 271;
+        String windGusts = "55 km/h";
+        String cloudCover = "58 %";
+        String surfacePressure = "1018 hPa";
+
+        // when
+        WeatherResponseDto weatherResponseDto = WeatherResponseDto.builder()
+                .temperature(temperature)
+                .tempApparent(tempApparent)
+                .precipitation(precipitation)
+                .relative_humidity(relativeHumidity)
+                .windSpeed(windSpeed)
+                .windDirection(windDirection)
+                .windGusts(windGusts)
+                .cloud_cover(cloudCover)
+                .surface_pressure(surfacePressure)
+                .build();
+
+        // then
+        assertEquals(temperature, weatherResponseDto.temperature());
+        assertEquals(tempApparent, weatherResponseDto.tempApparent());
+        assertEquals(precipitation, weatherResponseDto.precipitation());
+        assertEquals(relativeHumidity, weatherResponseDto.relative_humidity());
+        assertEquals(windSpeed, weatherResponseDto.windSpeed());
+        assertEquals(windDirection, weatherResponseDto.windDirection());
+        assertEquals(windGusts, weatherResponseDto.windGusts());
+        assertEquals(cloudCover, weatherResponseDto.cloud_cover());
+        assertEquals(surfacePressure, weatherResponseDto.surface_pressure());
+    }
 }

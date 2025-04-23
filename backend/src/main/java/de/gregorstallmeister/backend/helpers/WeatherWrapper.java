@@ -8,8 +8,16 @@ public class WeatherWrapper {
     private WeatherWrapper() {}
 
     public static WeatherResponseDto wrapForGet(WeatherResponse weatherResponse){
-        return new WeatherResponseDto(weatherResponse.temperature(), weatherResponse.tempApparent(),
-                weatherResponse.precipitation(), weatherResponse.relative_humidity(), weatherResponse.windSpeed(), weatherResponse.windDirection(),
-                weatherResponse.windGusts(), weatherResponse.cloud_cover(), weatherResponse.surface_pressure());
+        return WeatherResponseDto.builder()
+                .temperature(weatherResponse.temperature())
+                .tempApparent(weatherResponse.tempApparent())
+                .precipitation(weatherResponse.precipitation())
+                .relative_humidity(weatherResponse.relative_humidity())
+                .windSpeed(weatherResponse.windSpeed())
+                .windDirection(weatherResponse.windDirection())
+                .windGusts(weatherResponse.windGusts())
+                .cloud_cover(weatherResponse.cloud_cover())
+                .surface_pressure(weatherResponse.surface_pressure())
+                .build();
     }
 }
