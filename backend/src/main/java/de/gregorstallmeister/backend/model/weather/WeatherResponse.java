@@ -1,8 +1,10 @@
 package de.gregorstallmeister.backend.model.weather;
 
 
+import lombok.Builder;
 import org.springframework.data.annotation.Id;
 
+@Builder
 public record WeatherResponse(
         @Id
         String positionInGrid,
