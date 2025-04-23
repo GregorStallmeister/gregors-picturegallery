@@ -1,5 +1,8 @@
 package de.gregorstallmeister.backend.model.weather;
 
+import lombok.Builder;
+
+@Builder
 public record WeatherResponseDto(
         String temperature,
         String tempApparent,
