@@ -74,20 +74,20 @@ public class WeatherService {
             throw new NoSuchElementException("No weather available for position in grid: " + positionInGrid);
         }
 
-        String time = openMeteoResponse.current().time();
-        int interval = openMeteoResponse.current().interval();
-        String temperature = openMeteoResponse.current().temperature_2m() + " " + openMeteoResponse.current_units().temperature_2m();
-        String tempApparent = openMeteoResponse.current().apparent_temperature() + " " + openMeteoResponse.current_units().apparent_temperature();
-        String precipitation = openMeteoResponse.current().precipitation() + " " + openMeteoResponse.current_units().precipitation();
-        String relativeHumidity = openMeteoResponse.current().relative_humidity_2m() + " " + openMeteoResponse.current_units().relative_humidity_2m();
-        String windSpeed = openMeteoResponse.current().wind_speed_10m() + " " + openMeteoResponse.current_units().wind_speed_10m();
-        int windDirection = openMeteoResponse.current().wind_direction_10m();
-        String windGusts = openMeteoResponse.current().wind_gusts_10m() + " " + openMeteoResponse.current_units().wind_gusts_10m();
-        String cloudCover = openMeteoResponse.current().cloud_cover() + " " + openMeteoResponse.current_units().cloud_cover();
-        String surfacePressure = openMeteoResponse.current().surface_pressure() + " " + openMeteoResponse.current_units().surface_pressure();
-
-        WeatherResponse weatherResponse = new WeatherResponse(positionInGrid, time, interval, temperature, tempApparent,
-                precipitation, relativeHumidity, windSpeed, windDirection, windGusts, cloudCover, surfacePressure);
+        WeatherResponse weatherResponse = WeatherResponse.builder()
+                .positionInGrid(positionInGrid)
+                .time(openMeteoResponse.current().time())
+                .interval(openMeteoResponse.current().interval())
+                .temperature(openMeteoResponse.current().temperature_2m() + " " + openMeteoResponse.current_units().temperature_2m())
+                .tempApparent(openMeteoResponse.current().apparent_temperature() + " " + openMeteoResponse.current_units().apparent_temperature())
+                .precipitation(openMeteoResponse.current().precipitation() + " " + openMeteoResponse.current_units().precipitation())
+                .relative_humidity(openMeteoResponse.current().relative_humidity_2m() + " " + openMeteoResponse.current_units().relative_humidity_2m())
+                .windSpeed(openMeteoResponse.current().wind_speed_10m() + " " + openMeteoResponse.current_units().wind_speed_10m())
+                .windDirection(openMeteoResponse.current().wind_direction_10m())
+                .windGusts(openMeteoResponse.current().wind_gusts_10m() + " " + openMeteoResponse.current_units().wind_gusts_10m())
+                .cloud_cover(openMeteoResponse.current().cloud_cover() + " " + openMeteoResponse.current_units().cloud_cover())
+                .surface_pressure(openMeteoResponse.current().surface_pressure() + " " + openMeteoResponse.current_units().surface_pressure())
+                .build();
 
         weatherResponseRepository.save(weatherResponse);
         return weatherResponse;
