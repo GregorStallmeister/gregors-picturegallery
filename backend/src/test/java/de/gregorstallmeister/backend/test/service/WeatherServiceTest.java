@@ -197,11 +197,33 @@ class WeatherServiceTest {
     void getWeatherWhenPresentInDatabase() {
         // given
         String positionInGrid = "latitude=48.8109&longitude=9.3644";
-        String timeString = Instant.now().toString();
-        timeString = timeString.substring(0, timeString.lastIndexOf(':'));
-        WeatherResponse weatherResponseInDatabase = new WeatherResponse(positionInGrid, timeString, 900,
-                "13.6 °C", "13.3 °C", "0.0 mm", "86 %", "4.4 km/h",
-                305, "5.8 km/h", "91 %", "978.7 hPa");
+        String time = Instant.now().toString();
+        time = time.substring(0, time.lastIndexOf(':'));
+        int interval = 900;
+        String temperature = "13.6 °C";
+        String tempApparent = "13.3 °C";
+        String precipitation = "0.0 mm";
+        String relativeHumidity = "86 %";
+        String windSpeed = "4.4 km/h";
+        int windDirection = 305;
+        String windGusts = "5.8 km/h";
+        String cloudCover = "91 %";
+        String surfacePressure = "978.7 hPa";
+        WeatherResponse weatherResponseInDatabase = WeatherResponse.builder()
+                .positionInGrid(positionInGrid)
+                .time(time)
+                .interval(interval)
+                .temperature(temperature)
+                .tempApparent(tempApparent)
+                .precipitation(precipitation)
+                .relative_humidity(relativeHumidity)
+                .windSpeed(windSpeed)
+                .windDirection(windDirection)
+                .windGusts(windGusts)
+                .cloud_cover(cloudCover)
+                .surface_pressure(surfacePressure)
+                .build();
+
         when(mockWeatherResponseRepository.findById(positionInGrid)).thenReturn(Optional.of(weatherResponseInDatabase));
         mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
                         "latitude=48.8109&longitude=9.3644&models=icon_seamless&current=temperature_2m," +
@@ -266,9 +288,17 @@ class WeatherServiceTest {
         verify(mockWeatherResponseRepository).findById(positionInGrid);
         assertNotNull(weatherResponse);
         assertEquals(positionInGrid, weatherResponse.positionInGrid());
-        assertEquals(900, weatherResponse.interval());
-        assertEquals("4.4 km/h", weatherResponse.windSpeed());
-        assertEquals(timeString, weatherResponse.time());
+        assertEquals(time, weatherResponse.time());
+        assertEquals(interval, weatherResponse.interval());
+        assertEquals(temperature, weatherResponse.temperature());
+        assertEquals(tempApparent, weatherResponse.tempApparent());
+        assertEquals(precipitation, weatherResponse.precipitation());
+        assertEquals(relativeHumidity, weatherResponse.relative_humidity());
+        assertEquals(windSpeed, weatherResponse.windSpeed());
+        assertEquals(windDirection, weatherResponse.windDirection());
+        assertEquals(windGusts, weatherResponse.windGusts());
+        assertEquals(cloudCover, weatherResponse.cloud_cover());
+        assertEquals(surfacePressure, weatherResponse.surface_pressure());
     }
 
     @Test
@@ -347,9 +377,21 @@ class WeatherServiceTest {
     void getWeatherWhenExpired() {
         // given
         String positionInGrid = "latitude=48.8109&longitude=9.3644";
-        WeatherResponse weatherResponseExpired = new WeatherResponse(positionInGrid, "2025-04-16T07:15", 900,
-                "13.6 °C", "13.3 °C", "0.0 mm", "86 %", "4.4 km/h",
-                305, "5.8 km/h", "91 %", "978.7 hPa");
+        WeatherResponse weatherResponseExpired = WeatherResponse.builder()
+                .positionInGrid(positionInGrid)
+                .time("2025-04-16T07:15")
+                .interval(900)
+                .temperature("13.6 °C")
+                .tempApparent("13.3 °C")
+                .precipitation("0.0 mm")
+                .relative_humidity("86 %")
+                .windSpeed("4.4 km/h")
+                .windDirection(305)
+                .windGusts("5.8 km/h")
+                .cloud_cover("91 %")
+                .surface_pressure("978.7 hPa")
+                .build();
+
         when(mockWeatherResponseRepository.findById(positionInGrid)).thenReturn(Optional.of(weatherResponseExpired));
         mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
                         "latitude=48.8109&longitude=9.3644&models=icon_seamless&current=temperature_2m," +
