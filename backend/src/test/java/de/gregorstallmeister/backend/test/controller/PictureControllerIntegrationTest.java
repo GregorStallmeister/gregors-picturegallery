@@ -87,7 +87,7 @@ class PictureControllerIntegrationTest {
 
         // when + then
         try {
-            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture_get"))
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture"))
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().json("""
                             [
@@ -120,7 +120,7 @@ class PictureControllerIntegrationTest {
 
         // when + then
         try {
-            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture_get"))
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture"))
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().json("""                         
                                 []
@@ -145,7 +145,7 @@ class PictureControllerIntegrationTest {
 
         // when + then
         try {
-            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture_get/testID-123"))
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture/testID-123"))
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andExpect(MockMvcResultMatchers.content().json("""                          
                             {
@@ -169,7 +169,7 @@ class PictureControllerIntegrationTest {
 
         // when + then
         try {
-            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture_get/testID-123"))
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/picture/testID-123"))
                     .andExpect(MockMvcResultMatchers.status().isNotFound())
                     .andExpect(MockMvcResultMatchers.content().string(""));
         } catch (Exception e) {

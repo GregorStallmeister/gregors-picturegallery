@@ -19,7 +19,7 @@ function App() {
     const [appUser, setAppUser] = useState<AppUser | null | undefined>(undefined)
 
     function loadPictures() {
-        axios.get("/api/picture_get")
+        axios.get("/api/picture")
             .then((response) => {
                 console.log("Pictures loaded!")
                 console.log(response)

@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/picture")
 @RequiredArgsConstructor
 public class PictureController {
 
     private final PictureService pictureService;
 
-    @PostMapping("/picture")
+    @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED) // 201 - Standard, when something was created
     public PictureGetDto postPicture(@RequestBody PictureInsertDto pictureInsertDto) {
         Picture pictureInserted = pictureService.insertPicture(pictureInsertDto);
@@ -28,13 +28,13 @@ public class PictureController {
         return PictureWrapper.wrapPictureForGet(pictureInserted);
     }
 
-    @GetMapping("/picture_get")
+    @GetMapping("")
     @ResponseStatus(HttpStatus.OK)  // 200 - Standard for correct response, the returned list can be empty
     public List<PictureGetDto> getAllPictures() {
         return PictureWrapper.wrapPicturesForGet(pictureService.getPictures());
     }
 
-    @GetMapping("/picture_get/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PictureGetDto> getPictureById(@PathVariable String id) {
         Optional<Picture> optionalPicture = pictureService.getPictureById(id);
 
@@ -43,13 +43,13 @@ public class PictureController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
-    @PutMapping("/picture/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public PictureGetDto updatePicture(@RequestBody PictureInsertDto pictureInsertDto, @PathVariable String id) {
         return PictureWrapper.wrapPictureForGet(pictureService.updatePicture(pictureInsertDto, id));
     }
 
-    @DeleteMapping("/picture/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT) // design decision: 204 - no content when successful
     public void deletePicture(@PathVariable String id) {
         pictureService.deletePicture(id);
