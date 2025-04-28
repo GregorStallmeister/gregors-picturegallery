@@ -61,7 +61,7 @@ public class WeatherService {
 
         if (optionalWeatherResponse.isPresent()) {
             WeatherResponse weatherResponse = optionalWeatherResponse.get();
-            Instant instant = Instant.parse(weatherResponse.time() + ":00.502320300Z");
+            Instant instant = Instant.parse(weatherResponse.time() + ":00.000000000Z");
 
             if (instant.plusSeconds(weatherResponse.interval()).compareTo(Instant.now()) > 0) {
                 return weatherResponse;
