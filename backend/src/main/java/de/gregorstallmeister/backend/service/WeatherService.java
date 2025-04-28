@@ -47,7 +47,7 @@ public class WeatherService {
                     .retrieve()
                     .onStatus(status -> status.value() == 400, (request, response) -> {
                         throw new NoSuchElementException("No weather available for position in grid: " + positionInGrid
-                                + " - The cause was: " + response.getStatusText());
+                                + " - The cause was: " + response.getStatusText() + " (status text in response from Open Meteo API)");
                     })
                     .body(OpenMeteoResponse.class);
         }
@@ -70,7 +70,8 @@ public class WeatherService {
         OpenMeteoResponse openMeteoResponse = this.getWeatherRaw(positionInGrid);
 
         if (openMeteoResponse == null) {
-            throw new NoSuchElementException("No weather available for position in grid: " + positionInGrid);
+            throw new NoSuchElementException("No weather available for position in grid: " + positionInGrid +
+                    " (Open Meto API returned null)");
         }
 
         WeatherResponse weatherResponse = WeatherResponse.builder()

@@ -20,9 +20,16 @@ export function PictureDetailed({appUser, picture, switchFavorite}: Readonly<Pro
                 setWeatherResponse(response.data)
                 console.log("Weather loaded!")
             })
-            .catch((errorResponse) => {
+            .catch((error) => {
                 setWeatherResponse(null)
-                console.log("Error while loading weather: " + errorResponse)
+                if (axios.isAxiosError(error)) {
+                    console.log("Loading weather failed. The backend server returned status code: " + error.status +
+                        ", the complete response you can see in the following entry:")
+                    console.log(error.response)
+                }
+                else {
+                    console.log("Error while loading weather: " + error)
+                }
             })
     }
 
