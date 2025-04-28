@@ -4,7 +4,6 @@ import de.gregorstallmeister.backend.model.weather.OpenMeteoResponse;
 import de.gregorstallmeister.backend.model.weather.WeatherResponse;
 import de.gregorstallmeister.backend.repository.WeatherResponseRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
 import java.time.Instant;
@@ -44,13 +43,13 @@ public class WeatherService {
         }
 
         if (isMatch) {
-            try {
-                return restClient.get().uri("/" + requestString)
-                        .retrieve().body(OpenMeteoResponse.class);
-            } catch (HttpClientErrorException httpClientErrorException) {
-                throw new NoSuchElementException("No weather available for position in grid: " + positionInGrid
-                        + " - The cause was: " + httpClientErrorException.getMessage());
-            }
+            return restClient.get().uri("/" + requestString)
+                    .retrieve()
+                    .onStatus(status -> status.value() == 400, (request, response) -> {
+                        throw new NoSuchElementException("No weather available for position in grid: " + positionInGrid
+                                + " - The cause was: " + response.getStatusText());
+                    })
+                    .body(OpenMeteoResponse.class);
         }
 
         return null;
