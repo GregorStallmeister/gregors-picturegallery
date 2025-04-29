@@ -46,15 +46,13 @@ public class PictureService {
                     pictureInsertDto.instant(), pictureInsertDto.positionInGrid());
             pictureRepository.save(pictureUpdated);
             return pictureUpdated;
-                } else {
-            throw new  NoSuchElementException("Picture to update was not found with ID: " + id);
+        } else {
+            throw new NoSuchElementException("Picture to update was not found with ID: " + id);
         }
     }
 
     public void deletePicture(String id) {
-        Optional<Picture> optionalPicture = pictureRepository.findById(id);
-
-        if (optionalPicture.isPresent())
+        if (pictureRepository.existsById(id))
             pictureRepository.deleteById(id);
         else
             throw new NoSuchElementException("Picture to delete was not found with ID: " + id);

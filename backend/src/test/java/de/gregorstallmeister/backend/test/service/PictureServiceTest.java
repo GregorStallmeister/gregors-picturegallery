@@ -162,7 +162,7 @@ class PictureServiceTest {
         PictureInsertDto pictureInsertDto = new PictureInsertDto(imagePath, location, instant, positionInGrid);
 
         // when + then
-        assertThrows(NoSuchElementException.class, () -> pictureService.updatePicture(pictureInsertDto , id));
+        assertThrows(NoSuchElementException.class, () -> pictureService.updatePicture(pictureInsertDto, id));
         verify(pictureRepository).findById(id);
     }
 
@@ -171,12 +171,7 @@ class PictureServiceTest {
         // given
         IdService idService = new IdService();
         String id = idService.generateRandomId();
-        String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
-        String location = "Langeoog";
-        Instant instant = Instant.now();
-        String positionInGrid = "latitude=53.7474&longitude=7.4926";
-        Picture picture = new Picture(id, imagePath, location, instant, positionInGrid);
-       when (pictureRepository.findById(id)).thenReturn(Optional.of(picture));
+        when(pictureRepository.existsById(id)).thenReturn(true);
 
         // when
         pictureService.deletePicture(id);
@@ -192,6 +187,6 @@ class PictureServiceTest {
         String id = "test1234";
 
         // when + then
-        assertThrows(NoSuchElementException.class, () ->  pictureService.deletePicture(id));
+        assertThrows(NoSuchElementException.class, () -> pictureService.deletePicture(id));
     }
 }
