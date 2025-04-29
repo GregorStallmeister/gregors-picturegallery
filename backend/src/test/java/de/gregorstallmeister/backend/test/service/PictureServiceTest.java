@@ -125,12 +125,7 @@ class PictureServiceTest {
         // given
         IdService idService = new IdService();
         String id = idService.generateRandomId();
-        String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
-        String location = "Langeoog";
-        Instant instant = Instant.now();
-        String positionInGrid = "latitude=53.7474&longitude=7.4926";
-        Picture pictureToUpdate = new Picture(id, imagePath, location, instant, positionInGrid);
-        when(pictureRepository.findById(id)).thenReturn(Optional.of(pictureToUpdate));
+        when(pictureRepository.existsById(id)).thenReturn(true);
 
         String imagePathUpdated = "https://gregorstallmeister.de/fotogalerie/bilder/test123456.jpg";
         String locationUpdated = "Carolinensiel";
@@ -163,7 +158,7 @@ class PictureServiceTest {
 
         // when + then
         assertThrows(NoSuchElementException.class, () -> pictureService.updatePicture(pictureInsertDto, id));
-        verify(pictureRepository).findById(id);
+        verify(pictureRepository).existsById(id);
     }
 
     @Test
