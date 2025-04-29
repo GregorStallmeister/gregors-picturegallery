@@ -478,7 +478,7 @@ class WeatherServiceTest {
             weatherService.getWeather(positionInGrid);
         } catch (Exception e) {
             assertInstanceOf(NoSuchElementException.class, e);
-            assertEquals("No weather available for position in grid: grütze", e.getMessage());
+            assertEquals("No weather available for position in grid: grütze (Open Meto API returned null)", e.getMessage());
         }
     }
 
@@ -499,7 +499,7 @@ class WeatherServiceTest {
             weatherService.getWeather(positionInGrid);
         } catch (Exception e) {
             assertInstanceOf(NoSuchElementException.class, e);
-            assertEquals("No weather available for position in grid: mist", e.getMessage());
+            assertEquals("No weather available for position in grid: mist (Open Meto API returned null)", e.getMessage());
         }
     }
 

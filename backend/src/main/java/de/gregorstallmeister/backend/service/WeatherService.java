@@ -4,7 +4,6 @@ import de.gregorstallmeister.backend.model.weather.OpenMeteoResponse;
 import de.gregorstallmeister.backend.model.weather.WeatherResponse;
 import de.gregorstallmeister.backend.repository.WeatherResponseRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
 import java.time.Instant;
@@ -44,13 +43,13 @@ public class WeatherService {
         }
 
         if (isMatch) {
-            try {
-                return restClient.get().uri("/" + requestString)
-                        .retrieve().body(OpenMeteoResponse.class);
-            } catch (HttpClientErrorException httpClientErrorException) {
-                throw new NoSuchElementException("No weather available for position in grid: " + positionInGrid
-                        + " - The cause was: " + httpClientErrorException.getMessage());
-            }
+            return restClient.get().uri("/" + requestString)
+                    .retrieve()
+                    .onStatus(status -> status.value() == 400, (request, response) -> {
+                        throw new NoSuchElementException("No weather available for position in grid: " + positionInGrid
+                                + " - The cause was: " + response.getStatusText() + " (status text in response from Open Meteo API)");
+                    })
+                    .body(OpenMeteoResponse.class);
         }
 
         return null;
@@ -61,7 +60,7 @@ public class WeatherService {
 
         if (optionalWeatherResponse.isPresent()) {
             WeatherResponse weatherResponse = optionalWeatherResponse.get();
-            Instant instant = Instant.parse(weatherResponse.time() + ":00.502320300Z");
+            Instant instant = Instant.parse(weatherResponse.time() + ":00.000000000Z");
 
             if (instant.plusSeconds(weatherResponse.interval()).compareTo(Instant.now()) > 0) {
                 return weatherResponse;
@@ -71,7 +70,8 @@ public class WeatherService {
         OpenMeteoResponse openMeteoResponse = this.getWeatherRaw(positionInGrid);
 
         if (openMeteoResponse == null) {
-            throw new NoSuchElementException("No weather available for position in grid: " + positionInGrid);
+            throw new NoSuchElementException("No weather available for position in grid: " + positionInGrid +
+                    " (Open Meto API returned null)");
         }
 
         WeatherResponse weatherResponse = WeatherResponse.builder()
