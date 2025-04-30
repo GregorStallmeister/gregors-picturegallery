@@ -3,7 +3,9 @@ package de.gregorstallmeister.backend.helpers;
 import java.util.UUID;
 
 public class IdService {
-    public String generateRandomId() {
+    public static String generateRandomId() {
         return UUID.randomUUID().toString();
     }
+
+    private IdService() {}
 }

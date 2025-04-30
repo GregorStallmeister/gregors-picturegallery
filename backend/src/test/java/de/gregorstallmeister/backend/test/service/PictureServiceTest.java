@@ -5,6 +5,8 @@ import de.gregorstallmeister.backend.model.*;
 import de.gregorstallmeister.backend.repository.PictureRepository;
 import de.gregorstallmeister.backend.service.PictureService;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 import java.time.Instant;
 import java.util.List;
@@ -22,8 +24,7 @@ class PictureServiceTest {
     @Test
     void insertPicture() {
         // given
-        IdService idService = new IdService();
-        String id = idService.generateRandomId();
+        String id = "test1234";
         String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
         String location = "Langeoog";
         Instant instant = Instant.now();
@@ -33,29 +34,32 @@ class PictureServiceTest {
         when(pictureRepository.insert(pictureToInsert)).thenReturn(pictureToInsert);
 
         // when
-        Picture pictureInserted = pictureService.insertPicture(pictureToInsertDto);
+        // Mocking IdService, see https://www.baeldung.com/mockito-mock-static-methods, section 4.
+        try (MockedStatic<IdService> idServiceMockedStatic = Mockito.mockStatic(IdService.class)) {
+            idServiceMockedStatic.when(IdService::generateRandomId).thenReturn(id);
+            Picture pictureInserted = pictureService.insertPicture(pictureToInsertDto);
 
-        // then
-        verify(pictureRepository).insert(pictureInserted);
-        assertNotNull(pictureInserted);
-        assertEquals(imagePath, pictureInserted.imagePath());
-        assertEquals(location, pictureInserted.location());
-        assertEquals(instant, pictureInserted.instant());
-        assertNotNull(pictureInserted.id());
+            // then
+            verify(pictureRepository).insert(pictureInserted);
+            assertNotNull(pictureInserted);
+            assertEquals(imagePath, pictureInserted.imagePath());
+            assertEquals(location, pictureInserted.location());
+            assertEquals(instant, pictureInserted.instant());
+            assertEquals(id, pictureInserted.id());
+        }
     }
 
     @Test
     void getPictures() {
         // given
-        IdService idService = new IdService();
         Picture picture1 = new Picture(
-                idService.generateRandomId(),
+                IdService.generateRandomId(),
                 "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg",
                 "Langeoog",
                 Instant.parse("2025-03-26T09:17:30+01:00"),
                 "latitude=53.7474&longitude=7.4926");
         Picture picture2 = new Picture(
-                idService.generateRandomId(),
+                IdService.generateRandomId(),
                 "https://gregorstallmeister.de/fotogalerie/bilder/test124.jpg",
                 "Carolinensiel",
                 Instant.parse("2025-08-26T09:17:30+02:00"),
@@ -87,8 +91,7 @@ class PictureServiceTest {
     @Test
     void getPictureById() {
         // given
-        IdService idService = new IdService();
-        String id = idService.generateRandomId();
+        String id = IdService.generateRandomId();
         String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
         String location = "Langeoog";
         Instant instant = Instant.now();
@@ -123,8 +126,7 @@ class PictureServiceTest {
     @Test
     void updatePicture() {
         // given
-        IdService idService = new IdService();
-        String id = idService.generateRandomId();
+        String id = IdService.generateRandomId();
         when(pictureRepository.existsById(id)).thenReturn(true);
 
         String imagePathUpdated = "https://gregorstallmeister.de/fotogalerie/bilder/test123456.jpg";
@@ -133,10 +135,10 @@ class PictureServiceTest {
         String positionInGridUpdated = "latitude=53.6922&longitude=7.8025";
 
         Picture pictureModified = new Picture(id, imagePathUpdated, locationUpdated, instantUpdated, positionInGridUpdated);
-
-        // when
         PictureInsertDto pictureInsertDto = new PictureInsertDto(pictureModified.imagePath(),
                 pictureModified.location(), pictureModified.instant(), pictureModified.positionInGrid());
+
+        // when
         Picture pictureUpdated = pictureService.updatePicture(pictureInsertDto, id);
 
         // then
@@ -148,8 +150,7 @@ class PictureServiceTest {
     @Test
     void updatePictureWhenNotPresent() {
         // given
-        IdService idService = new IdService();
-        String id = idService.generateRandomId();
+        String id = IdService.generateRandomId();
         String imagePath = "https://gregorstallmeister.de/fotogalerie/bilder/test123.jpg";
         String location = "Langeoog";
         Instant instant = Instant.now();
@@ -164,8 +165,7 @@ class PictureServiceTest {
     @Test
     void deletePicture() {
         // given
-        IdService idService = new IdService();
-        String id = idService.generateRandomId();
+        String id = IdService.generateRandomId();
         when(pictureRepository.existsById(id)).thenReturn(true);
 
         // when
