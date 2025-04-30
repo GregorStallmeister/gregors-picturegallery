@@ -38,6 +38,10 @@ public class PictureController {
     public ResponseEntity<PictureGetDto> getPictureById(@PathVariable String id) {
         Optional<Picture> optionalPicture = pictureService.getPictureById(id);
 
+        // Design decision: when no picture is found, an empty Optional is returned.
+        // An empty Optional is, when no picture with the requested id exists, the result of the call to the repository.
+        // And it is a normal thing that a picture does not exist with the requested id, not an exceptional case.
+        // Exceptional cases, like the database is not available, will be handled automatically by the GlobalExceptionHandler.
         return optionalPicture.map(picture
                 -> ResponseEntity.ok(PictureWrapper.wrapPictureForGet(picture)))
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));

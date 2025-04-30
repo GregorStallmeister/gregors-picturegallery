@@ -38,23 +38,19 @@ public class PictureService {
         return pictureRepository.findById(id);
     }
 
-    public Picture updatePicture(@NotNull PictureInsertDto pictureInsertDto, String id) throws NoSuchElementException {
-        Optional<Picture> optionalPicture = pictureRepository.findById(id);
-
-        if (optionalPicture.isPresent()) {
+    public Picture updatePicture(@NotNull PictureInsertDto pictureInsertDto, String id) {
+        if (pictureRepository.existsById(id)) {
             Picture pictureUpdated = new Picture(id, pictureInsertDto.imagePath(), pictureInsertDto.location(),
                     pictureInsertDto.instant(), pictureInsertDto.positionInGrid());
             pictureRepository.save(pictureUpdated);
             return pictureUpdated;
-                } else {
-            throw new  NoSuchElementException("Picture to update was not found with ID: " + id);
+        } else {
+            throw new NoSuchElementException("Picture to update was not found with ID: " + id);
         }
     }
 
     public void deletePicture(String id) {
-        Optional<Picture> optionalPicture = pictureRepository.findById(id);
-
-        if (optionalPicture.isPresent())
+        if (pictureRepository.existsById(id))
             pictureRepository.deleteById(id);
         else
             throw new NoSuchElementException("Picture to delete was not found with ID: " + id);
