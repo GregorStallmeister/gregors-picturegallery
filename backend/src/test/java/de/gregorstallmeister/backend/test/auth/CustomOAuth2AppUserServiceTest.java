@@ -61,7 +61,8 @@ class CustomOAuth2AppUserServiceTest {
         OAuth2UserRequest oAuth2UserRequest = new OAuth2UserRequest(clientRegistration, oAuth2AccessToken);
         CustomOAuth2UserService customOAuth2UserService = new CustomOAuth2UserService(appUserRepository);
 
-        // when + then // this is implemented in hope, that the test coverage is reached, to be implemented in better way later.
+        // when + then
+        // this is implemented in the hope that the test coverage is reached, to be implemented in a better way later.
         assertThrows(OAuth2AuthenticationException.class, () ->
                 customOAuth2UserService.loadUser(oAuth2UserRequest));
     }

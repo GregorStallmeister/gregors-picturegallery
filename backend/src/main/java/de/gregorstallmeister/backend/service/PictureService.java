@@ -38,7 +38,7 @@ public class PictureService {
         return pictureRepository.findById(id);
     }
 
-    public Picture updatePicture(@NotNull PictureInsertDto pictureInsertDto, String id) throws NoSuchElementException {
+    public Picture updatePicture(@NotNull PictureInsertDto pictureInsertDto, String id) {
         if (pictureRepository.existsById(id)) {
             Picture pictureUpdated = new Picture(id, pictureInsertDto.imagePath(), pictureInsertDto.location(),
                     pictureInsertDto.instant(), pictureInsertDto.positionInGrid());

@@ -16,7 +16,7 @@ public class AppUserService {
 
     private final AppUserRepository appUserRepository;
 
-    public AppUser updateUserFavorites(@NotNull AppUserUpdateFavoritesDto appUserUpdateFavoritesDto, String id) throws NoSuchElementException {
+    public AppUser updateUserFavorites(@NotNull AppUserUpdateFavoritesDto appUserUpdateFavoritesDto, String id) {
         Optional<AppUser> appUserOptional = appUserRepository.findById(id);
 
         if (appUserOptional.isEmpty()) {
@@ -29,7 +29,7 @@ public class AppUserService {
         return appUserUpdated;
     }
 
-    public AppUser findUserById(String id) throws NoSuchElementException {
+    public AppUser findUserById(String id) {
         Optional<AppUser> optionalAppUser = appUserRepository.findById(id);
 
         if (optionalAppUser.isPresent()) {
