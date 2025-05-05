@@ -37,12 +37,12 @@ class WeatherResponseTest {
         assertEquals(temperature, weatherResponse.temperature());
         assertEquals(tempApparent, weatherResponse.tempApparent());
         assertEquals(precipitation, weatherResponse.precipitation());
-        assertEquals(relativeHumidity, weatherResponse.relative_humidity());
+        assertEquals(relativeHumidity, weatherResponse.relativeHumidity());
         assertEquals(windSpeed, weatherResponse.windSpeed());
         assertEquals(windDirection, weatherResponse.windDirection());
         assertEquals(windGusts, weatherResponse.windGusts());
-        assertEquals(cloudCover, weatherResponse.cloud_cover());
-        assertEquals(surfacePressure, weatherResponse.surface_pressure());
+        assertEquals(cloudCover, weatherResponse.cloudCover());
+        assertEquals(surfacePressure, weatherResponse.surfacePressure());
     }
 
     @Test
@@ -85,11 +85,11 @@ class WeatherResponseTest {
         assertEquals(temperature, weatherResponse.temperature());
         assertEquals(tempApparent, weatherResponse.tempApparent());
         assertEquals(precipitation, weatherResponse.precipitation());
-        assertEquals(relativeHumidity, weatherResponse.relative_humidity());
+        assertEquals(relativeHumidity, weatherResponse.relativeHumidity());
         assertEquals(windSpeed, weatherResponse.windSpeed());
         assertEquals(windDirection, weatherResponse.windDirection());
         assertEquals(windGusts, weatherResponse.windGusts());
-        assertEquals(cloudCover, weatherResponse.cloud_cover());
-        assertEquals(surfacePressure, weatherResponse.surface_pressure());
+        assertEquals(cloudCover, weatherResponse.cloudCover());
+        assertEquals(surfacePressure, weatherResponse.surfacePressure());
     }
 }

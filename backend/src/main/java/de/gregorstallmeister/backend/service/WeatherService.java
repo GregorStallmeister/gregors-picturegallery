@@ -19,7 +19,7 @@ public class WeatherService {
     private static final String REQUEST_STRING =
             "forecast?positionInGrid&models=icon_seamless&current=temperature_2m,relative_humidity_2m," +
                     "wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature,is_day," +
-                    "cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure,wind_gusts_10m";
+                    "cloudCover,precipitation,showers,weather_code,pressureMsl,surfacePressure,wind_gusts_10m";
 
     public WeatherService(RestClient.Builder builder, WeatherResponseRepository weatherResponseRepository) {
         this.restClient = builder.baseUrl("https://api.open-meteo.com/v1").build();
@@ -81,12 +81,13 @@ public class WeatherService {
                 .temperature(openMeteoResponse.current().temperature_2m() + " " + openMeteoResponse.current_units().temperature_2m())
                 .tempApparent(openMeteoResponse.current().apparent_temperature() + " " + openMeteoResponse.current_units().apparent_temperature())
                 .precipitation(openMeteoResponse.current().precipitation() + " " + openMeteoResponse.current_units().precipitation())
-                .relative_humidity(openMeteoResponse.current().relative_humidity_2m() + " " + openMeteoResponse.current_units().relative_humidity_2m())
+                .relativeHumidity(openMeteoResponse.current().relative_humidity_2m() + " " + openMeteoResponse.current_units().relative_humidity_2m())
                 .windSpeed(openMeteoResponse.current().wind_speed_10m() + " " + openMeteoResponse.current_units().wind_speed_10m())
                 .windDirection(openMeteoResponse.current().wind_direction_10m())
                 .windGusts(openMeteoResponse.current().wind_gusts_10m() + " " + openMeteoResponse.current_units().wind_gusts_10m())
-                .cloud_cover(openMeteoResponse.current().cloud_cover() + " " + openMeteoResponse.current_units().cloud_cover())
-                .surface_pressure(openMeteoResponse.current().surface_pressure() + " " + openMeteoResponse.current_units().surface_pressure())
+                .cloudCover(openMeteoResponse.current().cloud_cover() + " " + openMeteoResponse.current_units().cloud_cover())
+                .surfacePressure(openMeteoResponse.current().surface_pressure() + " " + openMeteoResponse.current_units().surface_pressure())
+                .pressureMsl(openMeteoResponse.current().pressure_msl() + " " + openMeteoResponse.current_units().pressure_msl())
                 .build();
 
         weatherResponseRepository.save(weatherResponse);

@@ -39,7 +39,7 @@ class WeatherServiceTest {
         mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
                         "latitude=48.8109&longitude=9.3644&models=icon_seamless&current=temperature_2m," +
                         "relative_humidity_2m,wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature," +
-                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "is_day,cloudCover,precipitation,showers,weather_code,pressureMsl,surfacePressure," +
                         "wind_gusts_10m"))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withSuccess("""
@@ -62,12 +62,12 @@ class WeatherServiceTest {
                                                           "snowfall": "cm",
                                                           "apparent_temperature": "°C",
                                                           "is_day": "",
-                                                          "cloud_cover": "%",
+                                                          "cloudCover": "%",
                                                           "precipitation": "mm",
                                                           "showers": "mm",
                                                           "weather_code": "wmo code",
-                                                          "pressure_msl": "hPa",
-                                                          "surface_pressure": "hPa",
+                                                          "pressureMsl": "hPa",
+                                                          "surfacePressure": "hPa",
                                                           "wind_gusts_10m": "km/h"
                                                       },
                                                       "current": {
@@ -81,12 +81,12 @@ class WeatherServiceTest {
                                                           "snowfall": 0.00,
                                                           "apparent_temperature": 11.8,
                                                           "is_day": 1,
-                                                          "cloud_cover": 100,
+                                                          "cloudCover": 100,
                                                           "precipitation": 0.00,
                                                           "showers": 0.00,
                                                           "weather_code": 3,
-                                                          "pressure_msl": 1000.1,
-                                                          "surface_pressure": 972.5,
+                                                          "pressureMsl": 1000.1,
+                                                          "surfacePressure": 972.5,
                                                           "wind_gusts_10m": 4.3
                                                       }
                         }
@@ -116,7 +116,7 @@ class WeatherServiceTest {
         mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
                         "gr%C3%BCtze&models=icon_seamless&current=temperature_2m," +
                         "relative_humidity_2m,wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature," +
-                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "is_day,cloudCover,precipitation,showers,weather_code,pressureMsl,surfacePressure," +
                         "wind_gusts_10m"))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withSuccess("", MediaType.APPLICATION_JSON));
@@ -135,7 +135,7 @@ class WeatherServiceTest {
         mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
                         "gr%C3%BCtze&models=icon_seamless&current=temperature_2m," +
                         "relative_humidity_2m,wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature," +
-                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "is_day,cloudCover,precipitation,showers,weather_code,pressureMsl,surfacePressure," +
                         "wind_gusts_10m"))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withSuccess("", MediaType.APPLICATION_JSON));
@@ -154,7 +154,7 @@ class WeatherServiceTest {
         mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
                         "latitude=4800.8109&longitude=9.3644&models=icon_seamless&current=temperature_2m," +
                         "relative_humidity_2m,wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature," +
-                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "is_day,cloudCover,precipitation,showers,weather_code,pressureMsl,surfacePressure," +
                         "wind_gusts_10m"))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withBadRequest());
@@ -177,7 +177,7 @@ class WeatherServiceTest {
         mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
                         "latitude=48.8109&longitude=900.3644&models=icon_seamless&current=temperature_2m," +
                         "relative_humidity_2m,wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature," +
-                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "is_day,cloudCover,precipitation,showers,weather_code,pressureMsl,surfacePressure," +
                         "wind_gusts_10m"))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withBadRequest());
@@ -228,7 +228,7 @@ class WeatherServiceTest {
         mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
                         "latitude=48.8109&longitude=9.3644&models=icon_seamless&current=temperature_2m," +
                         "relative_humidity_2m,wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature," +
-                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "is_day,cloudCover,precipitation,showers,weather_code,pressureMsl,surfacePressure," +
                         "wind_gusts_10m"))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withSuccess("""
@@ -251,12 +251,12 @@ class WeatherServiceTest {
                                                           "snowfall": "cm",
                                                           "apparent_temperature": "°C",
                                                           "is_day": "",
-                                                          "cloud_cover": "%",
+                                                          "cloudCover": "%",
                                                           "precipitation": "mm",
                                                           "showers": "mm",
                                                           "weather_code": "wmo code",
-                                                          "pressure_msl": "hPa",
-                                                          "surface_pressure": "hPa",
+                                                          "pressureMsl": "hPa",
+                                                          "surfacePressure": "hPa",
                                                           "wind_gusts_10m": "km/h"
                                                       },
                                                       "current": {
@@ -270,12 +270,12 @@ class WeatherServiceTest {
                                                           "snowfall": 0.00,
                                                           "apparent_temperature": 11.8,
                                                           "is_day": 1,
-                                                          "cloud_cover": 100,
+                                                          "cloudCover": 100,
                                                           "precipitation": 0.00,
                                                           "showers": 0.00,
                                                           "weather_code": 3,
-                                                          "pressure_msl": 1000.1,
-                                                          "surface_pressure": 972.5,
+                                                          "pressureMsl": 1000.1,
+                                                          "surfacePressure": 972.5,
                                                           "wind_gusts_10m": 4.3
                                                       }
                         }
@@ -293,12 +293,12 @@ class WeatherServiceTest {
         assertEquals(temperature, weatherResponse.temperature());
         assertEquals(tempApparent, weatherResponse.tempApparent());
         assertEquals(precipitation, weatherResponse.precipitation());
-        assertEquals(relativeHumidity, weatherResponse.relative_humidity());
+        assertEquals(relativeHumidity, weatherResponse.relativeHumidity());
         assertEquals(windSpeed, weatherResponse.windSpeed());
         assertEquals(windDirection, weatherResponse.windDirection());
         assertEquals(windGusts, weatherResponse.windGusts());
-        assertEquals(cloudCover, weatherResponse.cloud_cover());
-        assertEquals(surfacePressure, weatherResponse.surface_pressure());
+        assertEquals(cloudCover, weatherResponse.cloudCover());
+        assertEquals(surfacePressure, weatherResponse.surfacePressure());
     }
 
     @Test
@@ -309,7 +309,7 @@ class WeatherServiceTest {
         mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
                         "latitude=48.8109&longitude=9.3644&models=icon_seamless&current=temperature_2m," +
                         "relative_humidity_2m,wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature," +
-                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "is_day,cloudCover,precipitation,showers,weather_code,pressureMsl,surfacePressure," +
                         "wind_gusts_10m"))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withSuccess("""
@@ -332,12 +332,12 @@ class WeatherServiceTest {
                                                           "snowfall": "cm",
                                                           "apparent_temperature": "°C",
                                                           "is_day": "",
-                                                          "cloud_cover": "%",
+                                                          "cloudCover": "%",
                                                           "precipitation": "mm",
                                                           "showers": "mm",
                                                           "weather_code": "wmo code",
-                                                          "pressure_msl": "hPa",
-                                                          "surface_pressure": "hPa",
+                                                          "pressureMsl": "hPa",
+                                                          "surfacePressure": "hPa",
                                                           "wind_gusts_10m": "km/h"
                                                       },
                                                       "current": {
@@ -351,12 +351,12 @@ class WeatherServiceTest {
                                                           "snowfall": 0.00,
                                                           "apparent_temperature": 11.8,
                                                           "is_day": 1,
-                                                          "cloud_cover": 100,
+                                                          "cloudCover": 100,
                                                           "precipitation": 0.00,
                                                           "showers": 0.00,
                                                           "weather_code": 3,
-                                                          "pressure_msl": 1000.1,
-                                                          "surface_pressure": 972.5,
+                                                          "pressureMsl": 1000.1,
+                                                          "surfacePressure": 972.5,
                                                           "wind_gusts_10m": 4.3
                                                       }
                         }
@@ -396,7 +396,7 @@ class WeatherServiceTest {
         mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
                         "latitude=48.8109&longitude=9.3644&models=icon_seamless&current=temperature_2m," +
                         "relative_humidity_2m,wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature," +
-                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "is_day,cloudCover,precipitation,showers,weather_code,pressureMsl,surfacePressure," +
                         "wind_gusts_10m"))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withSuccess("""
@@ -419,12 +419,12 @@ class WeatherServiceTest {
                                                           "snowfall": "cm",
                                                           "apparent_temperature": "°C",
                                                           "is_day": "",
-                                                          "cloud_cover": "%",
+                                                          "cloudCover": "%",
                                                           "precipitation": "mm",
                                                           "showers": "mm",
                                                           "weather_code": "wmo code",
-                                                          "pressure_msl": "hPa",
-                                                          "surface_pressure": "hPa",
+                                                          "pressureMsl": "hPa",
+                                                          "surfacePressure": "hPa",
                                                           "wind_gusts_10m": "km/h"
                                                       },
                                                       "current": {
@@ -438,12 +438,12 @@ class WeatherServiceTest {
                                                           "snowfall": 0.00,
                                                           "apparent_temperature": 11.8,
                                                           "is_day": 1,
-                                                          "cloud_cover": 100,
+                                                          "cloudCover": 100,
                                                           "precipitation": 0.00,
                                                           "showers": 0.00,
                                                           "weather_code": 3,
-                                                          "pressure_msl": 1000.1,
-                                                          "surface_pressure": 972.5,
+                                                          "pressureMsl": 1000.1,
+                                                          "surfacePressure": 972.5,
                                                           "wind_gusts_10m": 4.3
                                                       }
                         }
@@ -468,7 +468,7 @@ class WeatherServiceTest {
         mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
                         "gr%C3%BCtze&models=icon_seamless&current=temperature_2m," +
                         "relative_humidity_2m,wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature," +
-                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "is_day,cloudCover,precipitation,showers,weather_code,pressureMsl,surfacePressure," +
                         "wind_gusts_10m"))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withSuccess("", MediaType.APPLICATION_JSON));
@@ -489,7 +489,7 @@ class WeatherServiceTest {
         mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
                         "gr%C3%BCtze&models=icon_seamless&current=temperature_2m," +
                         "relative_humidity_2m,wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature," +
-                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "is_day,cloudCover,precipitation,showers,weather_code,pressureMsl,surfacePressure," +
                         "wind_gusts_10m"))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withSuccess("", MediaType.APPLICATION_JSON));
@@ -510,7 +510,7 @@ class WeatherServiceTest {
         mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
                         "latitude=4800.8109&longitude=9.3644&models=icon_seamless&current=temperature_2m," +
                         "relative_humidity_2m,wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature," +
-                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "is_day,cloudCover,precipitation,showers,weather_code,pressureMsl,surfacePressure," +
                         "wind_gusts_10m"))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withBadRequest());
@@ -533,7 +533,7 @@ class WeatherServiceTest {
         mockRestServiceServer.expect(requestTo("https://api.open-meteo.com/v1/forecast?" +
                         "latitude=48.8109&longitude=900.3644&models=icon_seamless&current=temperature_2m," +
                         "relative_humidity_2m,wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature," +
-                        "is_day,cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure," +
+                        "is_day,cloudCover,precipitation,showers,weather_code,pressureMsl,surfacePressure," +
                         "wind_gusts_10m"))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withBadRequest());

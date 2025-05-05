@@ -12,12 +12,13 @@ public class WeatherWrapper {
                 .temperature(weatherResponse.temperature())
                 .tempApparent(weatherResponse.tempApparent())
                 .precipitation(weatherResponse.precipitation())
-                .relative_humidity(weatherResponse.relative_humidity())
+                .relativeHumidity(weatherResponse.relativeHumidity())
                 .windSpeed(weatherResponse.windSpeed())
                 .windDirection(weatherResponse.windDirection())
                 .windGusts(weatherResponse.windGusts())
-                .cloud_cover(weatherResponse.cloud_cover())
-                .surface_pressure(weatherResponse.surface_pressure())
+                .cloudCover(weatherResponse.cloudCover())
+                .surfacePressure(weatherResponse.surfacePressure())
+                .pressureMsl(weatherResponse.pressureMsl())
                 .build();
     }
 }
