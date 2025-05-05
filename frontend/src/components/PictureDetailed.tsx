@@ -96,13 +96,14 @@ export function PictureDetailed({appUser, picture, switchFavorite}: Readonly<Pro
         if (weatherResponse !== null && weatherResponse !== undefined) {
             weatherString += weatherResponse.temperature.replace(".", ",")
             weatherString += ", gefühlt " + weatherResponse.tempApparent.replace(".", ",")
-            weatherString += " - bewölkt zu " + weatherResponse.cloud_cover
+            weatherString += " - bewölkt zu " + weatherResponse.cloudCover
             weatherString += " - Niederschlag " + weatherResponse.precipitation.replace(".", ",")
             weatherString += " - Wind " + weatherResponse.windSpeed.replace(".", ",")
             weatherString += " aus " + createWindDirection(weatherResponse.windDirection)
             weatherString += ", Böen " + weatherResponse.windGusts.replace(".", ",")
-            weatherString += " - relative Luftfeuchtigkeit " + weatherResponse.relative_humidity
-            weatherString += " - Luftdruck " + weatherResponse.surface_pressure.replace(".", ",")
+            weatherString += " - relative Luftfeuchtigkeit " + weatherResponse.relativeHumidity
+            weatherString += " - Luftdruck " + weatherResponse.pressureMsl.replace(".", ",")
+            weatherString += " (bezogen auf Meereshöhe), tatsächlich " + weatherResponse.surfacePressure.replace(".", ",")
             weatherString += " (Quelle: Open Meteo API)"
         }
         else {
