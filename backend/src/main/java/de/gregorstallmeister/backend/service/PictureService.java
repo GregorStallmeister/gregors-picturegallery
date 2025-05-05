@@ -17,17 +17,14 @@ public class PictureService {
     private final PictureRepository pictureRepository;
 
     public Picture insertPicture(@NotNull PictureInsertDto pictureInsertDto) {
-        IdService idService = new IdService();
         Picture pictureToInsert = new Picture(
-                idService.generateRandomId(),
+                IdService.generateRandomId(),
                 pictureInsertDto.imagePath(),
                 pictureInsertDto.location(),
                 pictureInsertDto.instant(),
                 pictureInsertDto.positionInGrid());
 
-        pictureRepository.insert(pictureToInsert);
-
-        return pictureToInsert;
+        return pictureRepository.insert(pictureToInsert);
     }
 
     public List<Picture> getPictures() {
