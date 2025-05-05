@@ -18,8 +18,8 @@ public class WeatherService {
 
     private static final String REQUEST_STRING =
             "forecast?positionInGrid&models=icon_seamless&current=temperature_2m,relative_humidity_2m," +
-                    "wind_speed_10m,wind_direction_10m,precipitation,snowfall,apparent_temperature,is_day," +
-                    "cloudCover,precipitation,showers,weather_code,pressureMsl,surfacePressure,wind_gusts_10m";
+                    "wind_speed_10m,wind_direction_10m,rain,snowfall,apparent_temperature,is_day," +
+                    "cloud_cover,precipitation,showers,weather_code,pressure_msl,surface_pressure,wind_gusts_10m";
 
     public WeatherService(RestClient.Builder builder, WeatherResponseRepository weatherResponseRepository) {
         this.restClient = builder.baseUrl("https://api.open-meteo.com/v1").build();

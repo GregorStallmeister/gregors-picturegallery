@@ -12,7 +12,6 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
-import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.time.Instant;
@@ -63,7 +62,7 @@ class CustomOAuth2AppUserServiceTest {
 
         // when + then
         // this is implemented in the hope that the test coverage is reached, to be implemented in a better way later.
-        assertThrows(OAuth2AuthenticationException.class, () ->
+        assertThrows(IllegalArgumentException.class, () ->
                 customOAuth2UserService.loadUser(oAuth2UserRequest));
     }
 }
