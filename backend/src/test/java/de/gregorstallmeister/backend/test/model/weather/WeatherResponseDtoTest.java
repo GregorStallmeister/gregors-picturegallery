@@ -20,10 +20,11 @@ class WeatherResponseDtoTest {
         String windGusts = "55 km/h";
         String cloudCover = "58 %";
         String surfacePressure = "1018 hPa";
+        String pressureMsl = "998 hPa";
 
         // when
         WeatherResponseDto weatherResponseDto = new WeatherResponseDto(temperature, tempApparent, precipitation,
-                relativeHumidity, windSpeed, windDirection, windGusts, cloudCover, surfacePressure);
+                relativeHumidity, windSpeed, windDirection, windGusts, cloudCover, surfacePressure, pressureMsl);
 
         // then
         assertEquals(temperature, weatherResponseDto.temperature());
@@ -35,6 +36,7 @@ class WeatherResponseDtoTest {
         assertEquals(windGusts, weatherResponseDto.windGusts());
         assertEquals(cloudCover, weatherResponseDto.cloudCover());
         assertEquals(surfacePressure, weatherResponseDto.surfacePressure());
+        assertEquals(pressureMsl, weatherResponseDto.pressureMsl());
     }
 
     @Test
@@ -50,18 +52,20 @@ class WeatherResponseDtoTest {
         String windGusts = "55 km/h";
         String cloudCover = "58 %";
         String surfacePressure = "1018 hPa";
+        String pressureMsl = "998 hPa";
 
         // when
         WeatherResponseDto weatherResponseDto = WeatherResponseDto.builder()
                 .temperature(temperature)
                 .tempApparent(tempApparent)
                 .precipitation(precipitation)
-                .relative_humidity(relativeHumidity)
+                .relativeHumidity(relativeHumidity)
                 .windSpeed(windSpeed)
                 .windDirection(windDirection)
                 .windGusts(windGusts)
-                .cloud_cover(cloudCover)
-                .surface_pressure(surfacePressure)
+                .cloudCover(cloudCover)
+                .surfacePressure(surfacePressure)
+                .pressureMsl(pressureMsl)
                 .build();
 
         // then
@@ -74,5 +78,6 @@ class WeatherResponseDtoTest {
         assertEquals(windGusts, weatherResponseDto.windGusts());
         assertEquals(cloudCover, weatherResponseDto.cloudCover());
         assertEquals(surfacePressure, weatherResponseDto.surfacePressure());
+        assertEquals(pressureMsl, weatherResponseDto.pressureMsl());
     }
 }

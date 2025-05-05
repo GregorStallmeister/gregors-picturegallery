@@ -209,6 +209,7 @@ class WeatherServiceTest {
         String windGusts = "5.8 km/h";
         String cloudCover = "91 %";
         String surfacePressure = "978.7 hPa";
+        String pressureMsl = "998 hPa";
         WeatherResponse weatherResponseInDatabase = WeatherResponse.builder()
                 .positionInGrid(positionInGrid)
                 .time(time)
@@ -216,12 +217,13 @@ class WeatherServiceTest {
                 .temperature(temperature)
                 .tempApparent(tempApparent)
                 .precipitation(precipitation)
-                .relative_humidity(relativeHumidity)
+                .relativeHumidity(relativeHumidity)
                 .windSpeed(windSpeed)
                 .windDirection(windDirection)
                 .windGusts(windGusts)
-                .cloud_cover(cloudCover)
-                .surface_pressure(surfacePressure)
+                .cloudCover(cloudCover)
+                .surfacePressure(surfacePressure)
+                .pressureMsl(pressureMsl)
                 .build();
 
         when(mockWeatherResponseRepository.findById(positionInGrid)).thenReturn(Optional.of(weatherResponseInDatabase));
@@ -274,7 +276,7 @@ class WeatherServiceTest {
                                                           "precipitation": 0.00,
                                                           "showers": 0.00,
                                                           "weather_code": 3,
-                                                          "pressureMsl": 1000.1,
+                                                          "pressureMsl": 996,
                                                           "surfacePressure": 972.5,
                                                           "wind_gusts_10m": 4.3
                                                       }
@@ -299,6 +301,7 @@ class WeatherServiceTest {
         assertEquals(windGusts, weatherResponse.windGusts());
         assertEquals(cloudCover, weatherResponse.cloudCover());
         assertEquals(surfacePressure, weatherResponse.surfacePressure());
+        assertEquals(pressureMsl, weatherResponse.pressureMsl());
     }
 
     @Test
@@ -384,12 +387,13 @@ class WeatherServiceTest {
                 .temperature("13.6 °C")
                 .tempApparent("13.3 °C")
                 .precipitation("0.0 mm")
-                .relative_humidity("86 %")
+                .relativeHumidity("86 %")
                 .windSpeed("4.4 km/h")
                 .windDirection(305)
                 .windGusts("5.8 km/h")
-                .cloud_cover("91 %")
-                .surface_pressure("978.7 hPa")
+                .cloudCover("91 %")
+                .surfacePressure("978.7 hPa")
+                .pressureMsl("1010 hPa")
                 .build();
 
         when(mockWeatherResponseRepository.findById(positionInGrid)).thenReturn(Optional.of(weatherResponseExpired));
