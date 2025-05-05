@@ -22,7 +22,7 @@ public class AuthController {
     @GetMapping("/me")
     public AppUser getMe(@AuthenticationPrincipal OAuth2User oAuth2User) {
         if (oAuth2User == null) {
-            throw new CustomAuthenticationException("User is not logged in!");
+            return null;
         }
 
         if (oAuth2User instanceof AppUser appUserInSession) {

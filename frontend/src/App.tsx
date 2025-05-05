@@ -34,12 +34,17 @@ function App() {
     function loadUser() {
         axios.get("/api/auth/me")
             .then(response => {
-                console.log("User loaded!")
+                console.log("Logged-in user loaded!")
                 console.log("Response was: " + response.data)
-                setAppUser(response.data)
+                if (response.data !== "") {
+                    setAppUser(response.data)
+                }
+                else {
+                    setAppUser(null)
+                }
             })
             .catch(errorResponse => {
-                console.log("Error while loading user: " + errorResponse)
+                console.log("Error while loading logged-in user: " + errorResponse)
                 setAppUser(null)
             })
     }

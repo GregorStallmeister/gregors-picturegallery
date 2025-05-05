@@ -99,13 +99,8 @@ class AuthControllerIntegrationTest {
         // when + then
         try {
             mockMvc.perform(MockMvcRequestBuilders.get("/api/auth/me"))
-                    .andExpect(MockMvcResultMatchers.status().isUnauthorized())
-                    .andExpect(MockMvcResultMatchers.content().json("""
-                            {
-                              "message": "An error occurred: User is not logged in!"
-                            }
-                            """))
-                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty());
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().string(""));
         } catch (Exception e) {
             Assertions.fail();
         }
