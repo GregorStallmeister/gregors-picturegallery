@@ -103,7 +103,7 @@ export function PictureDetailed({appUser, picture, switchFavorite}: Readonly<Pro
             weatherString += ", Böen " + weatherResponse.windGusts.replace(".", ",")
             weatherString += " - relative Luftfeuchtigkeit " + weatherResponse.relativeHumidity
             weatherString += " - Luftdruck " + weatherResponse.pressureMsl.replace(".", ",")
-            weatherString += " (bezogen auf Meereshöhe), tatsächlich " + weatherResponse.surfacePressure.replace(".", ",")
+            weatherString += " bezogen auf Meereshöhe, tatsächlich " + weatherResponse.surfacePressure.replace(".", ",")
             weatherString += " (Quelle: Open Meteo API)"
         }
         else {
