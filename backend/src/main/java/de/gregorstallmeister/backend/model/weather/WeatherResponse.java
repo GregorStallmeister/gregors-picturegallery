@@ -13,11 +13,12 @@ public record WeatherResponse(
         String temperature,
         String tempApparent,
         String precipitation,
-        String relative_humidity,
+        String relativeHumidity,
         String windSpeed,
         int windDirection,
         String windGusts,
-        String cloud_cover,
-        String surface_pressure
+        String cloudCover,
+        String surfacePressure,
+        String pressureMsl
 ) {
 }

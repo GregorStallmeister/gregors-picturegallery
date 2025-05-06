@@ -58,36 +58,36 @@ export function PictureDetailed({appUser, picture, switchFavorite}: Readonly<Pro
         )
     }
 
-    function createWindDirection(windDirecetion: number): string {
-        if (windDirecetion <= 30) {
+    function createWindDirection(windDirection: number): string {
+        if (windDirection <= 30) {
             return "Nord"
         }
-        if (windDirecetion <= 60) {
+        if (windDirection <= 60) {
             return "Nord-Ost"
         }
-        if (windDirecetion <= 120) {
+        if (windDirection <= 120) {
             return "Ost"
         }
-        if (windDirecetion <= 150) {
+        if (windDirection <= 150) {
             return "Süd-Ost"
         }
-        if (windDirecetion <= 210) {
+        if (windDirection <= 210) {
             return "Süd"
         }
-        if (windDirecetion <= 240) {
+        if (windDirection <= 240) {
             return "Süd-West"
         }
-        if (windDirecetion <= 300) {
+        if (windDirection <= 300) {
             return "West"
         }
-        if (windDirecetion <= 330) {
+        if (windDirection <= 330) {
             return "Nord-West"
         }
-        if (windDirecetion <= 360) {
+        if (windDirection <= 360) {
             return "Nord"
         }
 
-        return windDirecetion + " Grad"
+        return windDirection + " Grad"
     }
 
     function createWeatherString(): string {
@@ -96,13 +96,14 @@ export function PictureDetailed({appUser, picture, switchFavorite}: Readonly<Pro
         if (weatherResponse !== null && weatherResponse !== undefined) {
             weatherString += weatherResponse.temperature.replace(".", ",")
             weatherString += ", gefühlt " + weatherResponse.tempApparent.replace(".", ",")
-            weatherString += " - bewölkt zu " + weatherResponse.cloud_cover
+            weatherString += " - bewölkt zu " + weatherResponse.cloudCover
             weatherString += " - Niederschlag " + weatherResponse.precipitation.replace(".", ",")
             weatherString += " - Wind " + weatherResponse.windSpeed.replace(".", ",")
             weatherString += " aus " + createWindDirection(weatherResponse.windDirection)
             weatherString += ", Böen " + weatherResponse.windGusts.replace(".", ",")
-            weatherString += " - relative Luftfeuchtigkeit " + weatherResponse.relative_humidity
-            weatherString += " - Luftdruck " + weatherResponse.surface_pressure.replace(".", ",")
+            weatherString += " - relative Luftfeuchtigkeit " + weatherResponse.relativeHumidity
+            weatherString += " - Luftdruck " + weatherResponse.pressureMsl.replace(".", ",")
+            weatherString += " bezogen auf Meereshöhe, tatsächlich " + weatherResponse.surfacePressure.replace(".", ",")
             weatherString += " (Quelle: Open Meteo API)"
         }
         else {
