@@ -101,7 +101,8 @@ class AppUserControllerIntegrationTest {
                                       "message": "An error occurred: User to update with id test1234 is not present in database!"
                                     }
                             """))
-                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty());
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty());
         } catch (Exception e) {
             Assertions.fail();
         }
@@ -138,7 +139,8 @@ class AppUserControllerIntegrationTest {
                                       "message": "An error occurred: ID of logged in user to update their favorites is not the ID specified!"
                                     }
                             """))
-                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty());
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty());
         } catch (Exception e) {
             Assertions.fail();
         }
@@ -175,7 +177,8 @@ class AppUserControllerIntegrationTest {
                                       "message": "An error occurred: Logged in user to update their favorites is not an AppUser!"
                                     }
                             """))
-                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty());
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty());
         } catch (Exception e) {
             Assertions.fail();
         }

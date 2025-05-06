@@ -63,7 +63,8 @@ class AuthControllerIntegrationTest {
                               "message": "An error occurred: logged in user is no AppUser!"
                             }
                             """))
-                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty());
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty());
         } catch (Exception e) {
             Assertions.fail();
         }
@@ -85,7 +86,8 @@ class AuthControllerIntegrationTest {
                               "message": "An error occurred: Error while loading user from database!"
                             }
                             """))
-                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty());
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty());
         } catch (Exception e) {
             Assertions.fail();
         }
