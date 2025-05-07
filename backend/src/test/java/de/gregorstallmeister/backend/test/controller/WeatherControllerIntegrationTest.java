@@ -145,7 +145,8 @@ class WeatherControllerIntegrationTest {
                               "message": "An error occurred: No weather available for position in grid: grütze (Open Meto API returned null)"
                             }
                             """))
-                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty());
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty());
         } catch (Exception e) {
             Assertions.fail();
         }
@@ -173,7 +174,8 @@ class WeatherControllerIntegrationTest {
                               "message": "An error occurred: No weather available for position in grid: mist (Open Meto API returned null)"
                             }
                             """))
-                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty());
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty());
         } catch (Exception e) {
             Assertions.fail();
         }
@@ -201,7 +203,8 @@ class WeatherControllerIntegrationTest {
                               "message": "An error occurred: No weather available for position in grid: latitude=4800.8109&longitude=9.3644 (Open Meto API returned null)"
                             }
                             """))
-                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty());
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty());
         } catch (Exception e) {
             Assertions.fail();
         }
@@ -229,7 +232,8 @@ class WeatherControllerIntegrationTest {
                               "message": "An error occurred: No weather available for position in grid: latitude=48.8109&longitude=900.3644 (Open Meto API returned null)"
                             }
                             """))
-                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty());
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty());
         } catch (Exception e) {
             Assertions.fail();
         }

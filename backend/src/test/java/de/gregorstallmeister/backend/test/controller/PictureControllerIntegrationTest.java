@@ -244,7 +244,8 @@ class PictureControllerIntegrationTest {
                                 "message": "An error occurred: Picture to update was not found with ID: test123"
                             }
                             """))
-                    .andExpect(jsonPath("$.instant").isNotEmpty());
+                    .andExpect(jsonPath("$.instant").isNotEmpty())
+                    .andExpect(jsonPath("$.id").isNotEmpty());
         } catch (Exception e) {
             Assertions.fail();
         }
@@ -291,7 +292,8 @@ class PictureControllerIntegrationTest {
                                 "message": "An error occurred: Picture to delete was not found with ID: test-1234"
                             }
                             """))
-                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty());
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.instant").isNotEmpty())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNotEmpty());
         } catch (Exception e) {
             Assertions.fail();
         }
