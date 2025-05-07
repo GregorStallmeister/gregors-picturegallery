@@ -1,7 +1,6 @@
 package de.gregorstallmeister.pg.backend.test.service;
 
 import de.gregorstallmeister.pg.backend.helpers.IdService;
-import de.gregorstallmeister.backend.model.*;
 import de.gregorstallmeister.pg.backend.model.Picture;
 import de.gregorstallmeister.pg.backend.model.PictureInsertDto;
 import de.gregorstallmeister.pg.backend.repository.PictureRepository;
